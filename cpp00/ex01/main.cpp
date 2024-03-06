@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:40:22 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/06 16:09:56 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:27:36 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ static void	add( PhoneBook *phonebook ) {
 }
 
 static void	search( PhoneBook phonebook ) {
-	std::cout << "Command selected: SEARCH" << std::endl;
+	//std::cout << "Command selected: SEARCH" << std::endl;
+	std::cout << "  INDEX   |   NAME   | LASTNAME | NICKNAME " << std::endl;
+	std::cout << "          |          |          |          " << std::endl;
 	phonebook.searchContact(0);
 }
 

@@ -34,8 +34,32 @@ void	PhoneBook::addContact( Contact contact ) {
 }
 
 void	PhoneBook::searchContact( int id ) const {
-	if (id >= 0)
-		return;
+	int			i;
+	std::string	aux;
+
+	i = 0;
+	aux = std::to_string(id);
+	while (aux.length() + i++ < 10)
+		std::cout << " ";
+	std::cout << aux << "|";
+
+	i = 0;
+	aux = _contacts[id].getName();
+	while (aux.length() + i++ < 10)
+		std::cout << " ";
+	std::cout << aux << "|";
+
+	i = 0;
+	aux = _contacts[id].getLastName();
+	while (aux.length() + i++ < 10)
+		std::cout << " ";
+	std::cout << aux << "|";
+
+	i = 0;
+	aux = _contacts[id].getNickname();
+	while (aux.length() + i++ < 10)
+		std::cout << " ";
+	std::cout << aux << std::endl;
 	return;
 }
 
