@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:40:22 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/06 14:23:32 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:09:56 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 #include "Contact.class.hpp"
 #include <iostream>
 
-static std::string	input(std::string str) {
+static std::string	input(std::string str, bool flag) {
 	char	buff[1025];
 
-	std::cout << str;
+	if (flag)
+		std::cout << "Introduce the contacts " << str;
+	else
+		std::cout << "Introduce a command " << str;
 	if (!(std::cin >> buff))
 		exit(0);
 	return (std::string(buff));
@@ -26,18 +29,17 @@ static std::string	input(std::string str) {
 static void	add( PhoneBook *phonebook ) {
 	Contact contact;
 
-	while (!contact.setName(input("Introduce the contacts Name: ")))
+	while (!contact.setName(input("Name: ", true)))
 		;
-	while (!contact.setLastName(input("Introduce the contacts Last Name: ")))
+	while (!contact.setLastName(input("Last Name: ", true)))
 		;
-	while (!contact.setNickname(input("Introduce the contacts Nickname: ")))
+	while (!contact.setNickname(input("Nickname: ", true)))
 		;
-	while (!contact.setNumber(input("Introduce the contacts Phone Number: ")))
+	while (!contact.setNumber(input("Phone Number: ", true)))
 		;
-	while (!contact.setSecret(input("Introduce the contacts Darkest Secret: ")))
+	while (!contact.setSecret(input("Darkest Secret: ", true)))
 		;
 	phonebook->addContact(contact);
-	phonebook->setContactAmount();
 }
 
 static void	search( PhoneBook phonebook ) {
@@ -46,24 +48,19 @@ static void	search( PhoneBook phonebook ) {
 }
 
 int	main() {
-	char		buff[1025];
 	PhoneBook	phonebook;
+	std::string	str;
 
 	while (42) {
-		std::cout << "Please introduce a command { ADD, SEARCH, EXIT } : ";
-		if (!(std::cin >> buff))
-			return (0);
-		if (!strcmp(buff, "ADD\0"))
+		str = input("{ ADD, SEARCH, EXIT } : ", false);
+		if (!str.compare("ADD\0"))
 			add(&phonebook);
-		else if (!strcmp(buff, "SEARCH\0")) {
+		else if (!str.compare("SEARCH\0"))
 			search(phonebook);
-		}
-		else if (!strcmp(buff, "EXIT\0")) {
-			std::cout << "Command selected: EXIT" << std::endl;
+		else if (!str.compare("EXIT\0"))
 			break ;
-		}
 		else
-			std::cout << "Error: \"" << buff << "\" is an invalid command." << std::endl;
+			std::cout << "Error: \"" << str << "\" is an invalid command." << std::endl;
 	}
 	return (0);
 }

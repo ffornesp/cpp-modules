@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:38:03 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/06 14:23:36 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:25:31 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ PhoneBook::~PhoneBook( void ){
 
 void	PhoneBook::addContact( Contact contact ) {
 	this->_contacts[this->_nContacts] = contact;
+	this->_nContacts++;
+	if (this->_nContacts > 7)
+		this->_nContacts = 0;
 	return;
 }
 
@@ -45,12 +48,4 @@ void	PhoneBook::printPhoneBook( void ) const {
 
 int		PhoneBook::getContactAmount(void) const {
 	return this->_nContacts;
-}
-
-//	Setters
-
-void	PhoneBook::setContactAmount(void) {
-	this->_nContacts++;
-	if (this->_nContacts > 7)
-		this->_nContacts = 0;
 }
