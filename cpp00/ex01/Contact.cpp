@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:59:21 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/06 10:53:05 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:18:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ bool	Contact::setName(std::string str) {
 			return false;
 		}
 	}
+	if (str.length() > 10) {
+		str.insert(9, ".");
+		str.erase(10);
+	}
 	this->FirstName = str;
 	return true;
 }
@@ -64,6 +68,10 @@ bool	Contact::setLastName(std::string str) {
 			std::cout << "Error: must only contain letters" << std::endl;
 			return false;
 		}
+	}
+	if (str.length() > 10) {
+		str.insert(9, ".");
+		str.erase(10);
 	}
 	this->LastName = str;
 	return true;
@@ -76,6 +84,10 @@ bool	Contact::setNickname(std::string str) {
 			return false;
 		}
 	}
+	if (str.length() > 10) {
+		str.insert(9, ".");
+		str.erase(10);
+	}
 	this->Nickname = str;
 	return true;
 }
@@ -87,16 +99,25 @@ bool	Contact::setNumber(std::string str) {
 			return false;
 		}
 	}
+	if (str.length() > 10) {
+		str.insert(9, ".");
+		str.erase(10);
+	}
 	this->PhoneNumber = str;
 	return true;
 }
 
 bool	Contact::setSecret(std::string str) {
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it) {
+	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
 		if (!isalpha((char)*it)) {
+			std::cout << *it << std::endl;
 			std::cout << "Error: must only contain letters" << std::endl;
 			return false;
 		}
+	}
+	if (str.length() > 10) {
+		str.insert(9, ".");
+		str.erase(10);
 	}
 	this->DarkestSecret = str;
 	return true;

@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:40:22 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/06 10:42:53 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:23:32 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,56 @@
 #include "Contact.class.hpp"
 #include <iostream>
 
-int	main() {
-	
+static std::string	input(std::string str) {
+	char	buff[1025];
+
+	std::cout << str;
+	if (!(std::cin >> buff))
+		exit(0);
+	return (std::string(buff));
+}
+
+static void	add( PhoneBook *phonebook ) {
 	Contact contact;
 
-	if (contact.setName("Hol4i"))
-		std::cout << contact.getName() << std::endl;
-	if (contact.setLastName("i2wi"))
-		std::cout << contact.getLastName() << std::endl;
-	if (contact.setNickname("ki1wi"))
-		std::cout << contact.getNickname() << std::endl;
-	if (contact.setNumber("42a0"))
-		std::cout << contact.getNumber() << std::endl;
-	if (contact.setSecret("Da5rk"))
-		std::cout << contact.getSecret() << std::endl;
+	while (!contact.setName(input("Introduce the contacts Name: ")))
+		;
+	while (!contact.setLastName(input("Introduce the contacts Last Name: ")))
+		;
+	while (!contact.setNickname(input("Introduce the contacts Nickname: ")))
+		;
+	while (!contact.setNumber(input("Introduce the contacts Phone Number: ")))
+		;
+	while (!contact.setSecret(input("Introduce the contacts Darkest Secret: ")))
+		;
+	phonebook->addContact(contact);
+	phonebook->setContactAmount();
+}
+
+static void	search( PhoneBook phonebook ) {
+	std::cout << "Command selected: SEARCH" << std::endl;
+	phonebook.searchContact(0);
+}
+
+int	main() {
+	char		buff[1025];
+	PhoneBook	phonebook;
+
+	while (42) {
+		std::cout << "Please introduce a command { ADD, SEARCH, EXIT } : ";
+		if (!(std::cin >> buff))
+			return (0);
+		if (!strcmp(buff, "ADD\0"))
+			add(&phonebook);
+		else if (!strcmp(buff, "SEARCH\0")) {
+			search(phonebook);
+		}
+		else if (!strcmp(buff, "EXIT\0")) {
+			std::cout << "Command selected: EXIT" << std::endl;
+			break ;
+		}
+		else
+			std::cout << "Error: \"" << buff << "\" is an invalid command." << std::endl;
+	}
 	return (0);
 }
