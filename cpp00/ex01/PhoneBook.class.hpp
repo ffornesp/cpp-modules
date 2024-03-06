@@ -13,11 +13,14 @@
 #ifndef PHONEBOOK_CLASS_H
 # define PHONEBOOK_CLASS_H
 
-#ifndef ALPHA
-# define ALPHA	0
+#ifndef		COMMAND
+# define	COMMAND	0
 #endif
-#ifndef NUM
-# define NUM	1
+#ifndef 	CONTACT
+# define	CONTACT	1
+#endif
+#ifndef 	ID
+# define	ID		2
 #endif
 
 #include "Contact.class.hpp"
@@ -28,8 +31,9 @@ class PhoneBook {
 		PhoneBook( void );
 		~PhoneBook( void );
 		void	addContact(Contact contact);
-		void	searchContact(int id) const;
-		void	printPhoneBook( void ) const;
+		bool	printContact(std::string str) const;
+		void	printContactTable(int id) const;
+		bool	getContact( void ) const;
 		int		getContactAmount( void ) const;
 		void	setContactAmount( void );
 	private:

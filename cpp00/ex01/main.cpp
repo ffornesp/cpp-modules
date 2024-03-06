@@ -15,38 +15,44 @@
 #include <iostream>
 
 static std::string	input(std::string str, bool flag) {
-	char	buff[1025];
+	std::string	buff;
 
 	if (flag)
+		std::cout << "Introduce " << str;
+	else if (!flag)
 		std::cout << "Introduce the contacts " << str;
-	else
-		std::cout << "Introduce a command " << str;
-	if (!(std::cin >> buff))
+	if (!std::getline(std::cin, buff))
 		exit(0);
-	return (std::string(buff));
+	return (buff);
 }
 
 static void	add( PhoneBook *phonebook ) {
 	Contact contact;
 
-	while (!contact.setName(input("Name: ", true)))
+	while (!contact.setName(input("Name: ", false)))
 		;
-	while (!contact.setLastName(input("Last Name: ", true)))
+	while (!contact.setLastName(input("Last Name: ", false)))
 		;
-	while (!contact.setNickname(input("Nickname: ", true)))
+	while (!contact.setNickname(input("Nickname: ", false)))
 		;
-	while (!contact.setNumber(input("Phone Number: ", true)))
+	while (!contact.setNumber(input("Phone Number: ", false)))
 		;
-	while (!contact.setSecret(input("Darkest Secret: ", true)))
+	while (!contact.setSecret(input("Darkest Secret: ", false)))
 		;
 	phonebook->addContact(contact);
 }
 
 static void	search( PhoneBook phonebook ) {
-	//std::cout << "Command selected: SEARCH" << std::endl;
+	int			i;
+	std::string	str;
+
+	i = 0;
 	std::cout << "  INDEX   |   NAME   | LASTNAME | NICKNAME " << std::endl;
 	std::cout << "          |          |          |          " << std::endl;
-	phonebook.searchContact(0);
+	while (i < 8)
+		phonebook.printContactTable(i++);
+	while (!phonebook.printContact(input("an ID of a contact : ", true)))
+		;
 }
 
 int	main() {
@@ -54,7 +60,7 @@ int	main() {
 	std::string	str;
 
 	while (42) {
-		str = input("{ ADD, SEARCH, EXIT } : ", false);
+		str = input("a command { ADD, SEARCH, EXIT } : ", true);
 		if (!str.compare("ADD\0"))
 			add(&phonebook);
 		else if (!str.compare("SEARCH\0"))

@@ -33,12 +33,24 @@ void	PhoneBook::addContact( Contact contact ) {
 	return;
 }
 
-void	PhoneBook::searchContact( int id ) const {
+bool	PhoneBook::printContact( std::string str ) const {
+	int	id;
+
+	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
+		if (!std::isdigit((char)*it))
+			return (false);
+	}
+//	id = std::atoi(str);
+//	TODO: Convert all isdigit and stuff into std::isdigit
+	return (true);
+}
+
+void	PhoneBook::printContactTable( int id ) const {
 	int			i;
 	std::string	aux;
 
 	i = 0;
-	aux = std::to_string(id);
+	aux = std::to_string(id + 1);
 	while (aux.length() + i++ < 10)
 		std::cout << " ";
 	std::cout << aux << "|";
@@ -60,11 +72,6 @@ void	PhoneBook::searchContact( int id ) const {
 	while (aux.length() + i++ < 10)
 		std::cout << " ";
 	std::cout << aux << std::endl;
-	return;
-}
-
-void	PhoneBook::printPhoneBook( void ) const {
-	
 	return;
 }
 
