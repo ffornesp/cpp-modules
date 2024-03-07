@@ -13,15 +13,11 @@
 #include <iostream>
 #include "PhoneBook.class.hpp"
 
-PhoneBook::PhoneBook( void ){
-	
-	std::cout << "Constructor called" << std::endl;
+PhoneBook::PhoneBook( void ) {
 	return;
 }
 
-PhoneBook::~PhoneBook( void ){
-
-	std::cout << "Destructor called" << std::endl;
+PhoneBook::~PhoneBook( void ) {
 	return;
 }
 
@@ -34,15 +30,28 @@ void	PhoneBook::addContact( Contact contact ) {
 }
 
 bool	PhoneBook::printContact( std::string str ) const {
-	int	id;
+	int			id;
 
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
 		if (!std::isdigit((char)*it))
-			return (false);
+			return false;
 	}
-//	id = std::atoi(str);
-//	TODO: Convert all isdigit and stuff into std::isdigit
-	return (true);
+	id = std::atoi(str.c_str());
+	if (id < 1 || id > 8) {
+		std::cerr << "Error: Index out of range" << std::endl;
+		return false;
+	}
+	id--;
+	if (_contacts[id].getName().empty()) {
+		std::cerr << "Error: this contact is empty." << std::endl;
+		return (true);
+	}
+	std::cout << "Name : " << _contacts[id].getName() << std::endl;
+	std::cout << "Last Name : " << _contacts[id].getLastName() << std::endl;
+	std::cout << "Nickname : " << _contacts[id].getNickname() << std::endl;
+	std::cout << "Phone number : " << _contacts[id].getNumber() << std::endl;
+	std::cout << "Darkest secret : " << _contacts[id].getSecret() << std::endl;
+	return true;
 }
 
 void	PhoneBook::printContactTable( int id ) const {
@@ -51,26 +60,41 @@ void	PhoneBook::printContactTable( int id ) const {
 
 	i = 0;
 	aux = std::to_string(id + 1);
-	while (aux.length() + i++ < 10)
+	while (aux.length() + i++ < 9)
 		std::cout << " ";
-	std::cout << aux << "|";
+	std::cout << aux << " |";
 
 	i = 0;
 	aux = _contacts[id].getName();
-	while (aux.length() + i++ < 10)
-		std::cout << " ";
+	if (aux.length() > 10) {
+		aux.insert(9, ".");
+		aux.erase(10);
+	}
+	else
+		while (aux.length() + i++ < 10)
+			std::cout << " ";
 	std::cout << aux << "|";
 
 	i = 0;
 	aux = _contacts[id].getLastName();
-	while (aux.length() + i++ < 10)
-		std::cout << " ";
+	if (aux.length() > 10) {
+		aux.insert(9, ".");
+		aux.erase(10);
+	}
+	else
+		while (aux.length() + i++ < 10)
+			std::cout << " ";
 	std::cout << aux << "|";
 
 	i = 0;
 	aux = _contacts[id].getNickname();
-	while (aux.length() + i++ < 10)
-		std::cout << " ";
+	if (aux.length() > 10) {
+		aux.insert(9, ".");
+		aux.erase(10);
+	}
+	else
+		while (aux.length() + i++ < 10)
+			std::cout << " ";
 	std::cout << aux << std::endl;
 	return;
 }
