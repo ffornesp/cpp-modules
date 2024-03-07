@@ -6,16 +6,30 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:56:31 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/07 10:59:38 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:16:06 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "phonebookDefs.hpp"
 #include <iostream>
 
-bool	emptyCheck(std::string str) {
+std::string	trimString(std::string str) {
+	str.insert(9, ".");
+	str.erase(10);
+	return (str);
+}
+
+bool	errorMessage(std::string str, bool out) {
+	std::cerr << RED"Error: " << str << WHITE << std::endl;
+	return out;
+}
+
+bool	emptyCheck(std::string str, bool flag) {
 	if (str.empty()) {
-		std::cerr << "Error: Field can't be empty" << std::endl;
-		return false;
+		if (flag == FIELD)
+			return (errorMessage("field can't be empty.", false));
+		else if (flag == COMMAND)
+			return (errorMessage("you forgot to write the command.", false));
 	}
 	size_t	i = 0;
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
@@ -23,9 +37,22 @@ bool	emptyCheck(std::string str) {
 			break ;
 		i++;
 	}
-	if (i == str.length()) {
-		std::cerr << "Error: field can't be empty." << std::endl;
-		return false;
+	if (flag == FIELD && i == str.length())
+		return (errorMessage("field can't be empty.", false));
+	else if (flag == COMMAND && i == str.length())
+		return (errorMessage("you forgot to write the command.", false));
+	return true;
+}
+
+bool	fieldCheck(std::string str, bool flag) {
+	if (flag == NUM) {
+		for (std::string::iterator it=str.begin(); it!=str.end(); ++it)
+			if (!std::isdigit((char)*it))
+				return (errorMessage("must only contain numbers.", false));
 	}
+	else if (flag == CHAR)
+		for (std::string::iterator it=str.begin(); it!=str.end(); ++it)
+			if (!std::isalpha((char)*it) && *it != ' ')
+				return (errorMessage("must only contain letters.", false));
 	return true;
 }

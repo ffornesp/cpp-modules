@@ -6,7 +6,7 @@
 #    By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/03/06 12:40:04 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/03/07 11:28:45 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = Phonebook
 
 SRC_FILES = PhoneBook.cpp \
 			Contact.cpp \
+			utils.cpp \
 			main.cpp
 
 OBJ_DIR = objs/

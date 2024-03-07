@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
+/*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:38:03 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/06 14:25:31 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:16:06 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <iomanip>
 #include "PhoneBook.class.hpp"
+#include "utils.hpp"
+#include "phonebookDefs.hpp"
 
 PhoneBook::PhoneBook( void ) {
 	return;
@@ -30,72 +33,70 @@ void	PhoneBook::addContact( Contact contact ) {
 }
 
 bool	PhoneBook::printContact( std::string str ) const {
-	int			id;
+	int		id;
+	bool	sign;
+	size_t	i;
+	size_t	j;
 
+	if (str.empty()) 
+		return (errorMessage("you forgot to write an id.", false));
+	sign = false;
+	i = 0;
+	j = 0;
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isdigit((char)*it))
-			return false;
+		if (std::isspace((char)*it))
+			i++;
+		else if (std::isdigit((char)*it))
+			j++;
+		else if (*it == '+' || *it == '-') {
+			if (!sign)	
+				sign = true;
+			else
+				return (errorMessage("must only contain numbers.", false));
+		}
+		else
+			return (errorMessage("must only contain numbers.", false));
 	}
+	if (i == str.length())
+		return (errorMessage("you forgot to write an id.", false));
+	else if (i > 0 || (sign && !j))
+		return (errorMessage("must only contain numbers.", false));
 	id = std::atoi(str.c_str());
-	if (id < 1 || id > 8) {
-		std::cerr << "Error: Index out of range" << std::endl;
-		return false;
-	}
-	id--;
-	if (_contacts[id].getName().empty()) {
-		std::cerr << "Error: this contact is empty." << std::endl;
-		return (true);
-	}
-	std::cout << "Name : " << _contacts[id].getName() << std::endl;
-	std::cout << "Last Name : " << _contacts[id].getLastName() << std::endl;
-	std::cout << "Nickname : " << _contacts[id].getNickname() << std::endl;
-	std::cout << "Phone number : " << _contacts[id].getNumber() << std::endl;
-	std::cout << "Darkest secret : " << _contacts[id].getSecret() << std::endl;
+	if (id < 1 || id > 8)
+		return (errorMessage("index out of range.", false));
+	if (_contacts[--id].getName().empty())
+		return (errorMessage("this contact is empty.", true));
+	std::cout << std::endl;
+	std::cout << YELLOW "Name:		" WHITE << _contacts[id].getName() << std::endl;
+	std::cout << YELLOW "Last Name:	" WHITE << _contacts[id].getLastName() << std::endl;
+	std::cout << YELLOW "Nickname:	" WHITE << _contacts[id].getNickname() << std::endl;
+	std::cout << YELLOW "Phone number: 	" WHITE << _contacts[id].getNumber() << std::endl;
+	std::cout << YELLOW "Darkest secret:	" WHITE << _contacts[id].getSecret() << std::endl;
 	return true;
 }
 
 void	PhoneBook::printContactTable( int id ) const {
-	int			i;
 	std::string	aux;
 
-	i = 0;
 	aux = std::to_string(id + 1);
-	while (aux.length() + i++ < 9)
-		std::cout << " ";
-	std::cout << aux << " |";
+	std::cout << std::setfill(' ') << std::setw(10) << aux << "|";
 
-	i = 0;
 	aux = _contacts[id].getName();
-	if (aux.length() > 10) {
-		aux.insert(9, ".");
-		aux.erase(10);
-	}
-	else
-		while (aux.length() + i++ < 10)
-			std::cout << " ";
-	std::cout << aux << "|";
+	if (aux.length() > 10)
+		aux = trimString(aux);
+	std::cout << std::setfill(' ') << std::setw(10) << aux << "|";
 
-	i = 0;
 	aux = _contacts[id].getLastName();
-	if (aux.length() > 10) {
-		aux.insert(9, ".");
-		aux.erase(10);
-	}
-	else
-		while (aux.length() + i++ < 10)
-			std::cout << " ";
-	std::cout << aux << "|";
+	if (aux.length() > 10)
+		aux = trimString(aux);
+	std::cout << std::setfill(' ') << std::setw(10) << aux << "|";
 
-	i = 0;
 	aux = _contacts[id].getNickname();
-	if (aux.length() > 10) {
-		aux.insert(9, ".");
-		aux.erase(10);
-	}
-	else
-		while (aux.length() + i++ < 10)
-			std::cout << " ";
-	std::cout << aux << std::endl;
+	if (aux.length() > 10)
+		aux = trimString(aux);
+	std::cout << std::setfill(' ') << std::setw(10) << aux;
+	if (id < 7)
+		std::cout << std::endl;
 	return;
 }
 

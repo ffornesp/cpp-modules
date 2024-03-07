@@ -6,12 +6,13 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:59:21 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/07 11:01:32 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:16:05 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.class.hpp"
 #include "utils.hpp"
+#include "phonebookDefs.hpp"
 #include <string>
 
 Contact::Contact( void ) {
@@ -47,66 +48,46 @@ std::string	Contact::getSecret(void) const {
 //	Setters
 
 bool	Contact::setName(std::string str) {
-	if (!emptyCheck(str))
+	if (!emptyCheck(str, FIELD))
 		return false;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isalpha((char)*it) && *it != ' ') {
-			std::cerr << "Error: must only contain letters" << std::endl;
-			return false;
-		}
-	}
+	if (!fieldCheck(str, CHAR))
+		return false;
 	this->FirstName = str;
 	return true;
 }
 
 bool	Contact::setLastName(std::string str) {
-	if (!emptyCheck(str))
+	if (!emptyCheck(str, FIELD))
 		return false;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isalpha((char)*it)) {
-			std::cerr << "Error: must only contain letters" << std::endl;
-			return false;
-		}
-	}
+	if (!fieldCheck(str, CHAR))
+		return false;
 	this->LastName = str;
 	return true;
 }
 
 bool	Contact::setNickname(std::string str) {
-	if (!emptyCheck(str))
+	if (!emptyCheck(str, FIELD))
 		return false;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isalpha((char)*it)) {
-			std::cerr << "Error: must only contain letters" << std::endl;
-			return false;
-		}
-	}
+	if (!fieldCheck(str, CHAR))
+		return false;
 	this->Nickname = str;
 	return true;
 }
 
 bool	Contact::setNumber(std::string str) {
-	if (!emptyCheck(str))
+	if (!emptyCheck(str, FIELD))
 		return false;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it) {
-		if (!std::isdigit((char)*it)) {
-			std::cerr << "Error: must only contain numbers"  << std::endl;
-			return false;
-		}
-	}
+	if (!fieldCheck(str, NUM))
+		return false;
 	this->PhoneNumber = str;
 	return true;
 }
 
 bool	Contact::setSecret(std::string str) {
-	if (!emptyCheck(str))
+	if (!emptyCheck(str, FIELD))
 		return false;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isalpha((char)*it) && *it != ' ') {
-			std::cerr << "Error: must only contain letters" << std::endl;
-			return false;
-		}
-	}
+	if (!fieldCheck(str, CHAR))
+		return false;
 	this->DarkestSecret = str;
 	return true;
 }
