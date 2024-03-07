@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:40:22 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/07 15:00:10 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:12:52 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,6 @@ static bool	search( PhoneBook phonebook ) {
 	return true;
 }
 
-static bool	commandCheck(std::string str, PhoneBook *phonebook) {
-	if (!str.compare("ADD\0"))
-		return (add(phonebook));
-	else if (!str.compare("SEARCH\0"))
-		return (search(*phonebook));
-	else if (!str.compare("EXIT\0")) {
-		exit(0);
-	}
-	else if (emptyCheck(str, COMMAND)) {
-		std::cerr << RED "Error: invalid command." WHITE << std::endl;
-		return false;
-	}
-	return true;
-}
-
 int	main(int argc, char *argv[]) {
 	PhoneBook	phonebook;
 	std::string	str;
@@ -87,8 +72,15 @@ int	main(int argc, char *argv[]) {
 		return (0);
 	}
 	while (42) {
-		while (!commandCheck(input("a command { ADD, SEARCH, EXIT } : ", true), &phonebook))
-			;
+		str = input("a command { ADD, SEARCH, EXIT } : ", true);
+		if (!str.compare("ADD\0"))
+			add(&phonebook);
+		else if (!str.compare("SEARCH\0"))
+			search(phonebook);
+		else if (!str.compare("EXIT\0"))
+			break ;
+		else
+			std::cout << "Error: invalid command." << std::endl;
 	}
 	(void)argv;
 	return (0);
