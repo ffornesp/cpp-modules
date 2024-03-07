@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:40:22 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/07 15:12:52 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:18:52 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int	main(int argc, char *argv[]) {
 			search(phonebook);
 		else if (!str.compare("EXIT\0"))
 			break ;
-		else
-			std::cout << "Error: invalid command." << std::endl;
+		else if (emptyCheck(str, COMMAND))
+			std::cout << RED "Error: invalid command." WHITE << std::endl;
 	}
 	(void)argv;
 	return (0);
