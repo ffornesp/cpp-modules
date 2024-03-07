@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
+/*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:59:21 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/06 14:18:22 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:01:32 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.class.hpp"
+#include "utils.hpp"
 #include <string>
 
 Contact::Contact( void ) {
@@ -46,20 +47,8 @@ std::string	Contact::getSecret(void) const {
 //	Setters
 
 bool	Contact::setName(std::string str) {
-	if (str.empty()) {
-		std::cerr << "Error: Field can't be empty" << std::endl;
+	if (!emptyCheck(str))
 		return false;
-	}
-	size_t	i = 0;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isspace((char)*it))
-			break ;
-		i++;
-	}
-	if (i == str.length()) {
-		std::cerr << "Error: field can't be empty." << std::endl;
-		return false;
-	}
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
 		if (!std::isalpha((char)*it) && *it != ' ') {
 			std::cerr << "Error: must only contain letters" << std::endl;
@@ -71,20 +60,8 @@ bool	Contact::setName(std::string str) {
 }
 
 bool	Contact::setLastName(std::string str) {
-	if (str.empty()) {
-		std::cerr << "Error: Field can't be empty" << std::endl;
+	if (!emptyCheck(str))
 		return false;
-	}
-	size_t	i = 0;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isspace((char)*it))
-			break ;
-		i++;
-	}
-	if (i == str.length()) {
-		std::cerr << "Error: field can't be empty." << std::endl;
-		return false;
-	}
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
 		if (!std::isalpha((char)*it)) {
 			std::cerr << "Error: must only contain letters" << std::endl;
@@ -96,20 +73,8 @@ bool	Contact::setLastName(std::string str) {
 }
 
 bool	Contact::setNickname(std::string str) {
-	if (str.empty()) {
-		std::cerr << "Error: Field can't be empty" << std::endl;
+	if (!emptyCheck(str))
 		return false;
-	}
-	size_t	i = 0;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isspace((char)*it))
-			break ;
-		i++;
-	}
-	if (i == str.length()) {
-		std::cerr << "Error: field can't be empty." << std::endl;
-		return false;
-	}
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
 		if (!std::isalpha((char)*it)) {
 			std::cerr << "Error: must only contain letters" << std::endl;
@@ -121,20 +86,8 @@ bool	Contact::setNickname(std::string str) {
 }
 
 bool	Contact::setNumber(std::string str) {
-	if (str.empty()) {
-		std::cerr << "Error: Field can't be empty" << std::endl;
+	if (!emptyCheck(str))
 		return false;
-	}
-	size_t	i = 0;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isspace((char)*it))
-			break ;
-		i++;
-	}
-	if (i == str.length()) {
-		std::cerr << "Error: field can't be empty." << std::endl;
-		return false;
-	}
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it) {
 		if (!std::isdigit((char)*it)) {
 			std::cerr << "Error: must only contain numbers"  << std::endl;
@@ -146,20 +99,8 @@ bool	Contact::setNumber(std::string str) {
 }
 
 bool	Contact::setSecret(std::string str) {
-	if (str.empty()) {
-		std::cerr << "Error: Field can't be empty" << std::endl;
+	if (!emptyCheck(str))
 		return false;
-	}
-	size_t	i = 0;
-	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!std::isspace((char)*it))
-			break ;
-		i++;
-	}
-	if (i == str.length()) {
-		std::cerr << "Error: field can't be empty." << std::endl;
-		return false;
-	}
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
 		if (!std::isalpha((char)*it) && *it != ' ') {
 			std::cerr << "Error: must only contain letters" << std::endl;
