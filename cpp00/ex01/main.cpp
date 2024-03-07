@@ -67,8 +67,20 @@ int	main() {
 			search(phonebook);
 		else if (!str.compare("EXIT\0"))
 			break ;
-		else
-			std::cout << "Error: \"" << str << "\" is an invalid command." << std::endl;
+		else if (str.empty())
+			std::cerr << "Error: you forgot to write the command." << std::endl;
+		else {
+				size_t	i = 0;
+				for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
+					if (!std::isspace((char)*it))
+						break ;
+					i++;
+				}
+				if (i == str.length()) 
+					std::cerr << "Error: you forgot to write the command." << std::endl;
+				else
+					std::cerr << "Error: \"" << str << "\" is an invalid command." << std::endl;
+		}
 	}
 	return (0);
 }
