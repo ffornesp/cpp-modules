@@ -14,12 +14,10 @@
 #include <string>
 
 Contact::Contact( void ) {
-	std::cout << "Constructor called" << std::endl;
 	return;
 }
 
 Contact::~Contact( void ) {
-	std::cout << "Destructor called" << std::endl;
 	return;
 }
 
@@ -48,76 +46,125 @@ std::string	Contact::getSecret(void) const {
 //	Setters
 
 bool	Contact::setName(std::string str) {
+	if (str.empty()) {
+		std::cerr << "Error: Field can't be empty" << std::endl;
+		return false;
+	}
+	size_t	i = 0;
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!isalpha((char)*it)) {
-			std::cout << "Error: must only contain letters" << std::endl;
+		if (!std::isspace((char)*it))
+			break ;
+		i++;
+	}
+	if (i == str.length()) {
+		std::cerr << "Error: field can't be empty." << std::endl;
+		return false;
+	}
+	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
+		if (!std::isalpha((char)*it) && *it != ' ') {
+			std::cerr << "Error: must only contain letters" << std::endl;
 			return false;
 		}
-	}
-	if (str.length() > 10) {
-		str.insert(9, ".");
-		str.erase(10);
 	}
 	this->FirstName = str;
 	return true;
 }
 
 bool	Contact::setLastName(std::string str) {
+	if (str.empty()) {
+		std::cerr << "Error: Field can't be empty" << std::endl;
+		return false;
+	}
+	size_t	i = 0;
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!isalpha((char)*it)) {
-			std::cout << "Error: must only contain letters" << std::endl;
+		if (!std::isspace((char)*it))
+			break ;
+		i++;
+	}
+	if (i == str.length()) {
+		std::cerr << "Error: field can't be empty." << std::endl;
+		return false;
+	}
+	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
+		if (!std::isalpha((char)*it)) {
+			std::cerr << "Error: must only contain letters" << std::endl;
 			return false;
 		}
-	}
-	if (str.length() > 10) {
-		str.insert(9, ".");
-		str.erase(10);
 	}
 	this->LastName = str;
 	return true;
 }
 
 bool	Contact::setNickname(std::string str) {
+	if (str.empty()) {
+		std::cerr << "Error: Field can't be empty" << std::endl;
+		return false;
+	}
+	size_t	i = 0;
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!isalpha((char)*it)) {
-			std::cout << "Error: must only contain letters" << std::endl;
+		if (!std::isspace((char)*it))
+			break ;
+		i++;
+	}
+	if (i == str.length()) {
+		std::cerr << "Error: field can't be empty." << std::endl;
+		return false;
+	}
+	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
+		if (!std::isalpha((char)*it)) {
+			std::cerr << "Error: must only contain letters" << std::endl;
 			return false;
 		}
-	}
-	if (str.length() > 10) {
-		str.insert(9, ".");
-		str.erase(10);
 	}
 	this->Nickname = str;
 	return true;
 }
 
 bool	Contact::setNumber(std::string str) {
+	if (str.empty()) {
+		std::cerr << "Error: Field can't be empty" << std::endl;
+		return false;
+	}
+	size_t	i = 0;
+	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
+		if (!std::isspace((char)*it))
+			break ;
+		i++;
+	}
+	if (i == str.length()) {
+		std::cerr << "Error: field can't be empty." << std::endl;
+		return false;
+	}
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it) {
-		if (!isdigit((char)*it)) {
-			std::cout << "Error: must only contain numbers"  << std::endl;
+		if (!std::isdigit((char)*it)) {
+			std::cerr << "Error: must only contain numbers"  << std::endl;
 			return false;
 		}
-	}
-	if (str.length() > 10) {
-		str.insert(9, ".");
-		str.erase(10);
 	}
 	this->PhoneNumber = str;
 	return true;
 }
 
 bool	Contact::setSecret(std::string str) {
+	if (str.empty()) {
+		std::cerr << "Error: Field can't be empty" << std::endl;
+		return false;
+	}
+	size_t	i = 0;
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
-		if (!isalpha((char)*it)) {
-			std::cout << *it << std::endl;
-			std::cout << "Error: must only contain letters" << std::endl;
+		if (!std::isspace((char)*it))
+			break ;
+		i++;
+	}
+	if (i == str.length()) {
+		std::cerr << "Error: field can't be empty." << std::endl;
+		return false;
+	}
+	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
+		if (!std::isalpha((char)*it) && *it != ' ') {
+			std::cerr << "Error: must only contain letters" << std::endl;
 			return false;
 		}
-	}
-	if (str.length() > 10) {
-		str.insert(9, ".");
-		str.erase(10);
 	}
 	this->DarkestSecret = str;
 	return true;
