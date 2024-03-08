@@ -6,11 +6,11 @@
 #    By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/03/07 18:40:20 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/03/08 10:53:31 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = account
+NAME = account_manager
 
 SRC_FILES = Account.cpp \
 			tests.cpp

@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:46:02 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/07 13:16:08 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:51:40 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ class	Contact {
 		bool	setSecret(std::string str);
 
 	private:
-		std::string	FirstName;
-		std::string	LastName;
-		std::string	Nickname;
-		std::string	PhoneNumber;
-		std::string	DarkestSecret;
+		std::string	_firstName;
+		std::string	_lastName;
+		std::string	_nickname;
+		std::string	_phoneNumber;
+		std::string	_darkestSecret;
 };
 
 #endif

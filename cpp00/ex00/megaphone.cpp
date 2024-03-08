@@ -14,7 +14,7 @@ int	main(int argc, char *argv[])
 		{
 			str = std::string(argv[i]);
 			for (std::string::iterator it=str.begin(); it!=str.end(); ++it)
-				std::cout << (char)toupper(*it);
+				std::cout << (char)std::toupper(*it);
 		}
 		std::cout << std::endl;
 	}

@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:59:21 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/07 13:16:05 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:51:39 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,23 @@ Contact::~Contact( void ) {
 //	Getters
 
 std::string Contact::getName(void) const {
-	return this->FirstName;
+	return this->_firstName;
 }
 
 std::string	Contact::getLastName(void) const {
-	return this->LastName;
+	return this->_lastName;
 }
 
 std::string	Contact::getNickname(void) const {
-	return this->Nickname;
+	return this->_nickname;
 }
 
 std::string	Contact::getNumber(void) const {
-	return this->PhoneNumber;
+	return this->_phoneNumber;
 }
 
 std::string	Contact::getSecret(void) const {
-	return this->DarkestSecret;
+	return this->_darkestSecret;
 }
 
 //	Setters
@@ -52,7 +52,7 @@ bool	Contact::setName(std::string str) {
 		return false;
 	if (!fieldCheck(str, CHAR))
 		return false;
-	this->FirstName = str;
+	this->_firstName = str;
 	return true;
 }
 
@@ -61,7 +61,7 @@ bool	Contact::setLastName(std::string str) {
 		return false;
 	if (!fieldCheck(str, CHAR))
 		return false;
-	this->LastName = str;
+	this->_lastName = str;
 	return true;
 }
 
@@ -70,7 +70,7 @@ bool	Contact::setNickname(std::string str) {
 		return false;
 	if (!fieldCheck(str, CHAR))
 		return false;
-	this->Nickname = str;
+	this->_nickname = str;
 	return true;
 }
 
@@ -79,7 +79,7 @@ bool	Contact::setNumber(std::string str) {
 		return false;
 	if (!fieldCheck(str, NUM))
 		return false;
-	this->PhoneNumber = str;
+	this->_phoneNumber = str;
 	return true;
 }
 
@@ -88,6 +88,6 @@ bool	Contact::setSecret(std::string str) {
 		return false;
 	if (!fieldCheck(str, CHAR))
 		return false;
-	this->DarkestSecret = str;
+	this->_darkestSecret = str;
 	return true;
 }

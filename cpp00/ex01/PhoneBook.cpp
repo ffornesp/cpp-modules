@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:38:03 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/07 13:16:06 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:49:27 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,11 @@ void	PhoneBook::addContact( Contact contact ) {
 
 bool	PhoneBook::printContact( std::string str ) const {
 	int		id;
-	bool	sign;
 	size_t	i;
 	size_t	j;
 
 	if (str.empty()) 
 		return (errorMessage("you forgot to write an id.", false));
-	sign = false;
 	i = 0;
 	j = 0;
 	for (std::string::iterator it=str.begin(); it!=str.end(); ++it)	{
@@ -48,19 +46,15 @@ bool	PhoneBook::printContact( std::string str ) const {
 			i++;
 		else if (std::isdigit((char)*it))
 			j++;
-		else if (*it == '+' || *it == '-') {
-			if (!sign)	
-				sign = true;
-			else
-				return (errorMessage("must only contain numbers.", false));
-		}
 		else
-			return (errorMessage("must only contain numbers.", false));
+			return (errorMessage("should contain one digit only.", false));
 	}
 	if (i == str.length())
 		return (errorMessage("you forgot to write an id.", false));
-	else if (i > 0 || (sign && !j))
-		return (errorMessage("must only contain numbers.", false));
+	else if (i > 0)
+		return (errorMessage("should contain one digit only.", false));
+	if (str.length() > 1)
+		return (errorMessage("should contain one digit only.", false));
 	id = std::atoi(str.c_str());
 	if (id < 1 || id > 8)
 		return (errorMessage("index out of range.", false));

@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:40:22 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/07 16:18:52 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:52:03 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int argc, char *argv[]) {
 	std::string	str;
 
 	if (argc > 1) {
-		errorMessage("usage: ./phonebook", false);
+		errorMessage("usage: ./PhoneBook", false);
 		return (0);
 	}
 	while (42) {
