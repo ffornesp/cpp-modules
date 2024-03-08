@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:40:22 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 11:12:58 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 17:39:56 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char *argv[]) {
 
 	if (argc > 1) {
 		errorMessage("usage: ./PhoneBook", false);
-		return (0);
+		return (1);
 	}
 	while (42) {
 		str = input("a command { ADD, SEARCH, EXIT } : ", true);
