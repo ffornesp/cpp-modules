@@ -6,14 +6,14 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:40:22 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 10:52:03 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:12:58 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.class.hpp"
+#include "PhoneBookDefs.hpp"
 #include "Contact.class.hpp"
 #include "utils.hpp"
-#include "phonebookDefs.hpp"
 #include <iostream>
 #include <iomanip>
 

@@ -6,13 +6,13 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:59:21 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 10:51:39 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:12:29 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.class.hpp"
 #include "utils.hpp"
-#include "phonebookDefs.hpp"
+#include "PhoneBookDefs.hpp"
 #include <string>
 
 Contact::Contact( void ) {

@@ -6,15 +6,15 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:38:03 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 10:49:27 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:11:32 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <iomanip>
 #include "PhoneBook.class.hpp"
+#include "PhoneBookDefs.hpp"
 #include "utils.hpp"
-#include "phonebookDefs.hpp"
 
 PhoneBook::PhoneBook( void ) {
 	return;

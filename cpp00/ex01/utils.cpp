@@ -6,11 +6,11 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:56:31 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/07 13:16:06 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:12:42 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebookDefs.hpp"
+#include "PhoneBookDefs.hpp"
 #include <iostream>
 
 std::string	trimString(std::string str) {

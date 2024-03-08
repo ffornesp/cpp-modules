@@ -6,14 +6,14 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:46:02 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 10:51:40 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:10:58 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTACT_CLASS_H
 # define CONTACT_CLASS_H
 
-#include <iostream>
+#include <string>
 
 class	Contact {
 	
