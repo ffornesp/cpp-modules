@@ -6,17 +6,14 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 08:41:42 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 12:08:38 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:10:50 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.class.hpp"
 #include <iostream>
 
-int	main(int argc, char *argv[]) {
-	if (argc != 1)
-		return (0);
-
+int	main() {
 	Zombie	*zombie;
 
 	zombie = newZombie("Cacahuete");
@@ -25,6 +22,5 @@ int	main(int argc, char *argv[]) {
 	randomChump("Nectarina");
 
 	delete zombie;
-	(void)argv;
 	return (0);
 }

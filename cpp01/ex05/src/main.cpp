@@ -5,21 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 08:41:42 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 17:11:05 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/03/08 14:20:40 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/03/11 17:09:40 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.class.hpp"
+#include "Harl.class.hpp"
+#include <string>
 #include <iostream>
 
 int	main() {
-	Zombie	*zombies;
+	Harl		harl;
 
-	zombies = zombieHorde(5, "Pepito");
-	for (size_t i = 0; i < 5; i++) {
-		zombies[i].announce();
-	}
-	delete[]	zombies;
+	harl.complain("TESTEST");
+	harl.complain("DEBUG");
+	harl.complain("INFO");
+	harl.complain("WARNING");
+	harl.complain("ERROR");
+	harl.complain("TESTEST");	
 	return (0);
 }

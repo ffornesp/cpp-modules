@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:20:40 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 12:37:35 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:07:01 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <iostream>
 
 static int	errorMessage(std::string error, int errorId) {
-	std::cout << "Error: ";
-	std::cout << error << std::endl;
+	std::cerr << "Error: ";
+	std::cerr << error << std::endl;
 	return (errorId);
 }
 

@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Harl.class.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 08:41:42 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 17:11:05 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/03/11 12:52:53 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/03/11 16:58:33 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.class.hpp"
-#include <iostream>
+#ifndef HARL_CLASS_H
+# define HARL_CLASS_H
 
-int	main() {
-	Zombie	*zombies;
+#include <string>
 
-	zombies = zombieHorde(5, "Pepito");
-	for (size_t i = 0; i < 5; i++) {
-		zombies[i].announce();
-	}
-	delete[]	zombies;
-	return (0);
-}
+class Harl
+{
+	private:
+		std::string	_levels[4];
+		void	(Harl::*_functionPtr[4])( void );
+		void	_debug( void );
+		void	_info( void );
+		void	_warning( void );
+		void	_error( void );
+	public:
+		Harl( void );
+		~Harl( void );
+		void	complain(std::string level);
+};
+
+#endif
