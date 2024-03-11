@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:20:40 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 12:32:13 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/11 12:37:35 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static int	checkArgs(int argc, char *argv[]) {
 	if (argc != 4)
 		return (errorMessage("Usage: ./executable file string_to_replace new_string", 1));
 	for (size_t i = 0; i < (size_t)argc; i++) {
-		if (!argv[i])
-			return (errorMessage("Invalid arguments", 1));
 		aux = argv[i];
 		if (aux.empty())
 			return (errorMessage("Invalid arguments", 1));
