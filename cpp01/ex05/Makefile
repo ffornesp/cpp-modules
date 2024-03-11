@@ -6,11 +6,11 @@
 #    By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/03/11 17:03:36 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/03/11 17:13:57 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = executable
+NAME = harl
 
 SRC_DIR = src/
 SRC_FILES = Harl.cpp \
