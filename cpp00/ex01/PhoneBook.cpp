@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:38:03 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 11:11:32 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/11 08:02:17 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	PhoneBook::printContact( std::string str ) const {
 		else if (std::isdigit((char)*it))
 			j++;
 		else
-			return (errorMessage("should contain one digit only.", false));
+			return (errorMessage("should only contain digits.", false));
 	}
 	if (i == str.length())
 		return (errorMessage("you forgot to write an id.", false));

@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 07:40:22 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 17:39:56 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/11 08:05:48 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,7 @@ static bool	add( PhoneBook *phonebook ) {
 static bool	search( PhoneBook phonebook ) {
 	std::string	str;
 
-	std::cout << std::endl << "  INDEX   |   NAME   | LASTNAME | NICKNAME " << std::endl;
-	
-	for (size_t i = 0; i < 3; i++)
-		std::cout << std::setfill(' ') << std::setw(11) << "|";
-	std::cout << std::endl;
+	std::cout << std::endl << "     INDEX|FIRST NAME| LAST NAME|  NICKNAME" << std::endl;
 	for (size_t i = 0; i < 8; i++)
 		phonebook.printContactTable(i);
 	std::cout << std::endl;
