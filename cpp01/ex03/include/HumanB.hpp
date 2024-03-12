@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Harl.class.hpp                                     :+:      :+:    :+:   */
+/*   HumanB.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 12:52:53 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 16:58:33 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/03/08 13:11:21 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/03/12 10:06:52 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HARL_CLASS_H
-# define HARL_CLASS_H
+#ifndef HUMANB_H
+# define HUMANB_H
 
-#include <string>
+#include "Weapon.hpp"
 
-class Harl
+class HumanB
 {
 	private:
-		std::string	_levels[4];
-		void	(Harl::*_functionPtr[4])( void );
-		void	_debug( void );
-		void	_info( void );
-		void	_warning( void );
-		void	_error( void );
+		Weapon *_weapon;
+		std::string	_name;
 	public:
-		Harl( void );
-		~Harl( void );
-		void	complain(std::string level);
+		HumanB( std::string name );
+		~HumanB( void );
+		void	attack();
+		bool	setWeapon( Weapon &weapon );
 };
 
 #endif

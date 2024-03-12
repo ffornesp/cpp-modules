@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanB.class.hpp                                   :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 13:11:21 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 11:27:48 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/03/08 13:11:19 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/03/12 10:06:56 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANB_CLASS_H
-# define HUMANB_CLASS_H
+#ifndef	WEAPON_H
+# define WEAPON_H
 
-#include "Weapon.class.hpp"
+#include <string>
 
-class HumanB
+class Weapon
 {
 	private:
-		Weapon *_weapon;
-		std::string	_name;
+		std::string	_type;
 	public:
-		HumanB( std::string name );
-		~HumanB( void );
-		void	attack();
-		bool	setWeapon( Weapon &weapon );
+		Weapon( std::string type );
+		~Weapon();
+		std::string const	getType();
+		bool				setType( std::string type );
 };
 
 #endif

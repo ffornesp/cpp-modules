@@ -6,11 +6,11 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:11:27 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 11:30:11 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:06:12 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "HumanB.class.hpp"
+#include "HumanB.hpp"
 #include <iostream>
 
 HumanB::HumanB( std::string name ) {

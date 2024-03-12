@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.class.hpp                                   :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 08:41:36 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 12:44:36 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/03/08 13:11:23 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/03/12 10:07:03 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_CLASS_H
-# define ZOMBIE_CLASS_H
+#ifndef HUMANA_H
+# define HUMANA_H
 
-#include <string>
+#include "Weapon.hpp"
 
-class Zombie {
-	
+class HumanA
+{
 	private:
+		Weapon&		_weapon;
 		std::string	_name;
 	public:
-		Zombie( void );
-		~Zombie( void );
-		void	announce( void );
-		bool	setName( std::string name );
+		HumanA( std::string name, Weapon& weapon );
+		~HumanA();
+		void	attack();
+		std::string	getName();
+		bool	setWeapon( Weapon weapon );
 };
-
-Zombie	*zombieHorde( int N, std::string name );
 
 #endif

@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanA.class.hpp                                   :+:      :+:    :+:   */
+/*   Harl.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 13:11:23 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 11:23:27 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/03/11 12:52:53 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/03/11 16:58:33 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANA_CLASS_H
-# define HUMANA_CLASS_H
+#ifndef HARL_H
+# define HARL_H
 
-#include "Weapon.class.hpp"
+#include <string>
 
-class HumanA
+class Harl
 {
 	private:
-		Weapon&		_weapon;
-		std::string	_name;
+		std::string	_levels[4];
+		void	(Harl::*_functionPtr[4])( void );
+		void	_debug( void );
+		void	_info( void );
+		void	_warning( void );
+		void	_error( void );
 	public:
-		HumanA( std::string name, Weapon& weapon );
-		~HumanA();
-		void	attack();
-		std::string	getName();
-		bool	setWeapon( Weapon weapon );
+		Harl( void );
+		~Harl( void );
+		void	complain(std::string level);
 };
 
 #endif

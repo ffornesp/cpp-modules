@@ -6,11 +6,11 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 08:41:42 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 17:10:50 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:02:19 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.class.hpp"
+#include "Zombie.hpp"
 #include <iostream>
 
 int	main() {

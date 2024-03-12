@@ -6,11 +6,11 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:20:40 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 17:51:01 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:08:29 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.class.hpp"
+#include "Harl.hpp"
 #include <string>
 #include <iostream>
 

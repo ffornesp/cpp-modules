@@ -6,11 +6,11 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 08:41:34 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/08 12:06:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:02:10 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.class.hpp"
+#include "Zombie.hpp"
 #include <string>
 
 void	randomChump( std::string name ) {

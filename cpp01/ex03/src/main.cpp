@@ -6,13 +6,13 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:11:45 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 11:28:18 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:06:11 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Weapon.class.hpp"
-#include "HumanA.class.hpp"
-#include "HumanB.class.hpp"
+#include "Weapon.hpp"
+#include "HumanA.hpp"
+#include "HumanB.hpp"
 
 int main()
 {

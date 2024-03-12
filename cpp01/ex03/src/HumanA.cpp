@@ -6,11 +6,11 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:11:34 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/11 11:24:50 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:06:12 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "HumanA.class.hpp"
+#include "HumanA.hpp"
 #include <iostream>
 
 HumanA::HumanA( std::string name, Weapon& weapon ) : _weapon(weapon) {
