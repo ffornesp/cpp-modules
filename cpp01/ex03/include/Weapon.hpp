@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:11:19 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/12 10:06:56 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:26:23 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ class Weapon
 		std::string	_type;
 	public:
 		Weapon( std::string type );
-		~Weapon();
-		std::string const	getType();
+		~Weapon( void );
+		const std::string& 	getType( void );
 		bool				setType( std::string type );
 };
 
