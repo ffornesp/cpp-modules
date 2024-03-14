@@ -6,7 +6,7 @@
 #    By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/03/14 08:48:33 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/03/14 11:21:53 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = executable
 SRC_DIR = src/
 SRC_FILES = Fixed.cpp \
 			Point.cpp \
+			bsp.cpp \
 			main.cpp
 			
 OBJ_DIR = objs/
