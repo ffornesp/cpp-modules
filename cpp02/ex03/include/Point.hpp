@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 18:56:35 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/13 19:08:23 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:15:20 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ class Point
 		~Point( void );
 		Point( const Point& oldpoint );
 		Point&	operator=(const Point& oldpoint);
-
+		bool	operator==(const Point& oldpoint);
 		Fixed	getX( void ) const;
 		Fixed	getY( void ) const;
 };
 
-bool	bdsp( Point const a, Point const b, Point const c, Point const point);
+std::ostream&	operator<<( std::ostream& out, Point& p );
+bool	bsp( Point const a, Point const b, Point const c, Point const point);

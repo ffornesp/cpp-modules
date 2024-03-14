@@ -6,13 +6,14 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:41:38 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/13 17:44:51 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:17:36 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 
 const int	Fixed::_int8 = 8;
 
@@ -103,6 +104,8 @@ Fixed	Fixed::operator*(const Fixed& fix) {
 	return (this->toFloat() * fix.toFloat());
 }
 Fixed	Fixed::operator/(const Fixed& fix) {
+	if (fix._value == 0)
+		return (0);
 	return (this->toFloat() / fix.toFloat());
 }
 

@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:41:34 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/13 17:38:27 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:13:34 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int main( void ) {
 
 	std::cout << b << std::endl;
 	
+	std::cout << a / 0 << std::endl;
+
 	std::cout << Fixed::max( a, b ) << std::endl;
 	
 	return 0;

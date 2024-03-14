@@ -6,65 +6,70 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:41:34 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/13 19:48:54 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:15:19 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include "Point.hpp"
 #include <iostream>
+#include	<iomanip>
 
-// Found in https://stackoverflow.com/questions/2049582/how-to-determine-if-a-point-is-in-a-2d-triangle
+#define WIDTH	10
+#define HEIGHT	10
 
-Fixed	calcArea(const Point p0, const Point p1, const Point p2) {
-	Fixed	a;
-	Fixed	b;
-	Fixed	c;
-	Fixed	d;
-
-	a = (p1.getY() * -1) * p2.getX();
-	b = p0.getY() * (p1.getX() * -1) + p2.getX();
-	c = p0.getX() * (p1.getY() - p2.getY());
-	d = p1.getX() * p2.getY();
-	return ((Fixed)0.5f * ( a + b + c + d ));
+Point	vector2(Point p1, Point p2) {
+	Fixed	x((p2.getX() - p1.getX()));
+	Fixed	y((p2.getY() - p1.getY()));
+	Point	v(x.toFloat(), y.toFloat());
+	// std::cout << v.getX() << " | " << v.getY() << std::endl;
+	return (v);
 }
 
-Fixed	calcS(const Point p, const Point p0, const Point p1, const Point p2, Fixed area) {
-	Fixed	a;
-	Fixed	b;
-	Fixed	c;
-
-	a = p0.getY() * p2.getX() - p0.getX() * p2.getY();
-	b = (p2.getY() - p0.getY()) * p.getX();
-	c = (p0.getX() - p2.getX()) * p.getY();
-	return ((Fixed)1 / (area * (Fixed)2) * (a + b + c));
+float	crossProduct( Point p1, Point p2 ) {
+	Point	r;
+	
+	return (((p1.getX() * p2.getY()) - (p1.getY() * p2.getX())).toFloat());
 }
 
-Fixed	calcT(const Point p, const Point p0, const Point p1, const Point p2, Fixed area) {
-	Fixed	a;
-	Fixed	b;
-	Fixed	c;
-
-	a = p0.getX() * p1.getY() - p0.getY() * p1.getX();
-	b = (p0.getY() - p1.getY()) * p.getX();
-	c = (p1.getX() - p0.getX()) * p.getY();
-	return ((Fixed)1 / (area * (Fixed)2) * (a + b + c));
-}
-
-bool	bsp( Point const a, Point const b, Point const c, Point const point ) {
-	Fixed	s;
-	Fixed	t;
-	Fixed	area;
-
-	area = calcArea(a, b, c);
-	s = calcS(point, a, b, c, area);
-	t = calcT(point, a, b, c, area);
-	if ((s >= 0 && s <= 1) && (t >= 0 & t <= 1) && ((s + t) <= 1))
+static bool	pointCheck( Point p, Point a, Point b, Point c ) {
+	if (p == a || p == b || p == c)
+		return true;
+	else if (a == b || a == c || b == c)
 		return true;
 	return false;
 }
 
+bool	bsp( Point const a, Point const b, Point const c, Point const point ) {
+    Fixed	ap_x = point.getX() - a.getX();
+    Fixed	ap_y = point.getY() - a.getY();
+	Point	vp[3] = { vector2(point, a), vector2(point, b), vector2(point, c) };
+	Fixed	r[3];
+	
+	if (pointCheck(point, a, b, c))
+		return false;
+	r[0] = crossProduct(vp[0], vp[1]);
+	r[1] = crossProduct(vp[1], vp[2]);
+	r[2] = crossProduct(vp[2], vp[0]);
+	// std::cout << "v1: " << vp[0].getX() << " | " << vp[0].getY() << std::endl;
+	// std::cout << "v2: " << vp[1].getX() << " | " << vp[1].getY() << std::endl;
+	// std::cout << "v3: " << vp[2].getX() << " | " << vp[2].getY() << std::endl;
+	// std::cout << "r1: " << r[0] << std::endl;
+	// std::cout << "r2: " << r[1] << std::endl;
+	// std::cout << "r3: " << r[2] << std::endl;
+	return ((r[0] > 0 && r[1] > 0 && r[2] > 0) || (r[0] < 0 && r[1] < 0 && r[2] < 0));
+}
+
 int main( void ) {
+	Point	a(0,0);
+	Point	b(1,0);
+	Point	c(0,1);
+	Point	point(0.5f, 0.35f);
 
-
+	
+	if (bsp(a, b, c, point))
+		std::cout << "True" << std::endl;
+	else
+		std::cout << "False" << std::endl;
+	return (0);
 }
