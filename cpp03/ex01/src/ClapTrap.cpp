@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:33:08 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 12:39:02 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:36:21 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ void	ClapTrap::attack(const std::string& name) {
 
 void	ClapTrap::takeDamage(unsigned int amount) {
 	if (this->_hP > 0) {
-		this->_hP -= amount;
 		std::cout << YELLOW << this->_name << WHITE" takes " << amount << " damage" << std::endl;
-		if (this->_hP <= 0) {
+		if (amount > (unsigned int)this->_hP)
+			amount = this->_hP;
+		this->_hP -= amount;
+		if (this->_hP == 0) {
 			this->_hP = 0;
 			std::cout << YELLOW << this->_name << WHITE" has no more hit points left! " << YELLOW \
 			<< this->_name << RED << " has died!" << WHITE << std::endl;
@@ -69,6 +71,12 @@ void	ClapTrap::takeDamage(unsigned int amount) {
 void	ClapTrap::beRepaired(unsigned int amount) {
 	if (this->_hP > 0 && this->_energy > 0) {
 		this->_energy -= 1;
+		if (this->_hP >= 100)
+			amount = 0;
+		else if (amount > 100)
+			amount = 100;
+		if ((this->_hP + amount) > 100)
+			amount -= this->_hP + amount - 100;
 		this->_hP += amount;
 		std::cout << YELLOW << this->_name << WHITE" restored " << amount << " hit points" << std::endl;
 	}
