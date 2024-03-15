@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/14 12:33:01 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 11:09:03 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/03/15 10:30:27 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/03/15 11:07:38 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// #ifndef SCAVTRAP_H
+// # define SCAVTRAP_H
 #pragma once
 
-#include <string>
+#include "ClapTrap.hpp"
 
-class ClapTrap
+class ScavTrap : public ClapTrap
 {
 	private:
-		std::string	_name;
-		int			_hP;
-		int			_energy;
-		int			_atk;
+	
 	public:
-		ClapTrap( void );								// Canonical
-		ClapTrap( std::string name );
-		~ClapTrap( void );								// Canonical
-		ClapTrap( const ClapTrap& old );				// Canonical
-		ClapTrap&	operator=(const ClapTrap& old );	// Canonical
+		ScavTrap( void );						// Canonical
+		~ScavTrap( void );						// Canonical
+		// ScavTrap( const ScavTrap& old );		// Canonical
+		// ScavTrap& operator=(const ScavTrap& );	// Canonical
 
-		void	attack(const std::string& target);
-		void	takeDamage(unsigned int amount);
-		void	beRepaired(unsigned int amount);
+		void	guardGate();
 };
+
+// #endif
