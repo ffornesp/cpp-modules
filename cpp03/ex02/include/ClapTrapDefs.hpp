@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   ClapTrapDefs.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 10:30:27 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 12:38:59 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/03/14 15:10:18 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/03/14 15:24:29 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef CLAPTRAPDEFS_H
+# define CLAPTRAPDEFS_H
 
-#include "ClapTrap.hpp"
-#include <string>
+#ifndef WHITE
+# define WHITE		"\e[0;37m"
+#endif
 
-class ScavTrap : public ClapTrap
-{
-	private:
-	
-	public:
-		ScavTrap( void );							// Canonical
-		ScavTrap( std::string name );
-		~ScavTrap( void );							// Canonical
-		ScavTrap( const ScavTrap& old );			// Canonical
-		ScavTrap& operator=(const ScavTrap& old );	// Canonical
+#ifndef RED
+# define RED		"\e[0;31m"
+#endif
 
-		void	guardGate( void );
-};
+#ifndef YELLOW
+# define YELLOW		"\e[0;33m"
+#endif
 
-// #endif
+
+#endif

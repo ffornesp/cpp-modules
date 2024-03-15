@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 10:30:27 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 12:38:59 by ffornes-         ###   ########.fr       */
+/*   Created: 2024/03/15 12:39:54 by ffornes-          #+#    #+#             */
+/*   Updated: 2024/03/15 12:51:20 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "ClapTrap.hpp"
-#include <string>
 
-class ScavTrap : public ClapTrap
+class FragTrap : public ClapTrap
 {
-	private:
+private:
 	
-	public:
-		ScavTrap( void );							// Canonical
-		ScavTrap( std::string name );
-		~ScavTrap( void );							// Canonical
-		ScavTrap( const ScavTrap& old );			// Canonical
-		ScavTrap& operator=(const ScavTrap& old );	// Canonical
+public:
+	FragTrap( void );
+	FragTrap( std::string name );
+	~FragTrap( void );
+	FragTrap( const FragTrap& old );
+	FragTrap& operator=( const FragTrap& old );
 
-		void	guardGate( void );
+	void	highFivesGuys( void );
 };
-
-// #endif
