@@ -14,15 +14,19 @@
 # define CLAPTRAPDEFS_H
 
 #ifndef WHITE
-# define WHITE		"\e[0;37m"
+# define WHITE		"\e[1;37m"
 #endif
 
 #ifndef RED
-# define RED		"\e[0;31m"
+# define RED		"\e[1;31m"
+#endif
+
+#ifndef GREEN
+# define GREEN		"\e[1;32m"
 #endif
 
 #ifndef YELLOW
-# define YELLOW		"\e[0;33m"
+# define YELLOW		"\e[1;33m"
 #endif
 
 

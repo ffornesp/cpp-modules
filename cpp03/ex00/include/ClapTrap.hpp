@@ -17,10 +17,14 @@
 class ClapTrap
 {
 	private:
-		std::string	_name;
-		int			_hP;
-		int			_energy;
-		int			_atk;
+
+	protected:
+		std::string		_name;
+		unsigned int	_hP;
+		unsigned int	_energy;
+		unsigned int	_atk;
+
+		unsigned int	_initHp;
 	public:
 		ClapTrap( void );								// Canonical
 		ClapTrap( std::string name );

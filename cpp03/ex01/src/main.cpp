@@ -18,24 +18,32 @@
 int	main()
 {
 	ScavTrap	r;
-	// ScavTrap	r("Robo");
 	ScavTrap	h("Human");
 
 	std::cout << std::endl;
-	r.attack("human");
-	h.takeDamage(5);
+
+	r.attack("Human");
+	h.takeDamage(20);
 	std::cout << std::endl;
-	h.beRepaired(5);
+
+	h.beRepaired(25);
 	std::cout << std::endl;
-	h.attack("robo");
-	r.takeDamage(10);
+
+	h.attack("??");
+	r.takeDamage(20);
 	std::cout << std::endl;
+
 	r.beRepaired(10);
 	std::cout << std::endl;
-	h.attack("robo");
-	r.takeDamage(100);
+
+	h.attack("??");
+	r.takeDamage(20);
 	std::cout << std::endl;
-	r.attack("human");
+
+	r.attack("Human");
+	h.takeDamage(20);
+	std::cout << std::endl;
+	
 	r.guardGate();
 	h.guardGate();
 	std::cout << std::endl;

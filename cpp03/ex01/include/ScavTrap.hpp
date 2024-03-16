@@ -25,7 +25,8 @@ class ScavTrap : public ClapTrap
 		~ScavTrap( void );							// Canonical
 		ScavTrap( const ScavTrap& old );			// Canonical
 		ScavTrap& operator=(const ScavTrap& old );	// Canonical
-
+		
+		void	attack( std::string target );
 		void	guardGate( void );
 };
 

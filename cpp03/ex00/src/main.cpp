@@ -20,20 +20,20 @@ int	main()
 	ClapTrap	h("Human");
 
 	std::cout << std::endl;
-	r.attack("human");
-	h.takeDamage(5);
+	r.attack("Human");
+	h.takeDamage(0);
 	std::cout << std::endl;
 	h.beRepaired(5);
 	std::cout << std::endl;
-	h.attack("robo");
-	r.takeDamage(10);
+	h.attack("Robo");
+	r.takeDamage(0);
 	std::cout << std::endl;
 	r.beRepaired(10);
 	std::cout << std::endl;
-	h.attack("robo");
-	r.takeDamage(10);
+	h.attack("Robo");
+	r.takeDamage(0);
 	std::cout << std::endl;
-	r.attack("human");
+	r.attack("Human");
 	std::cout << std::endl;
 	
 	return (0);
