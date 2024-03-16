@@ -30,7 +30,7 @@ FragTrap::FragTrap( std::string name ) {
 FragTrap::~FragTrap( void ) {
 	std::cout << "FragTrap default destructor called" << std::endl;
 }
-FragTrap::FragTrap( const FragTrap& old ) {
+FragTrap::FragTrap( const FragTrap& old ) : ClapTrap() {
 	std::cout << "Default copy constructor called" << std::endl;
 	*this = old;
 }
