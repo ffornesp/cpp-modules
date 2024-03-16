@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:33:08 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 15:33:18 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:36:43 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 #include "ClapTrapDefs.hpp"
 #include <iostream>
 
-ClapTrap::ClapTrap( void ) : _name("default_name"), _hP(10), _energy(10) {
+ClapTrap::ClapTrap( void ) : _name("default_name"), _hP(10), _energy(10), _atk(0) {
 	std::cout << "Default constructor called" << std::endl;
+	this->_initHp = this->_hP;
 }
-ClapTrap::ClapTrap( std::string name ) : _name(name), _hP(10), _energy(10) {
+ClapTrap::ClapTrap( std::string name ) : _name(name), _hP(10), _energy(10), _atk(0) {
 	std::cout << "String constructor called" << std::endl;
+	this->_initHp = this->_hP;
 }
 ClapTrap::~ClapTrap( void ) {
 	std::cout << "Default destructor called" << std::endl;
@@ -30,6 +32,7 @@ ClapTrap& ClapTrap::operator=( const ClapTrap& old ) {
 		this->_hP = old._hP;
 		this->_energy = old._energy;
 		this->_atk = old._atk;
+		this->_initHp = old._initHp;
 	}
 	return (*this);
 }
@@ -41,7 +44,8 @@ ClapTrap::ClapTrap( const ClapTrap& old ) {
 void	ClapTrap::attack(const std::string& name) {
 	if (this->_hP > 0 && this->_energy > 0) {
 		this->_energy -= 1;
-		std::cout << YELLOW << this->_name << WHITE << " attacks " << YELLOW << name << WHITE << std::endl;
+		std::cout << YELLOW << this->_name << WHITE << " attacks " << YELLOW << name << WHITE \
+		<< " with " << this->_atk << " attack damage" << std::endl;
 	}
 	else if (this->_hP <= 0)
 		std::cout << YELLOW << this->_name << WHITE << " can't attack because " << RED \
@@ -53,14 +57,17 @@ void	ClapTrap::attack(const std::string& name) {
 
 void	ClapTrap::takeDamage(unsigned int amount) {
 	if (this->_hP > 0) {
-		std::cout << YELLOW << this->_name << WHITE" takes " << amount << " damage" << std::endl;
-		if (amount > (unsigned int)this->_hP)
+		std::cout << YELLOW << this->_name << WHITE << " takes " << RED << amount << WHITE \
+		<< " damage. ";
+		if (amount > this->_hP)
 			amount = this->_hP;
 		this->_hP -= amount;
 		if (this->_hP == 0) {
-			this->_hP = 0;
-			std::cout << YELLOW << this->_name << WHITE" has no more hit points left! " << YELLOW \
+			std::cout << YELLOW << this->_name << WHITE << " has no more hit points left! " << YELLOW \
 			<< this->_name << RED << " has died!" << WHITE << std::endl;
+		}
+		else {
+			std::cout << YELLOW << this->_name << WHITE << " has " << this->_hP << " hit points left!" << std::endl;
 		}
 	}
 	else
@@ -70,17 +77,19 @@ void	ClapTrap::takeDamage(unsigned int amount) {
 
 void	ClapTrap::beRepaired(unsigned int amount) {
 	if (this->_hP > 0 && this->_energy > 0) {
+		if (this->_hP == this->_initHp) {
+			std::cout << YELLOW << this->_name << WHITE << " can't repair itself because" \
+			<< " it's hit points are full!" << std::endl;
+			return ;
+		}
 		this->_energy -= 1;
-		if (this->_hP >= 100)
-			amount = 0;
-		else if (amount > 100)
-			amount = 100;
-		if ((this->_hP + amount) > 100)
-			amount -= this->_hP + amount - 100;
+		if ((this->_hP + amount) > this->_initHp)
+			amount -= this->_hP + amount - this->_initHp;
 		this->_hP += amount;
-		std::cout << YELLOW << this->_name << WHITE" restored " << amount << " hit points" << std::endl;
+		std::cout << YELLOW << this->_name << WHITE" restored " << GREEN << amount << WHITE \
+		<< " hit points" << std::endl;
 	}
-	else if (this->_hP <= 0)
+	else if (this->_hP == 0)
 		std::cout << YELLOW << this->_name << WHITE << " can't repair itself because " \
 		<< RED << "it's dead" << WHITE <<  std::endl;
 	else
