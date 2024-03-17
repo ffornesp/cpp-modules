@@ -32,6 +32,7 @@ class ClapTrap
 		ClapTrap( const ClapTrap& old );				// Canonical
 		ClapTrap&	operator=(const ClapTrap& old );	// Canonical
 
+		unsigned int	getAtk( void );
 		void	attack(const std::string& target);
 		void	takeDamage(unsigned int amount);
 		void	beRepaired(unsigned int amount);

@@ -23,25 +23,25 @@ int	main()
 	std::cout << std::endl;
 
 	r.attack("Human");
-	h.takeDamage(20);
+	h.takeDamage(r.getAtk());
 	std::cout << std::endl;
 
 	h.beRepaired(25);
 	std::cout << std::endl;
 
 	h.attack("??");
-	r.takeDamage(20);
+	r.takeDamage(h.getAtk());
 	std::cout << std::endl;
 
 	r.beRepaired(10);
 	std::cout << std::endl;
 
 	h.attack("??");
-	r.takeDamage(20);
+	r.takeDamage(h.getAtk());
 	std::cout << std::endl;
 
 	r.attack("Human");
-	h.takeDamage(20);
+	h.takeDamage(r.getAtk());
 	std::cout << std::endl;
 	
 	r.guardGate();

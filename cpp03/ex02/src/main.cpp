@@ -24,22 +24,22 @@ int	main()
 
 	std::cout << std::endl;
 	c.attack("scav");
-	s.takeDamage(10);
+	s.takeDamage(c.getAtk());
 	std::cout << std::endl;
 	s.attack("frag");
-	f.takeDamage(99);
+	f.takeDamage(s.getAtk());
 	std::cout << std::endl;
 	f.attack("clap");
-	c.takeDamage(100);
+	c.takeDamage(f.getAtk());
 	std::cout << std::endl;
 	f.highFivesGuys();
 	std::cout << std::endl;
 	c.beRepaired(5);
 	c.attack("scav");
 	std::cout << std::endl;
-	s.guardGate();
 	f.attack("scav");
-	s.takeDamage(100);
+	s.takeDamage(f.getAtk());
+	std::cout << std::endl;
 	s.guardGate();
 	std::cout << std::endl;
 	return (0);

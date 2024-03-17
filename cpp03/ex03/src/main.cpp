@@ -29,7 +29,7 @@ int	main()
 	d.whoAmI();
 	std::cout << std::endl;
 	d.attack("clap");
-	c.takeDamage(100);
+	c.takeDamage(d.getAtk());
 	std::cout << std::endl;
 	d.guardGate();
 	d.highFivesGuys();

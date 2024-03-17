@@ -21,17 +21,17 @@ int	main()
 
 	std::cout << std::endl;
 	r.attack("Human");
-	h.takeDamage(0);
+	h.takeDamage(r.getAtk());
 	std::cout << std::endl;
 	h.beRepaired(5);
 	std::cout << std::endl;
 	h.attack("Robo");
-	r.takeDamage(0);
+	r.takeDamage(h.getAtk());
 	std::cout << std::endl;
 	r.beRepaired(10);
 	std::cout << std::endl;
 	h.attack("Robo");
-	r.takeDamage(0);
+	r.takeDamage(h.getAtk());
 	std::cout << std::endl;
 	r.attack("Human");
 	std::cout << std::endl;

@@ -15,7 +15,7 @@
 #include "ClapTrap.hpp"
 #include <string>
 
-class ScavTrap : public ClapTrap
+class ScavTrap : virtual public ClapTrap
 {
 	private:
 	

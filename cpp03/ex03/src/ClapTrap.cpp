@@ -41,6 +41,10 @@ ClapTrap::ClapTrap( const ClapTrap& old ) {
 	*this = old;
 }
 
+unsigned int	ClapTrap::getAtk( void ) {
+	return (this->_atk);
+}
+
 void	ClapTrap::attack(const std::string& name) {
 	if (this->_hP > 0 && this->_energy > 0) {
 		this->_energy -= 1;

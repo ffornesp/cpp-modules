@@ -20,6 +20,7 @@ DiamondTrap::DiamondTrap( void ) {
 	this->_hP = FragTrap::_hP;
 	this->_energy = ScavTrap::_energy;
 	this->_atk = FragTrap::_atk;
+	this->_initHp = this->_hP;
 }
 DiamondTrap::DiamondTrap( std::string name ) {
 	std::cout << "DiamondTrap string constructor called" << std::endl;
@@ -28,11 +29,12 @@ DiamondTrap::DiamondTrap( std::string name ) {
 	this->_hP = FragTrap::_hP;
 	this->_energy = ScavTrap::_energy;
 	this->_atk = FragTrap::_atk;
+	this->_initHp = this->_hP;
 }
 DiamondTrap::~DiamondTrap( void ) {
 	std::cout << "DiamondTrap default destructor called" << std::endl;
 }
-DiamondTrap::DiamondTrap( const DiamondTrap& old ) {
+DiamondTrap::DiamondTrap( const DiamondTrap& old ) : ClapTrap(), ScavTrap(), FragTrap() {
 	std::cout << "Default copy constructor called" << std::endl;
 	*this = old;
 }
@@ -43,6 +45,7 @@ DiamondTrap&	DiamondTrap::operator=(const DiamondTrap& old ) {
 		this->_hP = old.::FragTrap::_hP;
 		this->_energy = old.::ScavTrap::_energy;
 		this->_atk = old.::FragTrap::_atk;
+		this->_initHp = old._initHp;
 	}
 	return (*this);
 }

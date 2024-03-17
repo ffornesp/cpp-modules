@@ -19,6 +19,7 @@ FragTrap::FragTrap( void ) {
 	this->_hP = 100;
 	this->_energy = 100;
 	this->_atk = 30;
+	this->_initHp = this->_hP;
 }
 FragTrap::FragTrap( std::string name ) {
 	std::cout << "FragTrap string constructor called" << std::endl;
@@ -26,6 +27,7 @@ FragTrap::FragTrap( std::string name ) {
 	this->_hP = 100;
 	this->_energy = 100;
 	this->_atk = 30;
+	this->_initHp = this->_hP;
 }
 FragTrap::~FragTrap( void ) {
 	std::cout << "FragTrap default destructor called" << std::endl;
@@ -41,6 +43,7 @@ FragTrap&	FragTrap::operator=(const FragTrap& old ) {
 		this->_hP = old._hP;
 		this->_energy = old._energy;
 		this->_atk = old._atk;
+		this->_initHp = old._hP;
 	}
 	return (*this);
 }
