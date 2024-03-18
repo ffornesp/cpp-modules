@@ -22,4 +22,7 @@ class	Dog : public Animal {
 		~Dog( void );
 		Dog( const Dog& old );
 		Dog& operator=( const Dog& old );
+
+		void		makeSound( void ) const;
+		std::string	getType( void ) const;
 };

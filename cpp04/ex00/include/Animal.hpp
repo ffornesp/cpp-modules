@@ -19,6 +19,7 @@ class	Animal {
 	private:
 	protected:
 		std::string _type;
+		void	makeSound( void );
 	public:
 		Animal( void );
 		Animal( std::string name );
@@ -26,5 +27,6 @@ class	Animal {
 		Animal( const Animal& old );
 		Animal& operator=( const Animal& );
 
-		void	makeSound( std::string sound );
+		void		makeSound( void ) const;
+		std::string	getType( void ) const;
 };

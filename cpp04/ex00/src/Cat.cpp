@@ -24,7 +24,7 @@ Cat::Cat( std::string name ) {
 Cat::~Cat( void ) {
 	std::cout << "Cat destructor called" << std::endl;
 }
-Cat::Cat( const Cat& old ) {
+Cat::Cat( const Cat& old ) : Animal() {
 	std::cout << "Cat copy constructor called" << std::endl;
 	*this = old;
 }
@@ -34,4 +34,12 @@ Cat&	Cat::operator=( const Cat& old ) {
 		this->_type = old._type;
 	}
 	return (*this);
+}
+
+
+void	Cat::makeSound( void ) const {
+	std::cout << "nyaa" << std::endl;
+}
+std::string	Cat::getType( void ) const { 
+	return (this->_type);
 }

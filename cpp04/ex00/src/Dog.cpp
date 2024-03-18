@@ -24,7 +24,7 @@ Dog::Dog( std::string name ) {
 Dog::~Dog( void ) {
 	std::cout << "Dog destructor called" << std::endl;
 }
-Dog::Dog( const Dog& old ) {
+Dog::Dog( const Dog& old ) : Animal() {
 	std::cout << "Dog copy constructor called" << std::endl;
 	*this = old;
 }
@@ -34,4 +34,11 @@ Dog&	Dog::operator=( const Dog& old ) {
 		this->_type = old._type;
 	}
 	return (*this);
+}
+
+void	Dog::makeSound( void ) const {
+	std::cout << "Woof woof" << std::endl;
+}
+std::string	Dog::getType( void ) const {
+	return (this->_type);
 }
