@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:33:01 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 11:09:03 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:07:48 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 class ClapTrap
 {
 	private:
-
-	protected:
 		std::string		_name;
 		unsigned int	_hP;
 		unsigned int	_energy;
