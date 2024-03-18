@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 12:59:31 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 14:50:07 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:54:27 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ DiamondTrap::DiamondTrap( void ) {
 	std::cout << "DiamondTrap default constructor called" << std::endl;
 	this->_name = "DiamondTrap_default";
 	this->ClapTrap::_name = this->_name + "_clap_name";
-	this->_hP = FragTrap::_hP;
-	this->_energy = ScavTrap::_energy;
-	this->_atk = FragTrap::_atk;
-	this->_initHp = this->_hP;
+	this->_hP = FragTrap::_classHp;
+	this->_energy = ScavTrap::_classEnergy;
+	this->_atk = FragTrap::_classAtk;
+	this->_initHp = FragTrap::_classHp;
 }
 DiamondTrap::DiamondTrap( std::string name ) {
 	std::cout << "DiamondTrap string constructor called" << std::endl;
 	_name = name;
 	this->ClapTrap::_name = name + "_clap_name";
-	this->_hP = FragTrap::_hP;
-	this->_energy = ScavTrap::_energy;
-	this->_atk = FragTrap::_atk;
-	this->_initHp = this->_hP;
+	this->_hP = FragTrap::_classHp;
+	this->_energy = ScavTrap::_classEnergy;
+	this->_atk = FragTrap::_classAtk;
+	this->_initHp = FragTrap::_classHp;
 }
 DiamondTrap::~DiamondTrap( void ) {
 	std::cout << "DiamondTrap default destructor called" << std::endl;
@@ -53,4 +53,9 @@ DiamondTrap&	DiamondTrap::operator=(const DiamondTrap& old ) {
 void	DiamondTrap::whoAmI( void ) {
 	std::cout << "Diamond name: [" << this->_name << "] Clap name: [" \
 	<< this->ClapTrap::_name << "]" << std::endl;
+}
+
+void	DiamondTrap::printStats( void ) {
+	std::cout << this->_name << " Hit points: " << this->_hP << " Energy: " \
+	<< this->_energy << " Attack: " << this->_atk << std::endl;
 }

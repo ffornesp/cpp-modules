@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:10:18 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/14 15:24:29 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/18 09:10:11 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CLAPTRAPDEFS_H
 
 #ifndef WHITE
-# define WHITE		"\e[1;37m"
+# define WHITE		"\e[0;37m"
 #endif
 
 #ifndef RED

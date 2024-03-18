@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 10:31:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 12:56:28 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:42:23 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,19 @@ ScavTrap&	ScavTrap::operator=(const ScavTrap& old ) {
 }
 
 void	ScavTrap::attack( std::string target ) {
-	std::cout << "ScavTrap attack: " << YELLOW << this->_name << WHITE << " attacks " \
-	<< YELLOW << target << WHITE << " with " << RED << this->_atk << WHITE \
-	<< " attack" << std::endl;
+	std::cout << "ScavTrap attack: ";
+	if (this->_hP > 0 && this->_energy > 0) {
+		this->_energy -= 1;
+		std::cout << YELLOW << this->_name << WHITE << " attacks " \
+		<< YELLOW << target << WHITE << " with " << RED << this->_atk << WHITE \
+		<< " attack" << std::endl;
+	}
+	else if (this->_hP <= 0)
+		std::cout << YELLOW << this->_name << WHITE << " can't attack because " << RED \
+		<< "it has no hit points left" << WHITE << std::endl;
+	else
+		std::cout << YELLOW << this->_name << WHITE << " can't attack because " << RED \
+		<< "it has no energy left" << WHITE << std::endl;
 }
 
 void	ScavTrap::guardGate( void ) {

@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 12:59:20 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 15:33:53 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:54:52 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ class DiamondTrap : public ScavTrap, public FragTrap
 		DiamondTrap& operator=( const DiamondTrap& );
 
 		void whoAmI( void );
+		void printStats( void );
 };

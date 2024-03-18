@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:33:18 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/15 15:33:47 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/18 11:55:12 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@
 #include "DiamondTrap.hpp"
 #include <iostream>
 
-int	main()
+int	main( void )
 {
-	ClapTrap	c("clap");
+//	ClapTrap	c("clap");
 //	ScavTrap	s("scav");
 //	FragTrap	f("frag");
 	DiamondTrap	d("Morad");
 	// DiamondTrap
 
+	d.printStats();
 	std::cout << std::endl;
 	d.whoAmI();
 	std::cout << std::endl;
-	d.attack("clap");
-	c.takeDamage(d.getAtk());
+	d.attack("nobody");
+//	c.takeDamage(d.getAtk());
 	std::cout << std::endl;
 	d.guardGate();
 	d.highFivesGuys();
