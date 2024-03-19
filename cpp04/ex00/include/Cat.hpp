@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:11:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/18 17:34:49 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/19 09:35:33 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,6 @@ class	Cat : public Animal {
 		~Cat( void );
 		Cat( const Cat& old );
 		Cat& operator=( const Cat& old );
+
+		virtual void	makeSound( void ) const;
 };

@@ -6,14 +6,12 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/18 17:34:43 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/19 09:05:23 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "WrongAnimal.hpp"
 #include <iostream>
-
-const std::string _sound = "Wrong animal noises";
 
 WrongAnimal::WrongAnimal( void ) : _type("default_type") {
 	std::cout << "WrongAnimal default constructor called" << std::endl;
@@ -36,8 +34,8 @@ WrongAnimal&	WrongAnimal::operator=( const WrongAnimal& old ) {
 	return (*this);
 }
 
-void	WrongAnimal::_makeSound( void ) const {
-	std::cout << this->_sound << std::endl;
+void	WrongAnimal::makeSound( void ) const {
+	std::cout << "Wrong animal noises" << std::endl;
 }
 std::string	WrongAnimal::getType( void ) const { 
 	return (this->_type);

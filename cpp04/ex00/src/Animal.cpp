@@ -6,18 +6,17 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:58:04 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/18 16:56:30 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/19 09:40:08 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Animal.hpp"
 #include <iostream>
 
-Animal::Animal( void ) : _type("default_type"), _sound("Default animal noise") {
+Animal::Animal( void ) : _type("default_type") {
 	std::cout << "Animal default constructor called" << std::endl;
 }
 Animal::Animal( std::string name ) : _type(name) {
-	this->_sound = "Default " + name + " noise";
 	std::cout << "Animal string constructor called" << std::endl;
 }
 Animal::~Animal( void ) {
@@ -36,7 +35,7 @@ Animal&	Animal::operator=( const Animal& old ) {
 }
 
 void	Animal::makeSound( void ) const {
-	std::cout << this->_sound << std::endl;
+	std::cout << _type << " noises" << std::endl;
 }
 std::string	Animal::getType( void ) const { 
 	return (this->_type);

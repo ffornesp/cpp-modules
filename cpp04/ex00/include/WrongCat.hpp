@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:11:52 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/18 17:34:49 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/19 09:38:15 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "WrongAnimal.hpp"
 
-class	WrongCat : public Animal {
+class	WrongCat : public WrongAnimal {
 	private:
 	public:
 		WrongCat( void );
@@ -22,4 +22,6 @@ class	WrongCat : public Animal {
 		~WrongCat( void );
 		WrongCat( const WrongCat& old );
 		WrongCat& operator=( const WrongCat& old );
+
+		virtual void	makeSound( void ) const;
 };

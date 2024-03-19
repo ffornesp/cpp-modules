@@ -6,7 +6,7 @@
 #    By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/03/18 16:52:45 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/03/19 09:02:11 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ SRC_DIR = src/
 SRC_FILES = Animal.cpp \
 			Cat.cpp \
 			Dog.cpp \
+			WrongAnimal.cpp \
+			WrongCat.cpp \
 			main.cpp
 			
 OBJ_DIR = objs/

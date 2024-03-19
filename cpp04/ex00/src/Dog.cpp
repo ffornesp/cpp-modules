@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:36:34 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/18 17:33:43 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/19 09:40:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@
 Dog::Dog( void ) {
 	std::cout << "Dog default constructor called" << std::endl;
 	this->_type = "Dog";
-	this->_sound = "Woof woof";
 }
 Dog::Dog( std::string name ) {
 	std::cout << "Dog string constructor called" << std::endl;
 	this->_type = name;
-	this->_sound = "Woof woof";
 }
 Dog::~Dog( void ) {
 	std::cout << "Dog destructor called" << std::endl;
@@ -36,4 +34,8 @@ Dog&	Dog::operator=( const Dog& old ) {
 		this->_type = old._type;
 	}
 	return (*this);
+}
+
+void	Dog::makeSound( void ) const {
+	std::cout << "Woof woof" << std::endl;
 }
