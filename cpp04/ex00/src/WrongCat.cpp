@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   WrongCat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,28 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "WrongCat.hpp"
 #include <iostream>
 
-Cat::Cat( void ) {
-	std::cout << "Cat default constructor called" << std::endl;
-	this->_type = "Cat";
+WrongCat::WrongCat( void ) {
+	std::cout << "WrongCat default constructor called" << std::endl;
+	this->_type = "WrongCat";
 	this->_sound = "nyaa";
 }
-Cat::Cat( std::string name ) {
-	std::cout << "Cat string constructor called" << std::endl;
+WrongCat::WrongCat( std::string name ) {
+	std::cout << "WrongCat string constructor called" << std::endl;
 	this->_type = name;
 	this->_sound = "nyaa";
 }
-Cat::~Cat( void ) {
-	std::cout << "Cat destructor called" << std::endl;
+WrongCat::~WrongCat( void ) {
+	std::cout << "WrongCat destructor called" << std::endl;
 }
-Cat::Cat( const Cat& old ) : Animal() {
-	std::cout << "Cat copy constructor called" << std::endl;
+WrongCat::WrongCat( const WrongCat& old ) : Animal() {
+	std::cout << "WrongCat copy constructor called" << std::endl;
 	*this = old;
 }
-Cat&	Cat::operator=( const Cat& old ) {
-	std::cout << "Cat copy assignment operator" << std::endl;
+WrongCat&	WrongCat::operator=( const WrongCat& old ) {
+	std::cout << "WrongCat copy assignment operator" << std::endl;
 	if (this != &old) {
 		this->_type = old._type;
 	}

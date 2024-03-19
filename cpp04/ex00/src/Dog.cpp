@@ -16,10 +16,12 @@
 Dog::Dog( void ) {
 	std::cout << "Dog default constructor called" << std::endl;
 	this->_type = "Dog";
+	this->_sound = "Woof woof";
 }
 Dog::Dog( std::string name ) {
 	std::cout << "Dog string constructor called" << std::endl;
 	this->_type = name;
+	this->_sound = "Woof woof";
 }
 Dog::~Dog( void ) {
 	std::cout << "Dog destructor called" << std::endl;
@@ -34,11 +36,4 @@ Dog&	Dog::operator=( const Dog& old ) {
 		this->_type = old._type;
 	}
 	return (*this);
-}
-
-void	Dog::makeSound( void ) const {
-	std::cout << "Woof woof" << std::endl;
-}
-std::string	Dog::getType( void ) const {
-	return (this->_type);
 }

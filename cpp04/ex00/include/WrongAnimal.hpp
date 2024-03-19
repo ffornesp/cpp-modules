@@ -1,7 +1,8 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,18 +15,19 @@
 
 #include <string>
 
-class	Animal {
-	
+class	WrongAnimal {
 	private:
+
 	protected:
-		std::string	_type;
-		std::string	_sound;
+		std::string			_type;
+		const std::string	_sound;
+		void				_makeSound( void );
 	public:
-		Animal( void );
-		Animal( std::string name );
-		~Animal( void );
-		Animal( const Animal& old );
-		Animal& operator=( const Animal& );
+		WrongAnimal( void );
+		WrongAnimal( std::string name );
+		~WrongAnimal( void );
+		WrongAnimal( const WrongAnimal& old );
+		WrongAnimal& operator=( const WrongAnimal& );
 
 		void		makeSound( void ) const;
 		std::string	getType( void ) const;

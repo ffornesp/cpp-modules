@@ -13,10 +13,11 @@
 #include "Animal.hpp"
 #include <iostream>
 
-Animal::Animal( void ) : _type("default_type") {
+Animal::Animal( void ) : _type("default_type"), _sound("Default animal noise") {
 	std::cout << "Animal default constructor called" << std::endl;
 }
 Animal::Animal( std::string name ) : _type(name) {
+	this->_sound = "Default " + name + " noise";
 	std::cout << "Animal string constructor called" << std::endl;
 }
 Animal::~Animal( void ) {
@@ -35,7 +36,7 @@ Animal&	Animal::operator=( const Animal& old ) {
 }
 
 void	Animal::makeSound( void ) const {
-	std::cout << "Sound" << std::endl;
+	std::cout << this->_sound << std::endl;
 }
 std::string	Animal::getType( void ) const { 
 	return (this->_type);
