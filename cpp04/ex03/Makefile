@@ -6,7 +6,7 @@
 #    By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/03/19 18:33:47 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/03/20 12:00:01 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@ NAME = executable
 
 SRC_DIR = src/
 SRC_FILES = AMateria.cpp \
+			IMateriaSource.cpp \
 			Cure.cpp \
 			Ice.cpp \
 			ICharacter.cpp \
-			IMateriaSource.cpp \
+			Character.cpp \
 			main.cpp
 			
 OBJ_DIR = objs/

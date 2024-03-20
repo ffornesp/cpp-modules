@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IMateriaSource.cpp                                 :+:      :+:    :+:   */
+/*   MateriaSource.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/20 12:12:35 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:34:05 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "IMateriaSource.hpp"
+#pragma once
 
-IMateriaSource::IMateriaSource( void ) : _type("default") {
-	
-}
-IMateriaSource::~IMateriaSource( void ) {
+#include <string>
 
-}
-IMateriaSource::IMateriaSource( const IMateriaSource& old ) {
-	*this = old;
-}
-IMateriaSource& IMateriaSource::operator=( const IMateriaSource& old ) {
-//	if (this != &old) {
-//		this->_type = old._type;
-//	}
-	return (*this);
-}
+class	MateriaSource : public IMateriaSource {
+	private:
+	protected:
+	public:
+		MateriaSource( void );
+		virtual ~MateriaSource( void );
+		MateriaSource( const MateriaSource& old );
+		MateriaSource& operator=( const MateriaSource& );
+
+		virtual void		learnMateria( AMateria* );
+		virtual AMateria*	createMateria( std::string const & type );
+};

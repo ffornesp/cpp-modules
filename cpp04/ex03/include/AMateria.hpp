@@ -6,17 +6,19 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/19 18:34:30 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:45:43 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
+#include "ICharacter.fwd.hpp"
 #include <string>
 
 class	AMateria {
 	private:
 	protected:
+		std::string	_type;
 	public:
 		AMateria( void );
 		AMateria( std::string const & type );
