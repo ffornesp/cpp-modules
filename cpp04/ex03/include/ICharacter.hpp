@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/20 12:08:32 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:01:07 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 class	ICharacter {
 	private:
 	protected:
-		std::string	_name;
-		AMateria*	_inventory[4];
+		std::string		_name;
+		AMateria*		_inventory[4];
+		unsigned int	_amount;
 	public:
-		virtual ICharacter( void );
+		ICharacter( void );
+		ICharacter( std::string name );
 		virtual ~ICharacter( void );
 		ICharacter( const ICharacter& old );
 		ICharacter& operator=( const ICharacter& old );
