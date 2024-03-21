@@ -37,5 +37,5 @@ std::string const & AMateria::getType( void ) const {
 }
 
 void	AMateria::use( ICharacter& target ) {
-	std::cout << "Hola Éric " << target.getName() << std::endl;
+	(void)target;
 }

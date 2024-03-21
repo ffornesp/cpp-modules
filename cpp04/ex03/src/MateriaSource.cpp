@@ -14,10 +14,13 @@
 #include <iostream>
 
 MateriaSource::MateriaSource( void ) : _type("default"), _amount(0) {
-	
+	for ( int i = 0; i < 4; i++ )
+		this->_mats[i] = NULL;
 }
 MateriaSource::~MateriaSource( void ) {
-
+	for ( int i = 0; i < 4; i++ )
+		if (this->_mats[i])
+			delete _mats[i];
 }
 MateriaSource::MateriaSource( const MateriaSource& old ) {
 	*this = old;
@@ -33,12 +36,14 @@ void	MateriaSource::learnMateria( AMateria* mat ) {
 	if (this->_amount >= 4) {
 		std::cerr << "Materia Source can't learn more materia since it already" \
 		<< " has learned 4 materias.";
+		delete mat;
 		return ;
 	}
 	else {
 		for ( int i = 0; i < 4; i++ ) {
 			if ( !this->_mats[i] ) {
 				this->_mats[i] = mat->clone();
+				delete mat;
 				break ;
 			}
 		}

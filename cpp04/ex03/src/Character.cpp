@@ -26,7 +26,9 @@ Character::Character( std::string name ) {
 	this->_amount = 0;
 }
 Character::~Character( void ) {
-
+	for ( int i = 0; i < 4; i++ )
+		if (this->_inventory[i])
+			delete this->_inventory[i];
 }
 Character::Character( const Character& old ) : ICharacter() {
 	*this = old;
@@ -59,9 +61,10 @@ void	Character::equip( AMateria *m ) {
 			}
 		}
 	}
+	std::cout << "Unable to equip new materia since slot is full\n";
 }
 void	Character::unequip( int idx ) {
-	if (idx < 1 || idx > 4) {
+	if (idx < 0 || idx > 3) {
 		std::cerr << "Index out of range" << std::endl;
 		return ;
 	}
@@ -74,7 +77,7 @@ void	Character::unequip( int idx ) {
 	}
 }
 void	Character::use( int idx, ICharacter& target ) {
-	if (idx < 1 || idx > 4)
+	if (idx < 0 || idx > 3)
 		std::cerr << "Index out of range" << std::endl;
 	else if (!this->_inventory[idx])
 		std::cerr << "There's no materia in index " << idx << std::endl;
