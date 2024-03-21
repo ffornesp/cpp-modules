@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/20 16:48:15 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:33:17 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ class	Cure : public AMateria {
 	protected:
 	public:
 		Cure( void );
-		virtual ~Cure( void );
+		~Cure( void );
 		Cure( const Cure& old );
 		Cure& operator=( const Cure& );
 
-		virtual AMateria* clone() const;
+		AMateria*	clone() const;
+		void		use(ICharacter& target); 
 };

@@ -6,11 +6,12 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/19 18:34:30 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:34:10 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AMateria.hpp"
+#include <iostream>
 
 AMateria::AMateria( void ) : _type("default") {
 	
@@ -33,4 +34,8 @@ AMateria& AMateria::operator=( const AMateria& old ) {
 
 std::string const & AMateria::getType( void ) const {
 	return (this->_type);
+}
+
+void	AMateria::use( ICharacter& target ) {
+	std::cout << "Hola Éric " << target.getName() << std::endl;
 }

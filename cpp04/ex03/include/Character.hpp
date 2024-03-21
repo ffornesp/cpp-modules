@@ -6,30 +6,32 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/20 17:10:43 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:24:18 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
+#include "AMateria.fwd.hpp"
+#include "ICharacter.fwd.hpp"
 #include "AMateria.hpp"
 #include "ICharacter.hpp"
 #include <string>
 
 class	Character : public ICharacter {
 	private:
-	protected:
+		std::string		_name;
+		AMateria*		_inventory[4];
+		unsigned int	_amount;
 	public:
 		Character( void );
 		Character( std::string name );
-		virtual ~Character( void );
+		~Character( void );
 		Character( const Character& old );
 		Character& operator=( const Character& old );
 
-		virtual std::string const & getName() const;
-		
-		std::string	getName( void );
-		virtual void equip(AMateria* m);
-		virtual void unequip(int idx);
-		virtual void use(int idx, Character& target);
+		std::string const & getName() const;
+		void equip(AMateria* m);
+		void unequip(int idx);
+		void use( int idx, ICharacter& target );
 };

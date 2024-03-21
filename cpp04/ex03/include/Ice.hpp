@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/20 16:48:24 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:33:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ class	Ice : public AMateria {
 	protected:
 	public:
 		Ice( void );
-		virtual ~Ice( void );
+		~Ice( void );
 		Ice( const Ice& old );
 		Ice& operator=( const Ice& );
 
-		virtual AMateria* clone() const;
+		AMateria*	clone() const;
+		void		use(ICharacter& target);
 };
