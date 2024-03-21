@@ -15,18 +15,19 @@
 Character::Character( void ) {
 	this->_name = "Default_character";
 	for ( int i = 0; i < 4; i++ )
-		_inventory[i] = NULL;
+		this->_inventory[i] = NULL;
 	this->_amount = 0;
 }
-Character::Character( std::string name ) : _name(name) {
+Character::Character( std::string name ) {
+	this->_name = name;
 	for ( int i = 0; i < 4; i++ )
-		_inventory[i] = NULL;
-	this->_amount = 0;
+		this->ICharacter::_inventory[i] = NULL;
+	this->ICharacter::_amount = 0;
 }
 Character::~Character( void ) {
 
 }
-Character::Character( const Character& old ) {
+Character::Character( const Character& old ) : ICharacter() {
 	*this = old;
 }
 Character& Character::operator=( const Character& old ) {

@@ -15,7 +15,7 @@
 AMateria::AMateria( void ) : _type("default") {
 	
 }
-AMateria::AMateria( std::string const & type ) : _type(type) {
+AMateria::AMateria( std::string const type ) : _type(type) {
 
 }
 AMateria::~AMateria( void ) {
@@ -29,4 +29,8 @@ AMateria& AMateria::operator=( const AMateria& old ) {
 		this->_type = old._type;
 	}
 	return (*this);
+}
+
+std::string const & AMateria::getType( void ) const {
+	return (this->_type);
 }

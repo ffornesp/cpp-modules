@@ -20,7 +20,6 @@ class	Ice : public AMateria {
 	protected:
 	public:
 		Ice( void );
-		Ice( std::string const & type );
 		virtual ~Ice( void );
 		Ice( const Ice& old );
 		Ice& operator=( const Ice& );

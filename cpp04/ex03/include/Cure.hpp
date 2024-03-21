@@ -20,7 +20,6 @@ class	Cure : public AMateria {
 	protected:
 	public:
 		Cure( void );
-		Cure( std::string const & type );
 		virtual ~Cure( void );
 		Cure( const Cure& old );
 		Cure& operator=( const Cure& );

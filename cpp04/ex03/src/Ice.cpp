@@ -13,15 +13,12 @@
 #include "Ice.hpp"
 
 Ice::Ice( void ) {
-	
-}
-Ice::Ice( std::string const & type ) {
-	this->_type = type;
+	this->AMateria::_type = "ice";	
 }
 Ice::~Ice( void ) {
 
 }
-Ice::Ice( const Ice& old ) {
+Ice::Ice( const Ice& old ) : AMateria() {
 	*this = old;
 }
 Ice& Ice::operator=( const Ice& old ) {
@@ -29,4 +26,8 @@ Ice& Ice::operator=( const Ice& old ) {
 		this->_type = old._type;
 	}
 	return (*this);
+}
+
+AMateria*	clone( void ) {
+	return (new Ice());
 }

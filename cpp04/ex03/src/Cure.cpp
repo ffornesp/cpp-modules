@@ -13,10 +13,7 @@
 #include "Cure.hpp"
 
 Cure::Cure( void ) {
-	
-}
-Cure::Cure( std::string const & type ) {
-	this->_type = type;
+	this->AMateria::_type = "cure";	
 }
 Cure::~Cure( void ) {
 
@@ -29,4 +26,8 @@ Cure& Cure::operator=( const Cure& old ) {
 		this->_type = old._type;
 	}
 	return (*this);
+}
+
+AMateria*	clone( void ) {
+	return (new Cure());
 }

@@ -21,11 +21,12 @@ class	AMateria {
 		std::string	_type;
 	public:
 		AMateria( void );
-		AMateria( std::string const & type );
+		AMateria( std::string const type );
 		virtual ~AMateria( void );
 		AMateria( const AMateria& old );
 		AMateria& operator=( const AMateria& );
 
+		std::string const & getType( void ) const;
 		virtual AMateria* clone() const = 0;
 		virtual void	use(ICharacter& target);
 };
