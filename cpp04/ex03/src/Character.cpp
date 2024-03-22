@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/21 17:24:24 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:27:52 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,9 @@ Character::Character( std::string name ) {
 	this->_amount = 0;
 }
 Character::~Character( void ) {
-//	for ( int i = 0; i < 4; i++ ) {
-//		if (this->_inventory[i]) {
-//			delete this->_inventory[i];
-//		}
-//	}
+	for ( int i = 0; i < 4; i++ )
+		if (this->_inventory[i])
+			delete this->_inventory[i];
 }
 Character::Character( const Character& old ) : ICharacter() {
 	*this = old;
@@ -57,12 +55,12 @@ void	Character::equip( AMateria *m ) {
 		return ;
 	}
 	else {
-//		for ( int i = 0; i < 4; i++ ) {
-//			if (this->_inventory[i]) {
-//				if (this->_inventory[i]->getType() == m->getType())
-//					std::cerr << this->_name << " already has this materia\n";
-//			}
-//		}
+		for ( int i = 0; i < 4; i++ ) {
+			if (this->_inventory[i] == m) {
+				std::cerr << this->_name << " already has this materia\n";
+				return ;
+			}
+		}
 		for ( int i = 0; i < 4; i++ ) {
 			if (!this->_inventory[i]) {
 				std::cout << "Equipped new materia in slot " << i << std::endl;
@@ -84,7 +82,6 @@ void	Character::unequip( int idx ) {
 	}
 	else {
 		std::cout << "Unequipped materia in slot " << idx << std::endl;
-//		delete this->_inventory[idx];
 		this->_inventory[idx] = NULL;
 		this->_amount--;
 	}

@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:34:34 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/20 16:37:51 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:29:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ int	main( void ) {
 	ICharacter*	me = new Character("me");
 
 	AMateria*	tmp;
+	AMateria*	aux;
+
 	tmp = src->createMateria("ice");
 	me->equip(tmp);
+	aux = tmp;
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
 	me->equip(tmp);
@@ -41,6 +44,7 @@ int	main( void ) {
 	me->use(1, *bob);
 
 	me->unequip(0);
+	delete (aux);
 
 	me->use(0, *bob);
 	me->use(1, *bob);

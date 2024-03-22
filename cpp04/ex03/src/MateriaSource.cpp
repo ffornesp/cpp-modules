@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/21 17:18:02 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:19:58 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ void	MateriaSource::learnMateria( AMateria* mat ) {
 	else {
 		for ( int i = 0; i < 4; i++ ) {
 			if ( !this->_mats[i] ) {
-				this->_mats[i] = mat->clone();
+				this->_mats[i] = mat;
 				this->_amount++;
-				delete mat;
 				break ;
 			}
 		}
@@ -54,7 +53,7 @@ void	MateriaSource::learnMateria( AMateria* mat ) {
 AMateria *	MateriaSource::createMateria( std::string const & type ) {
 	for ( int i = 0; i < 4; i++ )
 		if ( this->_mats[i] && this->_mats[i]->getType() == type )
-			return ( this->_mats[i] );
+			return ( this->_mats[i]->clone() );
 	std::cerr << "No materia matching type [" << type << "] was found" \
 	<< std::endl;
 	return 0;
