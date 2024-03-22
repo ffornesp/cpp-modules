@@ -18,11 +18,6 @@ Dog::Dog( void ) {
 	this->_type = "Dog";
 	this->_brain = new Brain();
 }
-Dog::Dog( std::string name ) {
-	std::cout << "Dog string constructor called" << std::endl;
-	this->_type = name;
-	this->_brain = new Brain();
-}
 Dog::~Dog( void ) {
 	std::cout << "Dog destructor called" << std::endl;
 	delete this->_brain;

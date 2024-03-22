@@ -20,7 +20,6 @@ class	Dog : public Animal {
 		Brain *_brain;
 	public:
 		Dog( void );
-		Dog( std::string name );
 		~Dog( void );
 		Dog( const Dog& old );
 		Dog& operator=( const Dog& old );

@@ -21,7 +21,9 @@ int	main( void ) {
 	Cat	cat;
 	Dog	dog;
 
+	std::cout << "\n\tAnimal sounds:\n";
 	cat.makeSound();
 	dog.makeSound();
+	std::cout << "\n";
 	return (0);
 }

@@ -18,11 +18,6 @@ Cat::Cat( void ) {
 	this->_type = "Cat";
 	this->_brain = new Brain();
 }
-Cat::Cat( std::string name ) {
-	std::cout << "Cat string constructor called" << std::endl;
-	this->_type = name;
-	this->_brain = new Brain();
-}
 Cat::~Cat( void ) {
 	std::cout << "Cat destructor called" << std::endl;
 	delete this->_brain;

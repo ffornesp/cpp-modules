@@ -18,7 +18,6 @@ class	WrongCat : public WrongAnimal {
 	private:
 	public:
 		WrongCat( void );
-		WrongCat( std::string name );
 		~WrongCat( void );
 		WrongCat( const WrongCat& old );
 		WrongCat& operator=( const WrongCat& old );

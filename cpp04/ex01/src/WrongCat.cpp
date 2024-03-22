@@ -17,10 +17,6 @@ WrongCat::WrongCat( void ) {
 	std::cout << "WrongCat default constructor called" << std::endl;
 	this->_type = "WrongCat";
 }
-WrongCat::WrongCat( std::string name ) {
-	std::cout << "WrongCat string constructor called" << std::endl;
-	this->_type = name;
-}
 WrongCat::~WrongCat( void ) {
 	std::cout << "WrongCat destructor called" << std::endl;
 }

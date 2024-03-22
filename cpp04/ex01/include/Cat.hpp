@@ -20,7 +20,6 @@ class	Cat : public Animal {
 		Brain *_brain;
 	public:
 		Cat( void );
-		Cat( std::string name );
 		~Cat( void );
 		Cat( const Cat& old );
 		Cat& operator=( const Cat& old );
