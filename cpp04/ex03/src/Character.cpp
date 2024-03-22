@@ -26,9 +26,11 @@ Character::Character( std::string name ) {
 	this->_amount = 0;
 }
 Character::~Character( void ) {
-	for ( int i = 0; i < 4; i++ )
-		if (this->_inventory[i])
-			delete this->_inventory[i];
+//	for ( int i = 0; i < 4; i++ ) {
+//		if (this->_inventory[i]) {
+//			delete this->_inventory[i];
+//		}
+//	}
 }
 Character::Character( const Character& old ) : ICharacter() {
 	*this = old;
@@ -48,15 +50,24 @@ std::string const &	Character::getName( void ) const {
 }
 
 void	Character::equip( AMateria *m ) {
-	if (this->_amount >= 4) {
-		std::cout << "Unable to equip new materia since inventory is full" << std::endl;
+	if (!m)
+		std::cerr << "Materia recieved is NULL\n";
+	else if (this->_amount >= 4) {
+		std::cerr << "Unable to equip new materia since inventory is full" << std::endl;
 		return ;
 	}
 	else {
+//		for ( int i = 0; i < 4; i++ ) {
+//			if (this->_inventory[i]) {
+//				if (this->_inventory[i]->getType() == m->getType())
+//					std::cerr << this->_name << " already has this materia\n";
+//			}
+//		}
 		for ( int i = 0; i < 4; i++ ) {
 			if (!this->_inventory[i]) {
 				std::cout << "Equipped new materia in slot " << i << std::endl;
 				this->_inventory[i] = m;
+				this->_amount++;
 				return ;
 			}
 		}
@@ -73,7 +84,9 @@ void	Character::unequip( int idx ) {
 	}
 	else {
 		std::cout << "Unequipped materia in slot " << idx << std::endl;
+//		delete this->_inventory[idx];
 		this->_inventory[idx] = NULL;
+		this->_amount--;
 	}
 }
 void	Character::use( int idx, ICharacter& target ) {

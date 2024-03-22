@@ -43,6 +43,7 @@ void	MateriaSource::learnMateria( AMateria* mat ) {
 		for ( int i = 0; i < 4; i++ ) {
 			if ( !this->_mats[i] ) {
 				this->_mats[i] = mat->clone();
+				this->_amount++;
 				delete mat;
 				break ;
 			}
@@ -52,7 +53,9 @@ void	MateriaSource::learnMateria( AMateria* mat ) {
 
 AMateria *	MateriaSource::createMateria( std::string const & type ) {
 	for ( int i = 0; i < 4; i++ )
-		if ( this->_mats[i]->getType() == type )
-			return ( this->_mats[i]->clone() );
+		if ( this->_mats[i] && this->_mats[i]->getType() == type )
+			return ( this->_mats[i] );
+	std::cerr << "No materia matching type [" << type << "] was found" \
+	<< std::endl;
 	return 0;
 }
