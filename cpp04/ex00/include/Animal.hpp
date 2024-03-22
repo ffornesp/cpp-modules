@@ -21,7 +21,6 @@ class	Animal {
 		std::string	_type;
 	public:
 		Animal( void );
-		Animal( std::string name );
 		virtual ~Animal( void );
 		Animal( const Animal& old );
 		Animal& operator=( const Animal& );

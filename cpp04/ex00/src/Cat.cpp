@@ -17,10 +17,6 @@ Cat::Cat( void ) {
 	std::cout << "Cat default constructor called" << std::endl;
 	this->_type = "Cat";
 }
-Cat::Cat( std::string name ) {
-	std::cout << "Cat string constructor called" << std::endl;
-	this->_type = name;
-}
 Cat::~Cat( void ) {
 	std::cout << "Cat destructor called" << std::endl;
 }

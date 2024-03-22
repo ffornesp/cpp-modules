@@ -16,9 +16,6 @@
 WrongAnimal::WrongAnimal( void ) : _type("default_type") {
 	std::cout << "WrongAnimal default constructor called" << std::endl;
 }
-WrongAnimal::WrongAnimal( std::string name ) : _type(name) {
-	std::cout << "WrongAnimal string constructor called" << std::endl;
-}
 WrongAnimal::~WrongAnimal( void ) {
 	std::cout << "WrongAnimal destructor called" << std::endl;
 }

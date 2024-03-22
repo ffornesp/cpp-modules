@@ -18,7 +18,6 @@ class	Dog : public Animal {
 	private:
 	public:
 		Dog( void );
-		Dog( std::string name );
 		~Dog( void );
 		Dog( const Dog& old );
 		Dog& operator=( const Dog& old );

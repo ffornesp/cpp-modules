@@ -17,10 +17,6 @@ Dog::Dog( void ) {
 	std::cout << "Dog default constructor called" << std::endl;
 	this->_type = "Dog";
 }
-Dog::Dog( std::string name ) {
-	std::cout << "Dog string constructor called" << std::endl;
-	this->_type = name;
-}
 Dog::~Dog( void ) {
 	std::cout << "Dog destructor called" << std::endl;
 }

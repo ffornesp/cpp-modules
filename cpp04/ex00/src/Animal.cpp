@@ -16,9 +16,6 @@
 Animal::Animal( void ) : _type("default_type") {
 	std::cout << "Animal default constructor called" << std::endl;
 }
-Animal::Animal( std::string name ) : _type(name) {
-	std::cout << "Animal string constructor called" << std::endl;
-}
 Animal::~Animal( void ) {
 	std::cout << "Animal destructor called" << std::endl;
 }

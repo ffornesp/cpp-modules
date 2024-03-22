@@ -27,8 +27,8 @@ OBJS = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 DEP_FILES = $(SRC_FILES:.cpp=.d)
 DEPS = $(addprefix $(OBJ_DIR), $(DEP_FILES))
 
-CC = g++
-CFLAGS = -std=c++98 -Wall -Wextra -Werror -MMD -fsanitize=address
+CC = c++
+CFLAGS = -std=c++98 -Wall -Wextra -Werror -MMD
 RM = rm -f
 INCLUDE = -I include/
 
