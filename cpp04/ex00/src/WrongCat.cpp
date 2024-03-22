@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:43:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/19 09:38:47 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:41:30 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,4 @@ WrongCat&	WrongCat::operator=( const WrongCat& old ) {
 		this->_type = old._type;
 	}
 	return (*this);
-}
-
-void	WrongCat::makeSound( void ) const {
-	std::cout << "Wrong cat noises" << std::endl;
 }

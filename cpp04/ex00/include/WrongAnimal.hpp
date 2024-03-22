@@ -22,10 +22,10 @@ class	WrongAnimal {
 		std::string			_type;
 	public:
 		WrongAnimal( void );
-		virtual ~WrongAnimal( void );
+		~WrongAnimal( void );
 		WrongAnimal( const WrongAnimal& old );
 		WrongAnimal& operator=( const WrongAnimal& );
 
-		virtual void	makeSound( void ) const;
+		void	makeSound( void ) const;
 		std::string		getType( void ) const;
 };
