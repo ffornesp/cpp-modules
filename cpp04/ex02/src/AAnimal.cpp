@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:58:04 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/19 18:30:26 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:44:36 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 AAnimal::AAnimal( void ) : _type("default_type") {
 	std::cout << "AAnimal default constructor called" << std::endl;
-}
-AAnimal::AAnimal( std::string name ) : _type(name) {
-	std::cout << "AAnimal string constructor called" << std::endl;
 }
 AAnimal::~AAnimal( void ) {
 	std::cout << "AAnimal destructor called" << std::endl;
