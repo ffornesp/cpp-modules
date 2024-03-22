@@ -6,14 +6,14 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/22 11:41:44 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:51:26 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MateriaSource.hpp"
 #include <iostream>
 
-MateriaSource::MateriaSource( void ) : _type("default"), _amount(0) {
+MateriaSource::MateriaSource( void ) : _amount(0) {
 	for ( int i = 0; i < 4; i++ )
 		this->_mats[i] = NULL;
 }
@@ -27,9 +27,10 @@ MateriaSource::MateriaSource( const MateriaSource& old ) {
 }
 MateriaSource& MateriaSource::operator=( const MateriaSource& old ) {
 	if (this != &old) {
-		this->_type = old._type;
+		this->_amount = old._amount;
 		for ( int i = 0; i < 4; i++ )
-			this->_mats[i] = old._mats[i]->clone();
+			if (old._mats[i])
+				this->_mats[i] = old._mats[i]->clone();
 	}
 	return (*this);
 }

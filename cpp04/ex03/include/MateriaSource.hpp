@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/21 17:13:21 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/22 14:46:54 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 class	MateriaSource : public IMateriaSource {
 	private:
-		std::string		_type;
 		AMateria*		_mats[4];
 		unsigned int	_amount;
 	public:
