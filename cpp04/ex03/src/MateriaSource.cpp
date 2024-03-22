@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/22 11:19:58 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:41:44 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ MateriaSource::MateriaSource( const MateriaSource& old ) {
 MateriaSource& MateriaSource::operator=( const MateriaSource& old ) {
 	if (this != &old) {
 		this->_type = old._type;
+		for ( int i = 0; i < 4; i++ )
+			this->_mats[i] = old._mats[i]->clone();
 	}
 	return (*this);
 }

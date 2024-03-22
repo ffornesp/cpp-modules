@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:03:07 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/22 11:27:52 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:42:24 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ Character& Character::operator=( const Character& old ) {
 	if (this != &old) {
 		this->_name = old._name;
 		for ( int i = 0; i < 4; i++ )
-			this->_inventory[i] = old._inventory[i];
+			this->_inventory[i] = old._inventory[i]->clone();
 		this->_amount = old._amount;
 	}
 	return (*this);
