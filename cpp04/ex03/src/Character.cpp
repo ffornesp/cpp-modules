@@ -13,6 +13,14 @@
 #include "Character.hpp"
 #include <iostream>
 
+void	Character::deleteInventory( void ) {
+	for ( int i = 0; i < 4; i++ ) {
+		if (this->_inventory[i])
+			delete this->_inventory[i];
+		this->_inventory[i] = NULL;
+	}
+}
+
 Character::Character( void ) {
 	this->_name = "Default_character";
 	for ( int i = 0; i < 4; i++ )
@@ -26,9 +34,7 @@ Character::Character( std::string name ) {
 	this->_amount = 0;
 }
 Character::~Character( void ) {
-	for ( int i = 0; i < 4; i++ )
-		if (this->_inventory[i])
-			delete this->_inventory[i];
+	deleteInventory();
 }
 Character::Character( const Character& old ) : ICharacter() {
 	*this = old;
@@ -36,9 +42,11 @@ Character::Character( const Character& old ) : ICharacter() {
 Character& Character::operator=( const Character& old ) {
 	if (this != &old) {
 		this->_name = old._name;
-		for ( int i = 0; i < 4; i++ )
-			this->_inventory[i] = old._inventory[i]->clone();
 		this->_amount = old._amount;
+		deleteInventory();
+		for ( int i = 0; i < 4; i++ )
+			if (old._inventory[i])
+				this->_inventory[i] = old._inventory[i]->clone();
 	}
 	return (*this);
 }
