@@ -6,28 +6,31 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/03/26 14:18:37 by herz             ###   ########.fr       */
+/*   Updated: 2024/03/26 16:14:52 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Bureaucrat.hpp"
 #include <string>
 
 class	Form {
 	private:
 		const std::string	_name;
 		bool				_sign;
-		const unsigned int	_signGrade;
-		const unsigned int	_executeGrade;
+		const unsigned int	_sGrade;
+		const unsigned int	_eGrade;
 	public:
-		Form( void );
+		Form( std::string name, unsigned int sGrade, unsigned int eGrade );
 		~Form( void );
 		Form( const Form& );
 		Form& operator=( const Form& );
 
 		std::string		getName( void ) const;
 		bool			getSign( void ) const;
-		unsigned int	getSignGrade( void ) const;
-		unsigned int	getExecuteGrade( void ) const;
+		unsigned int	getSGrade( void ) const;
+		unsigned int	getEGrade( void ) const;
+
+		void			beSigned( Bureaucrat b );
 
 	class	GradeTooLowException : public std::exception {
 		public:
@@ -43,3 +46,5 @@ class	Form {
 			}
 	};
 };
+
+std::ostream& operator<<( std::ostream& os, const Form& f );

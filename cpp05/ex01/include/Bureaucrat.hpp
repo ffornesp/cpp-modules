@@ -6,10 +6,11 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:08 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/26 14:06:38 by herz             ###   ########.fr       */
+/*   Updated: 2024/03/26 16:14:27 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Form.hpp"
 #include <string>
 #include <iostream>
 
@@ -30,8 +31,11 @@ class	Bureaucrat {
 		void			increment( void );
 		void			decrement( void );
 
+		void			signForm( Form f );
+
 	class	GradeTooLowException : public std::exception {
 		public:
+
 			virtual const char*	what() const throw() {
 				return ("Grade is too low");
 			}
