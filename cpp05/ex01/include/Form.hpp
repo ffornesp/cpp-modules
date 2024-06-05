@@ -6,12 +6,17 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/03/26 16:14:52 by herz             ###   ########.fr       */
+/*   Updated: 2024/06/05 16:00:13 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
+#pragma once
+
 #include <string>
+#include <iostream>
+
+#include "Bureaucrat.fwd.hpp"
+#include "Bureaucrat.hpp"
 
 class	Form {
 	private:

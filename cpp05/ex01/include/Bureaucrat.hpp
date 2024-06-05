@@ -6,13 +6,17 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:08 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/26 16:14:27 by herz             ###   ########.fr       */
+/*   Updated: 2024/06/05 15:52:18 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Form.hpp"
+#pragma once
+
 #include <string>
 #include <iostream>
+
+#include "Form.fwd.hpp"
+#include "Form.hpp"
 
 class	Bureaucrat {
 	private:
@@ -25,7 +29,7 @@ class	Bureaucrat {
 		Bureaucrat& operator=( const Bureaucrat& );
 
 		std::string		getName( void ) const;
-		unsigned int	getGrade( void ) const;
+		unsigned int		getGrade( void ) const;
 		void			setGrade( unsigned int grade );
 
 		void			increment( void );

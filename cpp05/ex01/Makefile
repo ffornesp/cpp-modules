@@ -6,16 +6,16 @@
 #    By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/03/26 14:11:59 by herz             ###   ########.fr        #
+#    Updated: 2024/06/05 15:01:21 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = executable
 
 SRC_DIR = src/
-SRC_FILES = Bureaucrat.cpp \
-			Form.cpp \
-			main.cpp
+SRC_FILES = 	Bureaucrat.cpp \
+		Form.cpp \
+		main.cpp
 			
 OBJ_DIR = objs/
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
