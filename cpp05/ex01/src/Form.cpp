@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/06/10 12:29:54 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:05:28 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@
 Form::Form( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sGrade(sGrade), _eGrade(eGrade) {
 	this->_sign = false;
 	try	{
-		if ( this->_sGrade < 1 )
+		if ( this->_sGrade < 1 || this->_eGrade < 1 )
 			throw Form::GradeTooHighException();
-		if ( this->_eGrade < 1 )
-			throw Form::GradeTooHighException();
-		if ( this->  _sGrade > 150 )
-			throw Form::GradeTooLowException();
-		if ( this->_eGrade > 150 )
+		else if ( this->  _sGrade > 150 || this->_eGrade > 150 )
 			throw Form::GradeTooLowException();
 	}
 	catch	( Form::GradeTooHighException& e ) {
@@ -71,23 +67,25 @@ unsigned int	Form::getEGrade( void ) const {
 
 void			Form::beSigned( Bureaucrat b ) {
 	try {
-		if ( !this->_sign && b.getGrade() <= getSGrade() ) {
-			this->_sign = true;	
-			signForm(b);
+		if ( this->_sign )
+			signForm( b, true );
+		else if ( !this->_sign && b.getGrade() <= getSGrade() ) {
+			this->_sign = true;
+			signForm( b, false );
 		}
-		else if ( this->_sign )
-			std::cerr << b.getName() << " couldn't sign " << this->getName() << " because it was already signed" << std::endl;
 		else
 			throw Form::GradeTooLowException();
 	}
 	catch	( Form::GradeTooLowException& e ) {
-		signForm( b );
+		signForm( b, true );
 	}
 }
 
-void			Form::signForm( Bureaucrat b ) {
-	if ( this->_sign )
+void			Form::signForm( Bureaucrat b, bool error) {
+	if ( this->_sign && !error )
 		std::cout << b.getName() << " signed " << this->getName() << std::endl;
+	else if ( this->_sign && error )
+		std::cerr << b.getName() << " couldn't sign " << this->getName() << " because it was already signed" << std::endl;
 	else
 		std::cerr << b.getName() << " couldn't sign " << this->getName() << " because grade was not high enough" << std::endl;
 }
