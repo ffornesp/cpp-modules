@@ -6,22 +6,14 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/26 14:10:26 by herz             ###   ########.fr       */
+/*   Updated: 2024/06/10 13:47:37 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat ( std::string name, unsigned int grade ) : _name(name) {
-	try {
-		setGrade( grade );
-	}
-	catch	(Bureaucrat::GradeTooLowException& e) {
-		std::cerr << "Grade can't be lower than 150\n";
-	}
-	catch	(Bureaucrat::GradeTooHighException& e) {
-		std::cerr << "Grade can't be higher than 1\n";
-	}
+	setGrade( grade );
 }
 Bureaucrat::~Bureaucrat ( void ) {
 	
@@ -48,31 +40,29 @@ std::ostream&	operator<<( std::ostream& os, const Bureaucrat& b) {
 }
 
 void	Bureaucrat::setGrade( unsigned int grade ) {
-	if ( grade < 1 ) {
-		this->_grade = 1;
-		throw (GradeTooHighException());
+	try	{
+		if ( grade < 1 ) {
+			this->_grade = 1;
+			throw (Bureaucrat::GradeTooHighException());
+		}
+		else if ( grade > 150 ) {
+			this->_grade = 150;
+			throw (Bureaucrat::GradeTooLowException());
+		}
+		else
+			this->_grade = grade;
 	}
-	else if ( grade > 150 ) {
-		this->_grade = 150;
-		throw (GradeTooLowException());
+	catch	(Bureaucrat::GradeTooHighException& e) {
+		std::cerr << "Bureaucrat grade is too high, defaulted to 1" << std::endl;
 	}
-	else
-		this->_grade = grade;
+	catch	(Bureaucrat::GradeTooLowException& e) {
+		std::cerr << "Bureaucrat grade is too low, defaulted to 150" << std::endl;
+	}
 }
 
 void	Bureaucrat::increment( void ) {
-	try {
-		setGrade( this->_grade - 1 );
-	}
-	catch	(Bureaucrat::GradeTooHighException& e) {
-		std::cerr << "Grade can't be higher than 1\n";
-	}
+	setGrade( this->_grade - 1 );
 }
 void	Bureaucrat::decrement( void ) {
-	try {
-		setGrade( this->_grade + 1 );
-	}
-	catch	(Bureaucrat::GradeTooLowException& e) {
-		std::cerr << "Grade can't be lower than 150\n";
-	}
+	setGrade( this->_grade + 1 );
 }
