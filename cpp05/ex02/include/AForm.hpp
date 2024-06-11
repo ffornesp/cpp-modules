@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/06/10 17:21:51 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:13:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ class	AForm {
 		public:
 			virtual const char*	what() const throw() {
 				return ("Grade is too high");
+			}
+	};
+
+	class	UnsignedFormException : public std::exception {
+		public:
+			virtual const char* what() const throw() {
+				return ("Form is unsigned");
 			}
 	};
 };

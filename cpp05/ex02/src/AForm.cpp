@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/06/10 17:25:41 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:15:13 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,13 @@ void			AForm::execute( Bureaucrat const & executor ) const {
 				throw AForm::GradeTooLowException();
 		}
 		else
-			throw NotSignedFormException();
+			throw AForm::UnsignedFormException();
 	}
 	catch	( AForm::GradeTooLowException& e ) {
 		// TODO
 	}
-	catch	( AForm::NotSignedFormException& e ) {
+	catch	( AForm::UnsignedFormException& e ) {
+		std::cerr << "Form " << this->getName() << " is unsigned and cannot be excecuted" << std::endl;
 		// TODO
 	}
 }

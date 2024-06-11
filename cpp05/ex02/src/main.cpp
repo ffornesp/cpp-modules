@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/10 17:20:16 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:14:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main( void ) {
 	RobotomyRequestForm	r("Perro snaxe");
 	Bureaucrat			b("Feijoo", 1);
 
-	r.beSigned(b);
+//	r.beSigned(b);
 	r.execute(b);
 	std::cout << r << std::endl;
 /*
