@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:55:35 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/10 17:08:09 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:45:24 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,8 @@ PresidentialPardonForm&	PresidentialPardonForm::operator=( const PresidentialPar
 		this->_target = old._target;
 	}
 	return (*this);
+}
+
+void	PresidentialPardonForm::action( void ) const {
+	std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
 }

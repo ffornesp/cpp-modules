@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:58:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/10 17:04:33 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:44:41 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,6 @@ class	PresidentialPardonForm : public AForm {
 		~PresidentialPardonForm( void );
 		PresidentialPardonForm( const PresidentialPardonForm& old );
 		PresidentialPardonForm& operator=( const PresidentialPardonForm& );
+
+		virtual void	action( void ) const ;
 };
