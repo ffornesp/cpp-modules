@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/06/11 13:15:13 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:20:01 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ void			AForm::signForm( Bureaucrat b, bool error) {
 		std::cerr << b.getName() << " couldn't sign " << this->getName() << " because grade was not high enough" << std::endl;
 }
 
-// TODO
 void			AForm::execute( Bureaucrat const & executor ) const {
 	try {
 		if ( this->_sign ) {
 			if ( this->_eGrade >= executor.getGrade() ) {
 				std::cout << "Execute successful" << std::endl;
+				this->action();
 			}
 			else
 				throw AForm::GradeTooLowException();
@@ -104,10 +104,13 @@ void			AForm::execute( Bureaucrat const & executor ) const {
 			throw AForm::UnsignedFormException();
 	}
 	catch	( AForm::GradeTooLowException& e ) {
-		// TODO
+		std::cerr << executor.getName() << "'s grade is not high enough to execute " << this->getName() << std::endl;
 	}
 	catch	( AForm::UnsignedFormException& e ) {
 		std::cerr << "Form " << this->getName() << " is unsigned and cannot be excecuted" << std::endl;
-		// TODO
 	}
+}
+
+void			AForm::action( void ) const {
+	std::cout << "Action function called in AForm" << std::endl;
 }

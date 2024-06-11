@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/06/11 13:13:22 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:19:29 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ class	AForm {
 		void			beSigned( Bureaucrat b );
 		void			signForm( Bureaucrat b, bool flag );
 		void			execute( Bureaucrat const & executor ) const ;
+		virtual void	action( void ) const ;
 
 	class	GradeTooLowException : public std::exception {
 		public:
