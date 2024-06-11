@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:07:02 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/10 16:52:21 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:47:25 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@ class	ShrubberyCreationForm : public AForm {
 		~ShrubberyCreationForm( void );
 		ShrubberyCreationForm( const ShrubberyCreationForm& old );
 		ShrubberyCreationForm& operator=( const ShrubberyCreationForm& );
+	
+		virtual void	action( void ) const ;
 };
