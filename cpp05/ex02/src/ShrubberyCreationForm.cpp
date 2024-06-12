@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:55:46 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/11 16:21:51 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:05:59 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ void	ShrubberyCreationForm::action( void ) const {
 	std::ofstream	outfile;
 
 	outfile.open(filename.c_str());
-	if ( outfile.fail() )
-		std::cerr << "Error trying to open file '" << filename << "'" << std::endl;
+	if ( outfile.fail() ) {
+		throw AForm::UnableToOpenFileException();
+	}
 	else {
 		outfile << "         . . .\n       .        .  .     ..    .\n    .                 .         .  .\n                    .\n                   .                ..\n   .          .            .              .\n   .            '.,        .               .\n   .              'b      *\n    .              '$    #.                ..\n   .    .           $:   #:               .\n ..      .  ..      *#  @):        .   . .\n              .     :@,@):   ,.**:'   .\n  .      .,         :@@*: ..**'      .   .\n           '#o.    .:(@'.@*'  .\n   .  .       'bq,..:,@@*'   ,*      .  .\n              ,p$q8,:@)'  .p*'      .\n       .     '  . '@@Pp@@*'    .  .\n        .  . ..    Y7'.'     .  .\n                  :@):.\n                 .:@:'.\n               .::(@:.      -Sam Blumenstien-" << std::endl;
 		outfile << "         . . .\n       .        .  .     ..    .\n    .                 .         .  .\n                    .\n                   .                ..\n   .          .            .              .\n   .            '.,        .               .\n   .              'b      *\n    .              '$    #.                ..\n   .    .           $:   #:               .\n ..      .  ..      *#  @):        .   . .\n              .     :@,@):   ,.**:'   .\n  .      .,         :@@*: ..**'      .   .\n           '#o.    .:(@'.@*'  .\n   .  .       'bq,..:,@@*'   ,*      .  .\n              ,p$q8,:@)'  .p*'      .\n       .     '  . '@@Pp@@*'    .  .\n        .  . ..    Y7'.'     .  .\n                  :@):.\n                 .:@:'.\n               .::(@:.      -Sam Blumenstien-" << std::endl;

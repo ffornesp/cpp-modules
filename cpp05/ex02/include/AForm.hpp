@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/06/11 15:19:29 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:07:16 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ class	AForm {
 		unsigned int	getEGrade( void ) const;
 
 		void			beSigned( Bureaucrat b );
-		void			signForm( Bureaucrat b, bool flag );
 		void			execute( Bureaucrat const & executor ) const ;
 		virtual void	action( void ) const ;
 
@@ -59,6 +58,13 @@ class	AForm {
 		public:
 			virtual const char* what() const throw() {
 				return ("Form is unsigned");
+			}
+	};
+
+	class	UnableToOpenFileException : public std::exception {
+		public:
+			virtual const char* what() const throw() {
+				return ("Unable to open file");
 			}
 	};
 };

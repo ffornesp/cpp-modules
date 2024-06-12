@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/06/11 15:20:01 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:36:48 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,49 +66,21 @@ unsigned int	AForm::getEGrade( void ) const {
 }
 
 void			AForm::beSigned( Bureaucrat b ) {
-	try {
-		if ( this->_sign )
-			signForm( b, true );
-		else if ( !this->_sign && b.getGrade() <= getSGrade() ) {
-			this->_sign = true;
-			signForm( b, false );
-		}
-		else
-			throw AForm::GradeTooLowException();
-	}
-	catch	( AForm::GradeTooLowException& e ) {
-		signForm( b, true );
-	}
-}
-
-void			AForm::signForm( Bureaucrat b, bool error) {
-	if ( this->_sign && !error )
-		std::cout << b.getName() << " signed " << this->getName() << std::endl;
-	else if ( this->_sign && error )
-		std::cerr << b.getName() << " couldn't sign " << this->getName() << " because it was already signed" << std::endl;
+	if ( b.getGrade() <= this->_sGrade )
+		this->_sign = true;
 	else
-		std::cerr << b.getName() << " couldn't sign " << this->getName() << " because grade was not high enough" << std::endl;
+		throw AForm::GradeTooLowException();
 }
 
 void			AForm::execute( Bureaucrat const & executor ) const {
-	try {
-		if ( this->_sign ) {
-			if ( this->_eGrade >= executor.getGrade() ) {
-				std::cout << "Execute successful" << std::endl;
-				this->action();
-			}
-			else
-				throw AForm::GradeTooLowException();
-		}
+	if ( this->_sign ) {
+		if ( this->_eGrade >= executor.getGrade() )
+			this->action();
 		else
-			throw AForm::UnsignedFormException();
+			throw AForm::GradeTooLowException();
 	}
-	catch	( AForm::GradeTooLowException& e ) {
-		std::cerr << executor.getName() << "'s grade is not high enough to execute " << this->getName() << std::endl;
-	}
-	catch	( AForm::UnsignedFormException& e ) {
-		std::cerr << "Form " << this->getName() << " is unsigned and cannot be excecuted" << std::endl;
-	}
+	else
+		throw AForm::UnsignedFormException();
 }
 
 void			AForm::action( void ) const {

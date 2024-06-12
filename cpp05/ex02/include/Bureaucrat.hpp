@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:08 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/10 14:23:25 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:38:44 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ class	Bureaucrat {
 		void			increment( void );
 		void			decrement( void );
 
-		void			signForm( AForm f );
+		void			signForm( AForm& f ) const ;
+		void			executeForm( AForm const & form ) const ;
 
 	class	GradeTooLowException : public std::exception {
 		public:
