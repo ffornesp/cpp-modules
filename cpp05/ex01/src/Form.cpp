@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/06/10 14:05:28 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/12 12:59:50 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ Form& Form::operator=( const Form& form ) {
 }
 
 std::ostream&	operator<<( std::ostream& os, const Form& f ) {
-	os << "Form name:\t" << f.getName() << std::endl << "Form signed:\t";
+	os << "Form name:\t\t\t" << f.getName() << std::endl << "Form signed:\t\t\t";
 	if ( f.getSign() )
 		os << "Yes" << std::endl;
 	else
@@ -66,26 +66,8 @@ unsigned int	Form::getEGrade( void ) const {
 }
 
 void			Form::beSigned( Bureaucrat b ) {
-	try {
-		if ( this->_sign )
-			signForm( b, true );
-		else if ( !this->_sign && b.getGrade() <= getSGrade() ) {
-			this->_sign = true;
-			signForm( b, false );
-		}
-		else
-			throw Form::GradeTooLowException();
-	}
-	catch	( Form::GradeTooLowException& e ) {
-		signForm( b, true );
-	}
-}
-
-void			Form::signForm( Bureaucrat b, bool error) {
-	if ( this->_sign && !error )
-		std::cout << b.getName() << " signed " << this->getName() << std::endl;
-	else if ( this->_sign && error )
-		std::cerr << b.getName() << " couldn't sign " << this->getName() << " because it was already signed" << std::endl;
+	if ( b.getGrade() <= this->_sGrade )
+		this->_sign = true;
 	else
-		std::cerr << b.getName() << " couldn't sign " << this->getName() << " because grade was not high enough" << std::endl;
+		throw Form::GradeTooLowException();
 }
