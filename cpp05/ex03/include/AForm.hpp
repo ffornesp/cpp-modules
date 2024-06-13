@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/06/12 15:07:16 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:03:47 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class	AForm {
 		const unsigned int	_eGrade;
 	public:
 		AForm( std::string name, unsigned int sGrade, unsigned int eGrade );
-		~AForm( void );
+		virtual ~AForm( void );
 		AForm( const AForm& );
 		AForm& operator=( const AForm& );
 
