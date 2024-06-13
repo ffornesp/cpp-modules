@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/12 12:57:41 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:21:18 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ void	Bureaucrat::signForm( Form& f ) const {
 	if (!f.getSign()) {
 		try {
 			f.beSigned(*this);
-			if (f.getSign())
-				std::cout << this->_name << " signed " << f.getName() << std::endl;
+			std::cout << this->_name << " signed " << f.getName() << std::endl;
 
 		}
 		catch	( Form::GradeTooLowException& e ) {
