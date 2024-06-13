@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:08 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/03/26 14:06:38 by herz             ###   ########.fr       */
+/*   Updated: 2024/06/13 16:17:27 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class	Bureaucrat {
 
 		std::string		getName( void ) const;
 		unsigned int	getGrade( void ) const;
+
 		void			setGrade( unsigned int grade );
 
 		void			increment( void );
