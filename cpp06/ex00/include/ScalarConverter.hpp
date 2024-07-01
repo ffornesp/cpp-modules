@@ -6,13 +6,15 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:30:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/13 16:31:35 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:12:08 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <string>
 
 class	ScalarConverter {
 	private :
 
 	public :
-		
+		static void convert( std::string ) ;		
 };

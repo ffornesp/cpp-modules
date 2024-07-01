@@ -6,13 +6,13 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:31:47 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/13 16:32:36 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:00:19 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 
 int	main( void ) {
-
+	ScalarConverter::convert("16.04f");
 	return ( 0 );
 }
