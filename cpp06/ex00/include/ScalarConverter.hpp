@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:30:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/07/02 14:39:32 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:02:07 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,10 @@ class	ScalarConverter {
 	private :
 
 	public :
+		ScalarConverter( void );
+		~ScalarConverter( void );
+		ScalarConverter( const ScalarConverter& copy );
+		ScalarConverter&	operator=( const ScalarConverter& copy );
+
 		static void convert( std::string ) ;		
 };
