@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:30:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/07/03 13:27:30 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:59:51 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,17 @@
 
 #include <string>
 
-# ifndef INVALID
-#  define INVALID 0
-# endif
-# ifndef STRING_LITERAL
-#  define STRING_LITERAL 1
-# endif
-# ifndef CHAR_LITERAL
-#  define CHAR_LITERAL 2
-# endif
-# ifndef INT_LITERAL
-#  define INT_LITERAL 3
-# endif
-# ifndef FLOAT_LITERAL
-#  define FLOAT_LITERAL 4
-# endif
-# ifndef DOUBLE_LITERAL
-#  define DOUBLE_LITERAL 5
-# endif
+# define INVALID 0
+# define CHAR_LITERAL 1 
+# define INT_LITERAL 2
+# define FLT_LITERAL 3
+# define DBL_LITERAL 4
+# define FLT_PSEUDOL 5
+# define DBL_PSEUDOL 6
+
+# define NAN 0
+# define INF 1
+# define NINF 2
 
 typedef struct	s_info
 {

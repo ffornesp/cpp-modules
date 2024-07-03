@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:00:45 by herz              #+#    #+#             */
-/*   Updated: 2024/07/03 13:46:59 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:43:53 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <climits>	// Limits of int
 #include <cfloat>	// Limits of float and double
 #include <cstdlib>	// Used for exit
+
+#include <limits>
 
 ScalarConverter::ScalarConverter( void ) {}
 
@@ -32,7 +34,7 @@ ScalarConverter&	ScalarConverter::operator=( const ScalarConverter& copy )
 	return ( *this );
 }
 
-// ------------------------------------------------------------------------------- //
+/* ************************************************************************** */
 
 static int	checkInput( std::string str ) {
 	unsigned int	charCount = 0;
@@ -41,16 +43,14 @@ static int	checkInput( std::string str ) {
 
 	if ( str.length() == 1 && !isdigit(str[0]) )
 		return INVALID;
-	if ( str == "-inff" || str == "+inff" || str == "-inf" || str == "+inf" )
-		return STRING_LITERAL;
-	else if ( str == "nan" || str == "true" || str == "false" )
-		return STRING_LITERAL;
-	if ( *str.begin() == '\'' && ( str.length() == 3 || str.length() == 4 )) {
+	if ( str == "-inff" || str == "+inff" || str == "nanf" )
+		return FLT_PSEUDOL;
+	else if ( str == "-inf" || str == "+inf" || str == "nan" )
+		return DBL_PSEUDOL;
+	if ( *str.begin() == '\'' && str.length() == 3 ) {
 		if ( *(--str.end()) != '\'' )
 			return INVALID;
-		else if ( str.length() == 4 && str[1] != '\\' )
-			return INVALID;
-		else
+		else 
 			return CHAR_LITERAL;
 	}
 	for ( std::string::iterator it=str.begin(); it!=str.end(); ++it ) {
@@ -71,11 +71,11 @@ static int	checkInput( std::string str ) {
 			if ( charCount > 1 && ( *it != 'l' && *it != 'L' ))
 				return INVALID;
 			else if ( charCount == 1 && *it == 'f' && *(it + 1) == '\0' )
-				return FLOAT_LITERAL;
+				return FLT_LITERAL;
 		}
 	}
 	if ( dotCount == 1 && charCount == 0 )
-		return DOUBLE_LITERAL;
+		return DBL_LITERAL;
 	return INT_LITERAL;
 }
 
@@ -89,39 +89,69 @@ static void printInfo( t_info *info, std::string str, bool flag ) {
 		l = static_cast< long double >( info->c );
 	
 	std::cout << "Char : ";
-	if ( l > 255 || l < 0 )
+	if ( l < std::numeric_limits< char >::min() || l > std::numeric_limits< char >::max() )
 		std::cout << "impossible" << std::endl;
 	else if ( !isprint(info->c) )
 		std::cout << "Non displayable" << std::endl;
 	else
-		std::cout << info->c << std::endl;
+		std::cout << "\'" << info->c << "\'" << std::endl;
 	
 	std::cout << "Int : ";
-	if ( l > INT_MAX || l < INT_MIN )
+	if ( l < std::numeric_limits< int >::min() || l > std::numeric_limits< int >::max() )
 		std::cout << "impossible" << std::endl;
 	else
 		std::cout << info->i << std::endl;
 	
 	std::cout << "Float : ";
-	if ( l > FLT_MAX || l < FLT_MIN )
+	if ( l < - std::numeric_limits< float >::max() || l > std::numeric_limits< float >::max() )
 		std::cout << "impossible" << std::endl;
 	else
-		std::cout << info->f << "f" << std::endl;
+		std::cout << info->f << ".0f" << std::endl;
 
 	std::cout << "Double : ";
-	if ( l > DBL_MAX || l < DBL_MIN )
+	if ( l < - std::numeric_limits< double >::max() || l > std::numeric_limits< double >::max() )
 		std::cout << "impossible" << std::endl;
 	else
-		std::cout << info->d << std::endl;
+		std::cout << info->d << ".0" << std::endl;
 }
 
-static void stringLiteral( std::string str ) {	// ToDo
-	std::cout << "STRING_LITERAL found : " << str << std::endl;
-}
+static void stringLiteral( std::string str, unsigned int type ) {
+	int		ptype = 0;
+	t_info	info;
 
-// ToDo : Must detect the type of the literal passed as a parameter, convert it
-// from string to it's actual type, then convert it explicitly to the three other
-// data types.
+	std::cout << "Char : impossible" << std::endl;
+	std::cout << "Int : impossible" << std::endl;
+	if ( str == "nan" )
+		ptype = NAN;
+	else if ( str == "+inf" )
+		ptype = INF;
+	else if ( str == "-inf" )
+		ptype = NINF;
+	switch ( type ) {
+		case FLT_PSEUDOL :
+			info.f = std::numeric_limits< float >::infinity();
+			if ( ptype == NINF )
+				info.f *= -1;
+			else if ( ptype == NAN )
+				info.f = std::numeric_limits< float >::signaling_NaN();
+			info.c = static_cast< char >( info.f );
+			info.i = static_cast< int >( info.f );
+			info.d = static_cast< double >( info.f );
+			break ;
+		case DBL_PSEUDOL :
+			info.d = std::numeric_limits< double >::infinity();
+			if ( ptype == NINF )
+				info.d *= -1;
+			else if ( ptype == NAN )
+				info.d = std::numeric_limits< double >::signaling_NaN();
+			info.c = static_cast< char >( info.d );
+			info.i = static_cast< int >( info.d );
+			info.f = static_cast< float >( info.d );		
+			break ;
+	}
+	std::cout << "Float : " << info.f << "f" << std::endl;
+	std::cout << "Double : " << info.d << std::endl;
+}
 
 void ScalarConverter::convert( std::string str ) {
 	unsigned int		input;
@@ -129,25 +159,19 @@ void ScalarConverter::convert( std::string str ) {
 	t_info				info;
 
 	input = checkInput(str);
-	if ( input != INVALID && input != STRING_LITERAL )
+	if ( input != INVALID && input != FLT_PSEUDOL && input != DBL_PSEUDOL )
 		ss << str;
 	switch ( input ) {
 		case INVALID : 
-			std::cerr << "Input is invalid, please run program with one C++ literal" << \
-			"in it\'s most common form." << std::endl;
-			if ( str.length() == 1 )
-				std::cerr << "\tUsage: ./convert \\\'c\\\'" << std::endl;
+			std::cerr << "Input is invalid, please run program with one C++ literal " << \
+			"in it\'s most common form." << std::endl << \
+			"To input chars that include \'\\\' export them as evals." << std::endl \
+			<< "\tUsage: ./convert \\\'c\\\' || export A=\'\\0\' && ./convert $A" \
+			<< std::endl;
 			exit( 1 );
-		case STRING_LITERAL :
-			stringLiteral(str); // TO IMPLEMENT
-			break ;
 		case CHAR_LITERAL :
 			if ( str.length() == 3 )
 				info.c = str[1];
-			else {
-				info.c = str[2];
-				std::cout << "I won't parse this" << std::endl; // ToDo
-			}
 			info.i = static_cast< int >( info.c );
 			info.f = static_cast< float >( info.c );
 			info.d = static_cast< double >( info.c );
@@ -160,19 +184,26 @@ void ScalarConverter::convert( std::string str ) {
 			info.d = static_cast< double >( info.i );
 			printInfo( &info, str, false );
 			break ;
-		case FLOAT_LITERAL :
+		case FLT_LITERAL :
 			ss >> info.f;
 			info.c = static_cast< char >( info.f );
 			info.i = static_cast< int >( info.f );
 			info.d = static_cast< double >( info.f );
 			printInfo( &info, str, false );
 			break ;
-		case DOUBLE_LITERAL :
+		case FLT_PSEUDOL :
+			str.erase( str.end() - 1, str.end() );
+			stringLiteral( str, input );
+			break ;
+		case DBL_LITERAL :
 			ss >> info.d;
 			info.c = static_cast< char >( info.d );
 			info.i = static_cast< int >( info.d );
 			info.f = static_cast< float >( info.d );
 			printInfo( &info, str, false );
+			break ;
+		case DBL_PSEUDOL :
+			stringLiteral( str, input );
 			break ;
 	}
 }
