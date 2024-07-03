@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:00:45 by herz              #+#    #+#             */
-/*   Updated: 2024/07/02 18:16:02 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:46:59 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,6 @@
 #include <climits>	// Limits of int
 #include <cfloat>	// Limits of float and double
 #include <cstdlib>	// Used for exit
-
-
-/* Literals
-
-	char			-	Value between ' '
-
-	Base 10 
-	Base 8			-	Prefix	0
-	Base 16			-	Prefix	0x	||	0X
-	Base 2			-	Sufix	0b	||	0B
-	
-	Long int		-	Sufix	l	||	L
-	Unsigned int	-	Sufix	u	||	U
-	Long long int	-	Sufix	ll	||	LL
-	float			-	Sufix	f
-	Bool			-	true		||	false
-
-
-static void printOutput( std::string type, std::string value ) {
-	std::cout << type << " : " << value << std::endl;
-}
-
-*/
 
 ScalarConverter::ScalarConverter( void ) {}
 
@@ -56,72 +33,6 @@ ScalarConverter&	ScalarConverter::operator=( const ScalarConverter& copy )
 }
 
 // ------------------------------------------------------------------------------- //
-
-static void stringLiteral( std::string str ) {
-	std::cout << "STRING_LITERAL found : " << str << std::endl;
-
-}
-
-static void charLiteral( std::string str ) {
-	std::cout << "CHAR_LITERAL found : " << str << std::endl;
-	char	c;
-
-//	Convert char to string yay
-	if ( str.length() == 3 )
-		c = str[1];
-	else {
-		c = str[2];
-		std::cout << "I won't parse this" << std::endl;
-	}
-	
-	if ( isprint(c) )
-		std::cout << "Char : " << "\'" << c << "\'" << std::endl;
-	else
-		std::cout << "Char : Non displayable" << std::endl;
-	std::cout << "Int : " << static_cast< int >( c ) << std::endl;
-	std::cout << "Float : " << static_cast< float >( c ) << "f" << std::endl;
-	std::cout << "Double : " << static_cast< double >( c ) << std::endl;
-}
-
-static void	intLiteral( std::string str ) {
-	std::cout << "INT_LITERAL found : " << str << std::endl;
-}
-
-static void floatLiteral( std::string str ) {
-	std::cout << "FLOAT_LITERAL found : " << str << std::endl;
-}
-
-static void doubleLiteral( std::string str ) {
-	std::cout << "DOUBLE_LITERAL found : " << str << std::endl;
-}
-
-/*
-static void numberLiteral( long double l ) {
-	char	c;
-	
-	c = static_cast< char >( l );
-	if ( l >= 0 && l <= 255 ) {
-		if ( isprint(c) )
-			std::cout << "Char : " << "\'" << c << "\'" << std::endl;
-		else
-			std::cout << "Char : Non displayable" << std::endl;
-	}
-	else
-		std::cout << "Char : impossible" << std::endl;
-	if ( l < INT_MIN || l > INT_MAX )
-		std::cout << "Int : impossible" << std::endl;
-	else
-		std::cout << "Int : " << static_cast< int >( l ) << std::endl;
-	if ( l < FLT_MIN || l > FLT_MAX )
-		std::cout << "Float : impossible" << std::endl;
-	else
-		std::cout << "Float : " << static_cast< float >( l ) << "f" << std::endl;
-	if ( l < DBL_MIN || l > DBL_MAX )
-		std::cout << "Double : impossible" << std::endl;
-	else
-		std::cout << "Double : " << static_cast< double >( l ) << std::endl;
-}
-*/
 
 static int	checkInput( std::string str ) {
 	unsigned int	charCount = 0;
@@ -168,36 +79,100 @@ static int	checkInput( std::string str ) {
 	return INT_LITERAL;
 }
 
+static void printInfo( t_info *info, std::string str, bool flag ) {
+	std::stringstream	ss;
+	long double			l;
+
+	ss << str;
+	ss >> l;
+	if ( flag )
+		l = static_cast< long double >( info->c );
+	
+	std::cout << "Char : ";
+	if ( l > 255 || l < 0 )
+		std::cout << "impossible" << std::endl;
+	else if ( !isprint(info->c) )
+		std::cout << "Non displayable" << std::endl;
+	else
+		std::cout << info->c << std::endl;
+	
+	std::cout << "Int : ";
+	if ( l > INT_MAX || l < INT_MIN )
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << info->i << std::endl;
+	
+	std::cout << "Float : ";
+	if ( l > FLT_MAX || l < FLT_MIN )
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << info->f << "f" << std::endl;
+
+	std::cout << "Double : ";
+	if ( l > DBL_MAX || l < DBL_MIN )
+		std::cout << "impossible" << std::endl;
+	else
+		std::cout << info->d << std::endl;
+}
+
+static void stringLiteral( std::string str ) {	// ToDo
+	std::cout << "STRING_LITERAL found : " << str << std::endl;
+}
+
 // ToDo : Must detect the type of the literal passed as a parameter, convert it
 // from string to it's actual type, then convert it explicitly to the three other
 // data types.
 
 void ScalarConverter::convert( std::string str ) {
 	unsigned int		input;
-
-	std::cout << "Input received : " << str << std::endl;
+	std::stringstream	ss;
+	t_info				info;
 
 	input = checkInput(str);
+	if ( input != INVALID && input != STRING_LITERAL )
+		ss << str;
 	switch ( input ) {
 		case INVALID : 
-			std::cerr << "Input is invalid, please run program with one C++ literal in it\'s most common form." << std::endl;
+			std::cerr << "Input is invalid, please run program with one C++ literal" << \
+			"in it\'s most common form." << std::endl;
 			if ( str.length() == 1 )
 				std::cerr << "\tUsage: ./convert \\\'c\\\'" << std::endl;
 			exit( 1 );
 		case STRING_LITERAL :
-			stringLiteral(str);
+			stringLiteral(str); // TO IMPLEMENT
 			break ;
 		case CHAR_LITERAL :
-			charLiteral(str);
+			if ( str.length() == 3 )
+				info.c = str[1];
+			else {
+				info.c = str[2];
+				std::cout << "I won't parse this" << std::endl; // ToDo
+			}
+			info.i = static_cast< int >( info.c );
+			info.f = static_cast< float >( info.c );
+			info.d = static_cast< double >( info.c );
+			printInfo( &info, str, true );
 			break ;
 		case INT_LITERAL :
-			intLiteral(str);
+			ss >> info.i;
+			info.c = static_cast< char >( info.i );
+			info.f = static_cast< float >( info.i );
+			info.d = static_cast< double >( info.i );
+			printInfo( &info, str, false );
 			break ;
 		case FLOAT_LITERAL :
-			floatLiteral(str);
+			ss >> info.f;
+			info.c = static_cast< char >( info.f );
+			info.i = static_cast< int >( info.f );
+			info.d = static_cast< double >( info.f );
+			printInfo( &info, str, false );
 			break ;
 		case DOUBLE_LITERAL :
-			doubleLiteral(str);
+			ss >> info.d;
+			info.c = static_cast< char >( info.d );
+			info.i = static_cast< int >( info.d );
+			info.f = static_cast< float >( info.d );
+			printInfo( &info, str, false );
 			break ;
 	}
 }

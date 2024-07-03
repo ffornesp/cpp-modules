@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:30:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/07/02 18:13:52 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:27:30 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@
 # ifndef DOUBLE_LITERAL
 #  define DOUBLE_LITERAL 5
 # endif
+
+typedef struct	s_info
+{
+	char	c;
+	int		i;
+	float	f;
+	double	d;
+}	t_info;
 
 class	ScalarConverter {
 	private :
