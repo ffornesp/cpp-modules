@@ -6,17 +6,14 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:00:45 by herz              #+#    #+#             */
-/*   Updated: 2024/07/03 16:43:53 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:53:59 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 #include <iostream>	// Input output
 #include <sstream>	// Stringstream used to process string
-#include <climits>	// Limits of int
-#include <cfloat>	// Limits of float and double
 #include <cstdlib>	// Used for exit
-
 #include <limits>
 
 ScalarConverter::ScalarConverter( void ) {}
@@ -67,6 +64,8 @@ static int	checkInput( std::string str ) {
 		else {
 			if ( *it != 'l' && *it != 'L' && *it != 'u' && *it != 'U' && *it != 'f' )
 				return INVALID;
+			else if ( *(it + 1) )
+				return INVALID;
 			charCount++;
 			if ( charCount > 1 && ( *it != 'l' && *it != 'L' ))
 				return INVALID;
@@ -105,12 +104,16 @@ static void printInfo( t_info *info, std::string str, bool flag ) {
 	std::cout << "Float : ";
 	if ( l < - std::numeric_limits< float >::max() || l > std::numeric_limits< float >::max() )
 		std::cout << "impossible" << std::endl;
+	else if ( info->f - static_cast< int >( info->f ) != 0 )
+		std::cout << info->f << "f" << std::endl;
 	else
 		std::cout << info->f << ".0f" << std::endl;
 
 	std::cout << "Double : ";
 	if ( l < - std::numeric_limits< double >::max() || l > std::numeric_limits< double >::max() )
 		std::cout << "impossible" << std::endl;
+	else if ( info->d - static_cast< int >( info->d ) != 0 )
+		std::cout << info->d << std::endl;
 	else
 		std::cout << info->d << ".0" << std::endl;
 }
@@ -159,8 +162,7 @@ void ScalarConverter::convert( std::string str ) {
 	t_info				info;
 
 	input = checkInput(str);
-	if ( input != INVALID && input != FLT_PSEUDOL && input != DBL_PSEUDOL )
-		ss << str;
+	ss << str;
 	switch ( input ) {
 		case INVALID : 
 			std::cerr << "Input is invalid, please run program with one C++ literal " << \
