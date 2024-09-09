@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:00:45 by herz              #+#    #+#             */
-/*   Updated: 2024/07/03 16:53:59 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:14:20 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ ScalarConverter&	ScalarConverter::operator=( const ScalarConverter& copy )
 	( void )copy;
 	return ( *this );
 }
-
-/* ************************************************************************** */
 
 static int	checkInput( std::string str ) {
 	unsigned int	charCount = 0;
