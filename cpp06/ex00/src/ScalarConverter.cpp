@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:00:45 by herz              #+#    #+#             */
-/*   Updated: 2024/09/09 11:14:20 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:42:11 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <sstream>	// Stringstream used to process string
 #include <cstdlib>	// Used for exit
 #include <limits>
+
+// Hacerlo con templates o strtod
 
 ScalarConverter::ScalarConverter( void ) {}
 
