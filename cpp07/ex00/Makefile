@@ -6,15 +6,14 @@
 #    By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/06/13 16:29:54 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/10/08 15:08:34 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = convert
+NAME = executable
 
 SRC_DIR = src/
-SRC_FILES = ScalarConverter.cpp \
-			main.cpp
+SRC_FILES = main.cpp
 			
 OBJ_DIR = objs/
 OBJ_FILES = $(SRC_FILES:.cpp=.o)

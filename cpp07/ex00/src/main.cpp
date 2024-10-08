@@ -6,11 +6,12 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:49:48 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/08 13:02:47 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:04:07 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include "whatever.hpp"
 
 int	main( void ) {
 	int	a = 2;
@@ -22,7 +23,7 @@ int	main( void ) {
 	std::cout << "max( a, b ) = " << ::max( a, b ) << std::endl;
 
 	std::string c = "chaine1";
-	std::strinc d = "chaine2";
+	std::string d = "chaine2";
 
 	::swap( c, d );
 	std::cout << "c = " << c << ", d = " << d << std::endl;
