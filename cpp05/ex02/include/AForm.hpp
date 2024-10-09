@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/10/09 17:11:08 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:47:33 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,28 @@ class	AForm {
 	class	GradeTooLowException : public std::exception {
 		public:
 			virtual const char*	what() const throw() {
-				return ("Grade is too low");
+				return ("grade is too low");
 			}
 	};
 
 	class	GradeTooHighException : public std::exception {
 		public:
 			virtual const char*	what() const throw() {
-				return ("Grade is too high");
+				return ("grade is too high");
+			}
+	};
+
+	class	AlreadySignedException : public std::exception {
+		public:
+			virtual const char* what() const throw() {
+				return ("form is already signed");
 			}
 	};
 
 	class	UnsignedFormException : public std::exception {
 		public:
 			virtual const char* what() const throw() {
-				return ("Form is unsigned");
+				return ("form is not signed");
 			}
 	};
 
