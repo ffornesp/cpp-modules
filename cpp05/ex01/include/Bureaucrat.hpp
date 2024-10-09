@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:15:08 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/12 12:52:59 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:10:43 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ class	Bureaucrat {
 		const std::string	_name;
 		unsigned int		_grade;
 	public:
+		Bureaucrat( void );
 		Bureaucrat( std::string name, unsigned int grade );
 		~Bureaucrat( void );
 		Bureaucrat( const Bureaucrat& );

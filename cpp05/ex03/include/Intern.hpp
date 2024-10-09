@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:48:13 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/13 15:56:23 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:16:43 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ class	Intern {
 	private:
 		
 	public:
-		Intern( );
-		~Intern( );
+		Intern( void );
+		~Intern( void );
 		Intern( const Intern& );
 		Intern& operator=( const Intern& );
 	

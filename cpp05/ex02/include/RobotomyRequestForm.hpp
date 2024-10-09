@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:04:42 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/11 15:11:09 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:13:07 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ class	RobotomyRequestForm : public AForm {
 	private:
 		std::string	_target;
 	public:
+		RobotomyRequestForm( void );
 		RobotomyRequestForm( std::string target );
 		~RobotomyRequestForm( void );
 		RobotomyRequestForm( const RobotomyRequestForm& old );

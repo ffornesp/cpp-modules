@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:55:40 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/11 15:42:12 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:43:55 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 #include <iostream>
 #include <unistd.h>
 
+RobotomyRequestForm::RobotomyRequestForm( void ) : _target( "default" ) {
+
+}
 RobotomyRequestForm::RobotomyRequestForm( std::string target ) : AForm("RobotomyRequestForm", 72, 45), _target(target) {
 
 }

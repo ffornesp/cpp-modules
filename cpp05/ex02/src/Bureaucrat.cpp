@@ -6,12 +6,15 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/12 15:12:04 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:35:02 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
+Bureaucrat::Bureaucrat ( void ) : _name( "default" ), _grade( 150 ) {
+	
+}
 Bureaucrat::Bureaucrat ( std::string name, unsigned int grade ) : _name(name) {
 	setGrade( grade );
 }

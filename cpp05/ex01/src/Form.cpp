@@ -6,13 +6,16 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/06/12 12:59:50 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:37:56 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.fwd.hpp"
 #include "Form.hpp"
 
+Form::Form( void ) : _name( "default" ), _sign( false ), _sGrade( 150 ), _eGrade( 150 ) {
+
+}
 Form::Form( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sGrade(sGrade), _eGrade(eGrade) {
 	this->_sign = false;
 	try	{

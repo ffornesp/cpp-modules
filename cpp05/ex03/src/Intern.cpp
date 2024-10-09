@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:48:21 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/06/13 16:02:05 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:45:10 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 #include <string>
 #include <iostream>
 
-Intern::Intern( ) {
+Intern::Intern( void ) {
 	
 }
-Intern::~Intern( ) {
+Intern::~Intern( void ) {
 
 }
 Intern::Intern( const Intern& old ) {

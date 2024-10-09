@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/06/12 12:46:31 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:10:55 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class	Form {
 		const unsigned int	_sGrade;
 		const unsigned int	_eGrade;
 	public:
+		Form( void );
 		Form( std::string name, unsigned int sGrade, unsigned int eGrade );
 		~Form( void );
 		Form( const Form& );
