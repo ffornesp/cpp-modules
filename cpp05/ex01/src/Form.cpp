@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/10/10 16:03:38 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:53:58 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,41 @@ Form::AlreadySignedException::AlreadySignedException( const std::string& msg ) :
 
 Form::Form( void ) : _name( "default" ), _sign( false ), _sGrade( 150 ), _eGrade( 150 ) {}
 
-Form::Form( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sGrade(sGrade), _eGrade(eGrade) {
-	this->_sign = false;
-	try	{
-		if ( this->_sGrade < 1 || this->_eGrade < 1 )
-			throw Form::GradeTooHighException( this->getName() + " required " );
-		else if ( this->  _sGrade > 150 || this->_eGrade > 150 )
-			throw Form::GradeTooLowException( this->getName() + " required " );
+Form::Form( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sign(false), _sGrade(sGrade), _eGrade(eGrade) {
+	unsigned int	nsGrade = 0;
+	unsigned int	neGrade = 0;
+
+	try {
+		if ( sGrade < 1 ) {
+			nsGrade = 1;
+			throw Form::GradeTooHighException( "[" + this->getName() + "] required sign " );
+		}
+		else if ( sGrade > 150 ) {
+			nsGrade = 150;
+			throw Form::GradeTooLowException( "[" + this->getName() + "] required sign " );
+		}
 	}
-	catch	( Form::GradeTooHighException& e ) {
+	catch ( Form::GradeTooHighException& e ) {
 		std::cerr << e.what();
 	}
-	catch	( Form::GradeTooLowException& e ) {
+	catch ( Form::GradeTooLowException& e ) {
 		std::cerr << e.what();
+	}
+	try {
+		if ( eGrade < 1 ) {
+			neGrade = 1;
+			throw Form::GradeTooHighException( "[" + this->getName() + "] required execute " );
+		}
+		else if ( eGrade > 150 ) {
+			neGrade = 150;
+			throw Form::GradeTooLowException( "[" + this->getName() + "] required execute " );
+		}
+	}
+	catch ( Form::GradeTooHighException& e ) {
+		std::cerr << e.what() << std::endl;
+	}
+	catch ( Form::GradeTooLowException& e ) {
+		std::cerr << e.what() << std::endl;
 	}
 }
 
