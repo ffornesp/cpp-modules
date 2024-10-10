@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/10 18:12:22 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:14:45 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int	main( void ) {
 	std::cout << "Creating a bureaucrat using it's default constructor:\n";
-
 	Bureaucrat	d;
 	std::cout << "\n\t" << d << std::endl;
 
