@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:48:21 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/09 17:45:10 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:47:21 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,14 @@
 #include <string>
 #include <iostream>
 
-Intern::Intern( void ) {
-	
-}
-Intern::~Intern( void ) {
+Intern::Intern( void ) {}
 
-}
+Intern::~Intern( void ) {}
+
 Intern::Intern( const Intern& old ) {
 	*this = old;
 }
+
 Intern& Intern::operator=( const Intern& ) {
 	return (*this);	
 }

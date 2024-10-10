@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/10/09 17:16:10 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:39:34 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,29 @@ class	AForm {
 		void			execute( Bureaucrat const & executor ) const ;
 		virtual void	action( void ) const ;
 
-	class	GradeTooLowException : public std::exception {
+	class	GradeTooLowException : public std::range_error {
 		public:
-			virtual const char*	what() const throw() {
-				return ("Grade is too low");
-			}
+			GradeTooLowException( const std::string &msg );
 	};
 
-	class	GradeTooHighException : public std::exception {
+	class	GradeTooHighException : public std::range_error {
 		public:
-			virtual const char*	what() const throw() {
-				return ("Grade is too high");
-			}
+			GradeTooHighException( const std::string &msg );
 	};
 
-	class	UnsignedFormException : public std::exception {
+	class	AlreadySignedException : public std::logic_error {
 		public:
-			virtual const char* what() const throw() {
-				return ("Form is unsigned");
-			}
+			AlreadySignedException( const std::string &msg );
 	};
 
-	class	UnableToOpenFileException : public std::exception {
+	class	UnsignedFormException : public std::logic_error {
 		public:
-			virtual const char* what() const throw() {
-				return ("Unable to open file");
-			}
+			UnsignedFormException( const std::string &msg );
+	};
+	
+	class	UnableToOpenFileException : public std::logic_error {
+		public:
+			UnableToOpenFileException( const std::string &msg );
 	};
 };
 

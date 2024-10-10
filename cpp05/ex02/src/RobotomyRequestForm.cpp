@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:55:40 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/09 17:43:45 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:45:11 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,11 @@
 #include <iostream>
 #include <unistd.h>
 
-RobotomyRequestForm::RobotomyRequestForm( void ) : _target( "default" ) {
+RobotomyRequestForm::RobotomyRequestForm( void ) : _target( "default" ) {}
 
-}
-RobotomyRequestForm::RobotomyRequestForm( std::string target ) : AForm("RobotomyRequestForm", 72, 45), _target(target) {
+RobotomyRequestForm::RobotomyRequestForm( std::string target ) : AForm("RobotomyRequestForm", 72, 45), _target(target) {}
 
-}
-
-RobotomyRequestForm::~RobotomyRequestForm( void ) {
-
-}
+RobotomyRequestForm::~RobotomyRequestForm( void ) {}
 
 RobotomyRequestForm::RobotomyRequestForm( const RobotomyRequestForm& old ) : AForm("RobotomyRequestForm", 72, 45) {
 	*this = old;
@@ -37,6 +32,10 @@ RobotomyRequestForm& RobotomyRequestForm::operator=( const RobotomyRequestForm& 
 		this->_target = old._target;
 	}
 	return (*this);
+}
+
+std::string	RobotomyRequestForm::getTarget( void ) const {
+	return ( this->_target );
 }
 
 void	RobotomyRequestForm::action( void ) const {

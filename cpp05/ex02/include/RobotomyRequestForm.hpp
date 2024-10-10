@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:04:42 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/09 17:13:07 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:11:13 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ class	RobotomyRequestForm : public AForm {
 		RobotomyRequestForm( const RobotomyRequestForm& old );
 		RobotomyRequestForm& operator=( const RobotomyRequestForm& );
 
+		std::string getTarget( void ) const ;
+		
 		virtual void	action( void ) const ;
 };
