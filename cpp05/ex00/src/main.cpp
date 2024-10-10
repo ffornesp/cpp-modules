@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/10 15:32:54 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:12:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 #include <iostream>
 
 int	main( void ) {
+	std::cout << "Creating a bureaucrat using it's default constructor:\n";
 
-	Bureaucrat	b("Test_1", 149);
-	Bureaucrat	n("Test_2", 2);
-	Bureaucrat	f("Test_3", 0);
-	Bureaucrat	d("Test_4", 151);
+	Bureaucrat	d;
+	std::cout << "\n\t" << d << std::endl;
 
-	std::cout << b << std::endl;
-	b.decrement();
-	std::cout << b << std::endl;
-	b.decrement();
-	std::cout << n << std::endl;
-	n.increment();
-	std::cout << n << std::endl;
-	n.increment();
-	std::cout << "FINAL:\n\t" << b << "\n\t" << n << "\n\t" << f << "\n\t" << d << std::endl;
+	std::cout << "\nCreating a bureaucrat with correct arguments:\n";
+	Bureaucrat	c("Joseph", 42);
+	std::cout << "\n\t" << c << std::endl;
+
+	std::cout << "\nCreating a bureaucrat with a grade too high:\n";
+	Bureaucrat	g1("Phillip", 0);
+	std::cout << "\t" << g1 << std::endl;
+
+	std::cout << "\nCreating a bureaucrat with a grade too low:\n";
+	Bureaucrat	g2("Anuel", 151);
+	std::cout << "\t" << g2 << std::endl;
 	return 0;
 }
