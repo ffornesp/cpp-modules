@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/10 18:06:58 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:16:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	Bureaucrat::setGrade( unsigned int grade ) {
 	try	{
 		if ( grade < 1 ) {
 			this->_grade = 1;
-			throw (Bureaucrat::GradeTooHighException( this->getName() ));
+			throw (Bureaucrat::GradeTooHighException( "[" + this->getName() + "]" ));
 		}
 		else if ( grade > 150 ) {
 			this->_grade = 150;
-			throw (Bureaucrat::GradeTooLowException( this->getName() ));
+			throw (Bureaucrat::GradeTooLowException( "[" + this->getName() + "]" ));
 		}
 		else
 			this->_grade = grade;
