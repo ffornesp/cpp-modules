@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/10/10 17:43:04 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/14 22:08:11 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ AForm::UnableToOpenFileException::UnableToOpenFileException( const std::string& 
 
 AForm::AForm( void ) : _name( "default" ), _sign( false ), _sGrade( 150 ), _eGrade( 150 ) {}
 
-AForm::AForm( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sGrade(sGrade), _eGrade(eGrade) {
+AForm::AForm( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sign( false ), _sGrade(sGrade), _eGrade(eGrade) {
 	this->_sign = false;
 	try	{
 		if ( this->_sGrade < 1 || this->_eGrade < 1 )

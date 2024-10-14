@@ -6,34 +6,27 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/10/10 18:53:58 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/14 22:02:43 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.fwd.hpp"
 #include "Form.hpp"
 
-Form::GradeTooLowException::GradeTooLowException( const std::string& msg ) : std::range_error( msg + " grade is too low\n" ) {}
+Form::GradeTooLowException::GradeTooLowException( const std::string& msg ) : std::range_error( msg + "grade is too low\n" ) {}
 
-Form::GradeTooHighException::GradeTooHighException( const std::string& msg ) : std::range_error( msg + " grade is too high\n" ) {}
+Form::GradeTooHighException::GradeTooHighException( const std::string& msg ) : std::range_error( msg + "grade is too high\n" ) {}
 
 Form::AlreadySignedException::AlreadySignedException( const std::string& msg ) : std::logic_error( msg + " is already signed\n" ) {}
 
 Form::Form( void ) : _name( "default" ), _sign( false ), _sGrade( 150 ), _eGrade( 150 ) {}
 
 Form::Form( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sign(false), _sGrade(sGrade), _eGrade(eGrade) {
-	unsigned int	nsGrade = 0;
-	unsigned int	neGrade = 0;
-
 	try {
-		if ( sGrade < 1 ) {
-			nsGrade = 1;
+		if ( sGrade < 1 )
 			throw Form::GradeTooHighException( "[" + this->getName() + "] required sign " );
-		}
-		else if ( sGrade > 150 ) {
-			nsGrade = 150;
+		else if ( sGrade > 150 )
 			throw Form::GradeTooLowException( "[" + this->getName() + "] required sign " );
-		}
 	}
 	catch ( Form::GradeTooHighException& e ) {
 		std::cerr << e.what();
@@ -42,14 +35,10 @@ Form::Form( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name
 		std::cerr << e.what();
 	}
 	try {
-		if ( eGrade < 1 ) {
-			neGrade = 1;
+		if ( eGrade < 1 )
 			throw Form::GradeTooHighException( "[" + this->getName() + "] required execute " );
-		}
-		else if ( eGrade > 150 ) {
-			neGrade = 150;
+		else if ( eGrade > 150 )
 			throw Form::GradeTooLowException( "[" + this->getName() + "] required execute " );
-		}
 	}
 	catch ( Form::GradeTooHighException& e ) {
 		std::cerr << e.what() << std::endl;

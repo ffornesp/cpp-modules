@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/10 18:24:11 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/14 21:53:56 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,19 @@ int	main( void ) {
 	Form		f1("TIG Form", 21, 42);
 	std::cout << f1 << std::endl;
 
+	// If the creation throws an exception is catched by the constructor itself
+	//which prevents the main from catching the exception thus the form is created
+	//anyway with the wrong parameters.
 	std::cout << "Creating a form with a grade too high:\n";
 	Form		f2("1to1 Form", 0, 151);
 	std::cout << f2 << std::endl;
 
+	std::cout << "Signing first form:\n";
+	b0.signForm(f0);
+	std::cout << f0 << std::endl;
+
+	std::cout << "Attempting to sign a form but failing:\n";
+	b0.signForm(f1);
+	std::cout << f1 << std::endl;
 	return 0;
 }

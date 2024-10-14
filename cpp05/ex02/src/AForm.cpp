@@ -6,16 +6,16 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/10/10 16:59:49 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/14 22:07:47 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AForm.fwd.hpp"
 #include "AForm.hpp"
 
-AForm::GradeTooLowException::GradeTooLowException( const std::string& msg ) : std::range_error( msg + " grade is too low\n" ) {}
+AForm::GradeTooLowException::GradeTooLowException( const std::string& msg ) : std::range_error( msg + "grade is too low\n" ) {}
 
-AForm::GradeTooHighException::GradeTooHighException( const std::string& msg ) : std::range_error( msg + " grade is too high\n" ) {}
+AForm::GradeTooHighException::GradeTooHighException( const std::string& msg ) : std::range_error( msg + "grade is too high\n" ) {}
 
 AForm::AlreadySignedException::AlreadySignedException( const std::string& msg ) : std::logic_error( msg + " is already signed\n" ) {}
 
@@ -25,19 +25,30 @@ AForm::UnableToOpenFileException::UnableToOpenFileException( const std::string& 
 
 AForm::AForm( void ) : _name( "default" ), _sign( false ), _sGrade( 150 ), _eGrade( 150 ) {}
 
-AForm::AForm( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sGrade(sGrade), _eGrade(eGrade) {
-	this->_sign = false;
-	try	{
-		if ( this->_sGrade < 1 || this->_eGrade < 1 )
-			throw AForm::GradeTooHighException( this->getName() + " required " );
-		else if ( this->  _sGrade > 150 || this->_eGrade > 150 )
-			throw AForm::GradeTooLowException( this->getName() + " required " );
+AForm::AForm( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sign( false ), _sGrade(sGrade), _eGrade(eGrade) {
+	try {
+		if ( sGrade < 1 )
+			throw AForm::GradeTooHighException( "[" + this->getName() + "] required sign " );
+		else if ( sGrade > 150 )
+			throw AForm::GradeTooLowException( "[" + this->getName() + "] required sign " );
 	}
-	catch	( AForm::GradeTooHighException& e ) {
+	catch ( AForm::GradeTooHighException& e ) {
 		std::cerr << e.what();
 	}
-	catch	( AForm::GradeTooLowException& e ) {
+	catch ( AForm::GradeTooLowException& e ) {
 		std::cerr << e.what();
+	}
+	try {
+		if ( eGrade < 1 )
+			throw AForm::GradeTooHighException( "[" + this->getName() + "] required execute " );
+		else if ( eGrade > 150 )
+			throw AForm::GradeTooLowException( "[" + this->getName() + "] required execute " );
+	}
+	catch ( AForm::GradeTooHighException& e ) {
+		std::cerr << e.what() << std::endl;
+	}
+	catch ( AForm::GradeTooLowException& e ) {
+		std::cerr << e.what() << std::endl;
 	}
 }
 
@@ -84,7 +95,7 @@ void			AForm::beSigned( Bureaucrat b ) {
 			throw Bureaucrat::GradeTooLowException( b.getName() );
 	}
 	catch ( Bureaucrat::GradeTooLowException& e ) {
-		std::cerr << b.getName() + "couldn't sign [" + this->getName() + "] because " + e.what();
+		std::cerr << "[" + b.getName() + "] couldn't sign [" + this->getName() + "] because " + e.what();
 	}
 }
 
@@ -93,10 +104,10 @@ void			AForm::execute( Bureaucrat const & executor ) const {
 		if ( this->_eGrade >= executor.getGrade() )
 			this->action();
 		else
-			throw AForm::GradeTooLowException( executor.getName() + " can't sign because it" );
+			throw AForm::GradeTooLowException( "[" + executor.getName() + "] can't sign because it" );
 	}
 	else
-		throw AForm::UnsignedFormException( this->getName() + " can't be executed because it " );
+		throw AForm::UnsignedFormException( "[" + this->getName() + "] can't be executed because it " );
 }
 
 void			AForm::action( void ) const {
