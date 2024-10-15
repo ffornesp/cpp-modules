@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/15 12:59:56 by herz             ###   ########.fr       */
+/*   Updated: 2024/10/15 16:04:15 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <iostream>
 
 int	main( void ) {
+
+// BUREAUCRAT creation tests
+
 	std::cout << "Creating a bureaucrat using it's default constructor:\n";
 	Bureaucrat	b0;
 	std::cout << "\n\t" << b0 << std::endl;
@@ -33,6 +36,8 @@ int	main( void ) {
 	std::cout << "\nCreating a bureaucrat with a grade too low:\n";
 	Bureaucrat	b3("Anuel", 151);
 	std::cout << "\t" << b3 << std::endl;
+
+// BUREAUCRAT increment/decrement tests
 
 	std::cout << "\nIncrementing the grade of a bureaucrat:\n";
 	b1.increment();
@@ -50,39 +55,14 @@ int	main( void ) {
 	b3.decrement();
 	std::cout << "\t" << b3 << std::endl;
 
-	std::cout << "\nCreating a form using it's default constructor:\n\n";
-	AForm		f0;
-	std::cout << f0 << std::endl;
-	
-	std::cout << "Creating a form with correct arguments:\n\n";
-	AForm		f1("TIG Form", 21, 42);
-	std::cout << f1 << std::endl;
+// FORM creation tests
 
-	// If the creation throws an exception is catched by the constructor itself
-	//which prevents the main from catching the exception thus the form is created
-	//anyway with the wrong parameters.
-	std::cout << "Creating a form with a grade too high:\n";
-	AForm		f2("1to1 Form", 0, 151);
-	std::cout << f2 << std::endl;
-
-	std::cout << "Signing first form:\n";
-	b0.signForm(f0);
-	std::cout << f0 << std::endl;
-
-	std::cout << "Attempting to sign a form but failing because of the grade:\n";
-	b0.signForm(f1);
-	std::cout << f1 << std::endl;
-
-	std::cout << "Attempting to sign a form but failing because it's already signed\n";
-	b0.signForm(f0);
-	std::cout << f0 << std::endl;
-
-	std::cout << "Creating a default ShrubberyCreationForm\n";
+	std::cout << "\nCreating a default ShrubberyCreationForm\n";
 	ShrubberyCreationForm	s0;
 	std::cout << s0 << std::endl;
 
 	std::cout << "Creating a proper ShrubberyCreationForm\n";
-	ShrubberyCreationForm	s1("ShrubberyCreationForm");
+	ShrubberyCreationForm	s1("Target_1");
 	std::cout << s1 << std::endl;
 
 	std::cout << "Creating a default RobotomyRequestForm\n";
@@ -90,7 +70,7 @@ int	main( void ) {
 	std::cout << r0 << std::endl;
 
 	std::cout << "Creating a proper RobotomyRequestForm\n";
-	RobotomyRequestForm	r1("RobotomyRequestForm");
+	RobotomyRequestForm	r1("Target_2");
 	std::cout << r1 << std::endl;
 
 	std::cout << "Creating a default PresidentialPardonForm\n";
@@ -98,11 +78,89 @@ int	main( void ) {
 	std::cout << p0 << std::endl;
 
 	std::cout << "Creating a proper PresidentialPardonForm\n";
-	PresidentialPardonForm	p1("PresidentialPardonForm");
+	PresidentialPardonForm	p1("Target_3");
 	std::cout << p1 << std::endl;
 
-	// Test execution of forms
-	std::cout << "Executing ShrubberyCreationForm:\n";
-	b1.executeForm(s1);
+// FORM sign ERROR - grade too low
+
+	std::cout << "Attempting to sign the forms with a grade too low:\n\n";
+
+	b3.signForm(s0);
+	b3.signForm(s1);
+	b3.signForm(r0);
+	b3.signForm(r1);
+	b3.signForm(p0);
+	b3.signForm(p1);
+
+	std::cout << std::endl;
+
+// FORM execution ERROR - unsigned forms
+
+	std::cout << "Attempting to execute the forms without signing\n\n";
+
+	b2.executeForm(s0);
+	b2.executeForm(s1);
+	b2.executeForm(r0);
+	b2.executeForm(r1);
+	b2.executeForm(p0);
+	b2.executeForm(p1);
+
+	std::cout << std::endl;
+
+// FORMS signed properly
+
+	std::cout << "Attempting to sign the forms properly:\n\n";
+
+	b2.signForm(s0);
+	b2.signForm(s1);
+	b2.signForm(r0);
+	b2.signForm(r1);
+	b2.signForm(p0);
+	b2.signForm(p1);
+
+	std::cout << std::endl;
+
+// FORM sign ERROR - already signed
+
+	std::cout << "Attempting to sign the forms already signed:\n\n";
+
+	b2.signForm(s0);
+	b2.signForm(s1);
+	b2.signForm(r0);
+	b2.signForm(r1);
+	b2.signForm(p0);
+	b2.signForm(p1);
+
+	std::cout << std::endl;
+
+// FORM execution tests
+
+	std::cout << "Attempting to execute the forms with a grade too low:\n\n";
+
+	b3.executeForm(s0);
+	b3.executeForm(s1);
+	b3.executeForm(r0);
+	b3.executeForm(r1);
+	b3.executeForm(p0);
+	b3.executeForm(p1);
+
+	std::cout << std::endl;
+
+	std::cout << "Executing forms properly\n\n";
+
+	b2.executeForm(s0);
+	std::cout << std::endl;
+	b2.executeForm(s1);
+	std::cout << std::endl;
+	b2.executeForm(r0);
+	std::cout << std::endl;
+	b2.executeForm(r1);
+	std::cout << std::endl;
+	b2.executeForm(p0);
+	std::cout << std::endl;
+	b2.executeForm(p1);
+
+	std::cout << std::endl;
+	
 	return 0;
 }
