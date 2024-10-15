@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/10/15 15:58:54 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:24:52 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ AForm::AlreadySignedException::AlreadySignedException( const std::string& msg ) 
 
 AForm::UnsignedFormException::UnsignedFormException( const std::string& msg ) : std::logic_error( msg + " not signed yet\n" ) {}
 
-AForm::UnableToOpenFileException::UnableToOpenFileException( const std::string& msg ) : std::logic_error( msg + " execution error. Unable to open the output file\n" ) {}
+AForm::UnableToOpenFileException::UnableToOpenFileException( const std::string& msg ) : std::logic_error( "[" + msg + "] execution error. Unable to open the output file\n" ) {}
 
 AForm::AForm( void ) : _name( "default" ), _sign( false ), _sGrade( 150 ), _eGrade( 150 ) {}
 
@@ -81,7 +81,7 @@ void			AForm::beSigned( Bureaucrat b ) {
 			throw Bureaucrat::GradeTooLowException( b.getName() );
 	}
 	catch ( Bureaucrat::GradeTooLowException& e ) {
-		std::cerr << "[" + b.getName() + "] couldn't sign [" + this->getName() + "] because " + e.what();
+		std::cerr << RED << "[" + b.getName() + "] couldn't sign [" + this->getName() + "] because " + e.what() << RESET;
 	}
 }
 

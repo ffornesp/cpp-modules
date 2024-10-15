@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/10/15 15:07:42 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:22:39 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 
 #include "Bureaucrat.fwd.hpp"
 #include "Bureaucrat.hpp"
+
+#define RED		"\033[0;31m"
+#define GREEN	"\033[1;32m"
+#define YELLOW	"\033[1;33m"
+#define RESET	"\033[0m"
 
 class	AForm {
 	private:
