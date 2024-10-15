@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/10/15 16:49:46 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:49:22 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,21 @@ AForm::GradeTooHighException::GradeTooHighException( const std::string& msg ) : 
 
 AForm::AlreadySignedException::AlreadySignedException( const std::string& msg ) : std::logic_error( msg + " is already signed\n" ) {}
 
-AForm::UnsignedFormException::UnsignedFormException( const std::string& msg ) : std::logic_error( msg + " isn't signed yet\n" ) {}
+AForm::UnsignedFormException::UnsignedFormException( const std::string& msg ) : std::logic_error( msg + " not signed yet\n" ) {}
 
-AForm::UnableToOpenFileException::UnableToOpenFileException( const std::string& msg ) : std::logic_error( msg + " execution error. Unable to open the output file\n" ) {}
+AForm::UnableToOpenFileException::UnableToOpenFileException( const std::string& msg ) : std::logic_error( "[" + msg + "] execution error. Unable to open the output file\n" ) {}
 
 AForm::AForm( void ) : _name( "defaultForm" ), _sign( false ), _sGrade( 150 ), _eGrade( 150 ) {}
 
-AForm::AForm( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sign( false ), _sGrade(sGrade), _eGrade(eGrade) {
-	this->_sign = false;
-	try	{
-		if ( this->_sGrade < 1 || this->_eGrade < 1 )
-			throw AForm::GradeTooHighException( this->getName() + " required " );
-		else if ( this->  _sGrade > 150 || this->_eGrade > 150 )
-			throw AForm::GradeTooLowException( this->getName() + " required " );
-	}
-	catch	( AForm::GradeTooHighException& e ) {
-		std::cerr << e.what();
-	}
-	catch	( AForm::GradeTooLowException& e ) {
-		std::cerr << e.what();
-	}
+AForm::AForm( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sign( false ), _sGrade( sGrade ), _eGrade( eGrade ) {
+	if ( sGrade < 1 )
+		throw AForm::GradeTooHighException( "[" + this->getName() + "] because it's required sign " );
+	else if ( sGrade > 150 )
+		throw AForm::GradeTooLowException( "[" + this->getName() + "] because it's required sign " );
+	if ( eGrade < 1 )
+		throw AForm::GradeTooHighException( "[" + this->getName() + "] because it's required execute " );
+	else if ( eGrade > 150 )
+		throw AForm::GradeTooLowException( "[" + this->getName() + "] because it's required execute " );
 }
 
 AForm::~AForm( void ) {}
@@ -78,25 +73,29 @@ unsigned int	AForm::getEGrade( void ) const {
 
 void			AForm::beSigned( Bureaucrat b ) {
 	try {
-		if ( b.getGrade() <= this->_sGrade )
+		if ( b.getGrade() <= this->_sGrade ) {
 			this->_sign = true;
+			std::cout << "[" + b.getName() + "] signed " + this->getName() << std::endl;
+		}
 		else
 			throw Bureaucrat::GradeTooLowException( b.getName() );
 	}
 	catch ( Bureaucrat::GradeTooLowException& e ) {
-		std::cerr << b.getName() + "couldn't sign [" + this->getName() + "] because " + e.what();
+		std::cerr << RED << "[" + b.getName() + "] couldn't sign [" + this->getName() + "] because " + e.what() << RESET;
 	}
 }
 
 void			AForm::execute( Bureaucrat const & executor ) const {
 	if ( this->_sign ) {
-		if ( this->_eGrade >= executor.getGrade() )
+		if ( this->_eGrade >= executor.getGrade() ) {
 			this->action();
+			std::cout << "[" + executor.getName() + "] executed " + this->getName() << std::endl;
+		}
 		else
-			throw AForm::GradeTooLowException( executor.getName() + " can't sign because it" );
+			throw AForm::GradeTooLowException( "[" + executor.getName() + "] can't execute the form because it's" );
 	}
 	else
-		throw AForm::UnsignedFormException( this->getName() + " can't be executed because it " );
+		throw AForm::UnsignedFormException( "[" + this->getName() + "] can't be executed because it's" );
 }
 
 void			AForm::action( void ) const {

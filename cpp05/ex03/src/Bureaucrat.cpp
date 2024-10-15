@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/15 16:49:39 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:49:13 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	Bureaucrat::setGrade( unsigned int grade ) {
 			this->_grade = grade;
 	}
 	catch	( Bureaucrat::GradeTooHighException& e ) {
-		std::cerr << e.what();
+		std::cerr << RED << e.what() << RESET;
 	}
 	catch	( Bureaucrat::GradeTooLowException& e ) {
-		std::cerr << e.what();
+		std::cerr << RED << e.what() << RESET;
 	}
 }
 
@@ -74,33 +74,30 @@ void	Bureaucrat::decrement( void ) {
 
 void	Bureaucrat::signForm( AForm& f ) const {
 	try {
-		if ( !f.getSign() ) {
+		if ( !f.getSign() )
 			f.beSigned( *this );
-			std::cout << "[" + this->getName() + "] signed [" + f.getName() + "]" << std::endl;
-		}
 		else
 			throw( AForm::AlreadySignedException( "[" + f.getName() + "]" ) );
 	}
 	catch ( Bureaucrat::GradeTooLowException& e ) {
-		std::cerr << "[" + this->getName() + "] couldn't sign [" + f.getName() + "] because " << e.what();
+		std::cerr << RED << "[" + this->getName() + "] couldn't sign [" + f.getName() + "] because " << e.what() << RESET;
 	}
 	catch ( AForm::AlreadySignedException& e ) {
-		std::cerr << "[" + this->getName() + "] couldn't sign [" + f.getName() + "] because " << e.what();
+		std::cerr << RED << "[" + this->getName() + "] couldn't sign [" + f.getName() + "] because " << e.what() << RESET;
 	}
 }
 
 void	Bureaucrat::executeForm( AForm const & form ) const {
 	try {
 		form.execute(*this);
-		std::cout << this->_name << " executed " << form.getName() << std::endl;
 	}
 	catch ( AForm::UnsignedFormException& e ) {
-		std::cerr << e.what();
+		std::cerr << RED << e.what() << RESET;
 	}
 	catch ( AForm::GradeTooLowException& e ) {
-		std::cerr << e.what();
+		std::cerr << RED << e.what() << RESET;
 	}
 	catch ( AForm::UnableToOpenFileException& e ) {
-		std::cerr << e.what();
+		std::cerr << RED << e.what() << RESET;
 	}
 }

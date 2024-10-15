@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:13:19 by herz              #+#    #+#             */
-/*   Updated: 2024/10/10 17:39:34 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:22:13 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,19 @@
 
 #include "Bureaucrat.fwd.hpp"
 #include "Bureaucrat.hpp"
+
+#ifndef RED
+# define RED	"\033[0;31m"
+#endif
+#ifndef GREEN
+# define GREEN	"\033[1;32m"
+#endif
+#ifndef YELLOW
+# define YELLOW	"\033[1;33m"
+#endif
+#ifndef RESET
+# define RESET	"\033[0m"
+#endif
 
 class	AForm {
 	private:
@@ -39,7 +52,7 @@ class	AForm {
 
 		void			beSigned( Bureaucrat b );
 		void			execute( Bureaucrat const & executor ) const ;
-		virtual void	action( void ) const ;
+		virtual void	action( void ) const = 0;
 
 	class	GradeTooLowException : public std::range_error {
 		public:
