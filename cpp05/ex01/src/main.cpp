@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/14 21:53:56 by herz             ###   ########.fr       */
+/*   Updated: 2024/10/15 12:44:29 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,12 @@ int	main( void ) {
 	b0.signForm(f0);
 	std::cout << f0 << std::endl;
 
-	std::cout << "Attempting to sign a form but failing:\n";
+	std::cout << "Attempting to sign a form but failing because of the grade:\n";
 	b0.signForm(f1);
 	std::cout << f1 << std::endl;
+
+	std::cout << "Attempting to sign a form but failing because it's already signed\n";
+	b0.signForm(f0);
+	std::cout << f0 << std::endl;
 	return 0;
 }
