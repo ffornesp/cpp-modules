@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/15 16:36:04 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:39:05 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main( void ) {
 	std::cout << "\nCreating a bureaucrat with correct arguments:\n";
 	Bureaucrat	b1("Joseph", 42);
 	std::cout << "\n\t" << b1 << std::endl;
-
+	// BUREAUCRAT creation ERRORS
 	std::cout << "\nCreating a bureaucrat with a grade too high:\n";
 	Bureaucrat	b2("Phillip", 0);
 	std::cout << "\t" << b2 << std::endl;
