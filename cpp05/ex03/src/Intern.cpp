@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:48:21 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/15 17:21:38 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:28:07 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ AForm* Intern::makeForm( std::string name, std::string target ) {
 		std::cout << "Intern creates " << out->getName() << std::endl << *out << std::endl;
 	else {
 		std::cerr << RED << name << " is not a valid form name, please input one of the following:\n" << RESET;
-		std::cerr << RED << "\tPresidential pardon\n\tRobotomy request\n\tShrubbery creation" << RESET << std::endl;
+		std::cerr << RED << "\tPresidential pardon\n\tRobotomy request\n\tShrubbery creation\n" << RESET << std::endl;
 	}
 	return ( out );
 }
