@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/14 21:54:50 by herz             ###   ########.fr       */
+/*   Updated: 2024/10/15 16:46:30 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	Bureaucrat::setGrade( unsigned int grade ) {
 			this->_grade = grade;
 	}
 	catch	( Bureaucrat::GradeTooHighException& e ) {
-		std::cerr << e.what() << std::endl;
+		std::cerr << RED << e.what() << RESET << std::endl;
 	}
 	catch	( Bureaucrat::GradeTooLowException& e ) {
-		std::cerr << e.what() << std::endl;
+		std::cerr << RED << e.what() << RESET << std::endl;
 	}
 }
 
@@ -82,9 +82,9 @@ void	Bureaucrat::signForm( Form& f ) const {
 			throw( Form::AlreadySignedException( "[" + f.getName() + "]" ) );
 	}
 	catch ( Bureaucrat::GradeTooLowException& e ) {
-		std::cerr << "[" + this->getName() + "] couldn't sign [" + f.getName() + "] because " << e.what();
+		std::cerr << RED << "[" + this->getName() + "] couldn't sign [" + f.getName() + "] because " << e.what() << RESET;
 	}
 	catch ( Form::AlreadySignedException& e ) {
-		std::cerr << "[" + this->getName() + "] couldn't sign [" + f.getName() + "] because " << e.what();
+		std::cerr << RED << "[" + this->getName() + "] couldn't sign [" + f.getName() + "] because " << e.what() << RESET;
 	}
 }
