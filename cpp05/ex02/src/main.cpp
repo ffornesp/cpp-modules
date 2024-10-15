@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/14 22:11:26 by herz             ###   ########.fr       */
+/*   Updated: 2024/10/15 12:54:19 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,22 @@ int	main( void ) {
 	Bureaucrat	b3("Anuel", 151);
 	std::cout << "\t" << b3 << std::endl;
 
+	std::cout << "\nIncrementing the grade of a bureaucrat:\n";
+	b1.increment();
+	std::cout << "\n\t" << d << std::endl;
+
+	std::cout << "\nDecrementing the grade of a bureaucrat:\n";
+	b1.decrement();
+	std::cout << "\n\t" << d << std::endl;
+
+	std::cout << "\nIncrementing the grade of a bureaucrat but failing:\n";
+	b2.increment();
+	std::cout << "\t" << g1 << std::endl;
+
+	std::cout << "\nDecrementing the grade of a bureaucrat but failing\n";
+	b3.decrement();
+	std::cout << "\t" << g2 << std::endl;
+
 	std::cout << "\nCreating a form using it's default constructor:\n\n";
 	AForm		f0;
 	std::cout << f0 << std::endl;
@@ -53,9 +69,13 @@ int	main( void ) {
 	b0.signForm(f0);
 	std::cout << f0 << std::endl;
 
-	std::cout << "Attempting to sign a form but failing:\n";
+	std::cout << "Attempting to sign a form but failing because of the grade:\n";
 	b0.signForm(f1);
 	std::cout << f1 << std::endl;
+
+	std::cout << "Attempting to sign a form but failing because it's already signed\n";
+	b0.signForm(f0);
+	std::cout << f0 << std::endl;
 
 	std::cout << "Creating a default ShrubberyCreationForm\n";
 	ShrubberyCreationForm	s0;
@@ -81,6 +101,6 @@ int	main( void ) {
 	PresidentialPardonForm	p1("PresidentialPardonForm");
 	std::cout << p1 << std::endl;
 
-
+	// Test execution of forms
 	return 0;
 }

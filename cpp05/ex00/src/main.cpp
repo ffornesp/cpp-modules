@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/10 18:14:45 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:52:33 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ int	main( void ) {
 
 	std::cout << "\nCreating a bureaucrat with a grade too low:\n";
 	Bureaucrat	g2("Anuel", 151);
+	std::cout << "\t" << g2 << std::endl;
+
+	std::cout << "\nIncrementing the grade of a bureaucrat:\n";
+	d.increment();
+	std::cout << "\n\t" << d << std::endl;
+
+	std::cout << "\nDecrementing the grade of a bureaucrat:\n";
+	d.decrement();
+	std::cout << "\n\t" << d << std::endl;
+
+	std::cout << "\nIncrementing the grade of a bureaucrat but failing:\n";
+	g1.increment();
+	std::cout << "\t" << g1 << std::endl;
+
+	std::cout << "\nDecrementing the grade of a bureaucrat but failing\n";
+	g2.decrement();
 	std::cout << "\t" << g2 << std::endl;
 	return 0;
 }
