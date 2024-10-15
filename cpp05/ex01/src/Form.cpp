@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/10/15 15:35:33 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:48:48 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ Form::GradeTooHighException::GradeTooHighException( const std::string& msg ) : s
 
 Form::AlreadySignedException::AlreadySignedException( const std::string& msg ) : std::logic_error( msg + " is already signed\n" ) {}
 
-Form::Form( void ) : _name( "default" ), _sign( false ), _sGrade( 150 ), _eGrade( 150 ) {}
+Form::Form( void ) : _name( "defaultForm" ), _sign( false ), _sGrade( 150 ), _eGrade( 150 ) {}
 
 Form::Form( std::string name, unsigned int sGrade, unsigned int eGrade ) : _name(name), _sign(false), _sGrade(sGrade), _eGrade(eGrade) {
 	if ( sGrade < 1 )
