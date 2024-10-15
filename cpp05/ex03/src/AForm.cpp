@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:19:02 by herz              #+#    #+#             */
-/*   Updated: 2024/10/15 16:49:22 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:37:19 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void			AForm::beSigned( Bureaucrat b ) {
 void			AForm::execute( Bureaucrat const & executor ) const {
 	if ( this->_sign ) {
 		if ( this->_eGrade >= executor.getGrade() ) {
-			this->action();
 			std::cout << "[" + executor.getName() + "] executed " + this->getName() << std::endl;
+			this->action();
 		}
 		else
 			throw AForm::GradeTooLowException( "[" + executor.getName() + "] can't execute the form because it's" );
