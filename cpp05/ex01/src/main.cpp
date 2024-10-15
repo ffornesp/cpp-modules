@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/15 12:53:55 by herz             ###   ########.fr       */
+/*   Updated: 2024/10/15 13:00:27 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ int	main( void ) {
 
 	std::cout << "\nIncrementing the grade of a bureaucrat:\n";
 	b1.increment();
-	std::cout << "\n\t" << d << std::endl;
+	std::cout << "\n\t" << b0 << std::endl;
 
 	std::cout << "\nDecrementing the grade of a bureaucrat:\n";
 	b1.decrement();
-	std::cout << "\n\t" << d << std::endl;
+	std::cout << "\n\t" << b0 << std::endl;
 
 	std::cout << "\nIncrementing the grade of a bureaucrat but failing:\n";
 	b2.increment();
-	std::cout << "\t" << g1 << std::endl;
+	std::cout << "\t" << b2 << std::endl;
 
 	std::cout << "\nDecrementing the grade of a bureaucrat but failing\n";
 	b3.decrement();
-	std::cout << "\t" << g2 << std::endl;
+	std::cout << "\t" << b3 << std::endl;
 
 	std::cout << "\nCreating a form using it's default constructor:\n\n";
 	Form		f0;

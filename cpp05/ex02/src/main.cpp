@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 14:01:14 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/15 12:54:19 by herz             ###   ########.fr       */
+/*   Updated: 2024/10/15 12:59:56 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ int	main( void ) {
 
 	std::cout << "\nIncrementing the grade of a bureaucrat:\n";
 	b1.increment();
-	std::cout << "\n\t" << d << std::endl;
+	std::cout << "\n\t" << b0 << std::endl;
 
 	std::cout << "\nDecrementing the grade of a bureaucrat:\n";
 	b1.decrement();
-	std::cout << "\n\t" << d << std::endl;
+	std::cout << "\n\t" << b0 << std::endl;
 
 	std::cout << "\nIncrementing the grade of a bureaucrat but failing:\n";
 	b2.increment();
-	std::cout << "\t" << g1 << std::endl;
+	std::cout << "\t" << b2 << std::endl;
 
 	std::cout << "\nDecrementing the grade of a bureaucrat but failing\n";
 	b3.decrement();
-	std::cout << "\t" << g2 << std::endl;
+	std::cout << "\t" << b3 << std::endl;
 
 	std::cout << "\nCreating a form using it's default constructor:\n\n";
 	AForm		f0;
@@ -102,5 +102,7 @@ int	main( void ) {
 	std::cout << p1 << std::endl;
 
 	// Test execution of forms
+	std::cout << "Executing ShrubberyCreationForm:\n";
+	b1.executeForm(s1);
 	return 0;
 }
