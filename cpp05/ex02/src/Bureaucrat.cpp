@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:51 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/14 21:58:41 by herz             ###   ########.fr       */
+/*   Updated: 2024/10/15 15:49:23 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,8 @@ void	Bureaucrat::decrement( void ) {
 
 void	Bureaucrat::signForm( AForm& f ) const {
 	try {
-		if ( !f.getSign() ) {
+		if ( !f.getSign() )
 			f.beSigned( *this );
-			std::cout << "[" + this->getName() + "] signed [" + f.getName() + "]" << std::endl;
-		}
 		else
 			throw( AForm::AlreadySignedException( "[" + f.getName() + "]" ) );
 	}
@@ -92,7 +90,6 @@ void	Bureaucrat::signForm( AForm& f ) const {
 void	Bureaucrat::executeForm( AForm const & form ) const {
 	try {
 		form.execute(*this);
-		std::cout << this->_name << " executed " << form.getName() << std::endl;
 	}
 	catch ( AForm::UnsignedFormException& e ) {
 		std::cerr << e.what();
