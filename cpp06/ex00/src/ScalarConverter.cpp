@@ -6,7 +6,7 @@
 /*   By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:00:45 by herz              #+#    #+#             */
-/*   Updated: 2024/10/08 12:42:11 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:42:41 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include <sstream>	// Stringstream used to process string
 #include <cstdlib>	// Used for exit
 #include <limits>
-
-// Hacerlo con templates o strtod
 
 ScalarConverter::ScalarConverter( void ) {}
 
@@ -47,13 +45,16 @@ static int	checkInput( std::string str ) {
 	if ( *str.begin() == '\'' && str.length() == 3 ) {
 		if ( *(--str.end()) != '\'' )
 			return INVALID;
-		else 
+		else
 			return CHAR_LITERAL;
 	}
 	for ( std::string::iterator it=str.begin(); it!=str.end(); ++it ) {
 		if ( !isalpha(*it) ) {
-			if ( *it == '.' )
+			if ( *it == '.' ) {
 				dotCount++;
+				if ( it == str.begin() || it == str.end() - 1 )
+					return INVALID;
+			}
 			else if ( *it == '-' || *it == '+' )
 				signCount++;
 			else if ( !isdigit(*it) && *it != '\\' )
@@ -88,7 +89,7 @@ static void printInfo( t_info *info, std::string str, bool flag ) {
 		l = static_cast< long double >( info->c );
 	
 	std::cout << "Char : ";
-	if ( l < std::numeric_limits< char >::min() || l > std::numeric_limits< char >::max() )
+	if ( l < 0 || l > std::numeric_limits< char >::max() )
 		std::cout << "impossible" << std::endl;
 	else if ( !isprint(info->c) )
 		std::cout << "Non displayable" << std::endl;
