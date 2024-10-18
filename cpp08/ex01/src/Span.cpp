@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:49:48 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/18 17:33:05 by herz             ###   ########.fr       */
+/*   Updated: 2024/10/18 17:47:41 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@
 
 Span::Span( void ) : _size( 0 ) {}
 
-Span::Span( unsigned int size ) : _size(size) {
-	if ( size > this->_content.max_size() ) {
-		throw std::runtime_error( "Multiset is unable to have this size\n" );
-	}
-}
+Span::Span( unsigned int size ) : _size(size) {}
 
 Span::~Span( void ) {}
 
