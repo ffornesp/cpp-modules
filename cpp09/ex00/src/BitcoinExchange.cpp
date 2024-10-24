@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/24 15:25:39 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:51:46 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,26 @@ BitcoinExchange& BitcoinExchange::operator=( const BitcoinExchange& copy ) {
 }
 // ENDFIX
 
-std::map< std::string, float >	BitcoinExchange::readDatabase( void ) {
+void	BitcoinExchange::btc( const char *filename ) {
+	std::map< std::string, float > data;
+	std::map< std::string, float > file;
+
+	try {
+		data = readFile( "./data.csv", ',' );
+		file = readFile( filename, '|' );
+	}
+	catch ( BitcoinExchange::InvalidReadException& e ) {
+		std::cerr << e.what() << std::endl;
+		return ;
+	}
+}
+
+std::map< std::string, float >	BitcoinExchange::readFile( const char *filename, char c ) {
 	std::map< std::string, float >	data;
-	std::ifstream	file( "./data.csv" );
+	std::ifstream	file( filename );
 
 	if ( !file )
-		throw BitcoinExchange::InvalidReadException( "data.csv" ); 
+		throw BitcoinExchange::InvalidReadException( filename ); 
 
 	std::string	line;
 	while ( std::getline( file, line ) ) {
@@ -45,7 +59,7 @@ std::map< std::string, float >	BitcoinExchange::readDatabase( void ) {
 		float				value;
 		std::istringstream	ss( line );
 
-		std::getline( ss , date, ',' );
+		std::getline( ss , date, c );
 		if ( ss >> value ) {
 			data[date] = value;
 			std::cout << "Date: " << date << " Value: " << value << std::endl;
