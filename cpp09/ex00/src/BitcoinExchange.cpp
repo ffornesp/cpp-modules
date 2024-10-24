@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/24 17:11:48 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:48:04 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	BitcoinExchange::btc( const char *filename ) {
 	std::map< std::string, float > file;
 
 	try {
-		data = readFile( "./data.csv" );
+		data = readFile( "data.csv" );
 		file = readFile( filename );
 	}
 	catch ( std::runtime_error& e ) {
@@ -49,16 +49,20 @@ void	BitcoinExchange::btc( const char *filename ) {
 std::map< std::string, float >	BitcoinExchange::readFile( const char *filename ) {
 	std::map< std::string, float >	data;
 	std::ifstream	file( filename );
+	std::string		sfilename;
 
+	sfilename = static_cast< std::string >( filename );
 	if ( !file )
-		throw std::runtime_error( "Unable to read " + static_cast< std::string >( filename ) );
+		throw std::runtime_error( "Unable to read " + sfilename );
 
 	std::string	line;
 	char		c;
 
 	c = detectDelimiter( filename );
-	if ( !c ) 
-		throw std::runtime_error( "No delimiter found in " + static_cast< std::string >( filename ) );
+	if ( !c )
+		throw std::runtime_error( "Invalid format, no delimiter in " + sfilename );
+	else if ( c != '|' && sfilename != "data.csv" )
+		throw std::runtime_error( "Invalid format, wrong delimiter in " + sfilename );
 	while ( std::getline( file, line ) ) {
 		std::string			date;
 		float				value;
@@ -69,14 +73,15 @@ std::map< std::string, float >	BitcoinExchange::readFile( const char *filename )
 			data[date] = value;
 			std::cout << "Date: " << date << " Value: " << value << std::endl;
 		}
-		else if ( date != "date" && date != "date " )
-			throw std::runtime_error( "Invalid format in line: " + line );
+		else if ( date != "date" )
+			throw std::runtime_error( "Invalid format in " + sfilename + ", in line: " + line );
+		else
+			ss.clear();
 	}
 	file.close();
 	return data;
 }
 
-// Detects 
 char	BitcoinExchange::detectDelimiter( const char *filename ) {
 	std::ifstream	file( filename );
 
