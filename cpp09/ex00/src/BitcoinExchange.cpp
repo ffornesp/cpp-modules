@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/24 16:57:43 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:11:48 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ std::map< std::string, float >	BitcoinExchange::readFile( const char *filename )
 	return data;
 }
 
+// Detects 
 char	BitcoinExchange::detectDelimiter( const char *filename ) {
 	std::ifstream	file( filename );
 
@@ -83,10 +84,6 @@ char	BitcoinExchange::detectDelimiter( const char *filename ) {
 	if ( std::getline( file, header ) ) {
 		if ( header.find( ',' ) != std::string::npos )
 			return ',';
-		else if ( header.find( ';' ) != std::string::npos )
-			return ';';
-		else if ( header.find( '\t' ) != std::string::npos )
-			return '\t';
 		else if ( header.find( '|' ) != std::string::npos )
 			return '|';
 	}
@@ -98,10 +95,9 @@ char	BitcoinExchange::detectDelimiter( const char *filename ) {
 std::string	BitcoinExchange::removeSpace( const std::string& line ) {
     std::string result;
 
-	result.reserve( line.size() );
+	result.reserve( line.size() - 2 );
 	for ( std::string::const_iterator it = line.begin(); it != line.end(); ++it )
 		if ( !std::isspace( static_cast< unsigned char >( *it ) ) )
 			result += *it;
-
     return result;
 }
