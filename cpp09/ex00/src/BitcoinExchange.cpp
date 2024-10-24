@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/24 15:51:46 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:57:43 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <fstream>
 #include <sstream>
 
-#include <iostream>
+#include <cctype>
 
-BitcoinExchange::InvalidReadException::InvalidReadException( const std::string& msg ) : std::invalid_argument( "Unable to read " + msg ) {}
+#include <iostream>
 
 BitcoinExchange::BitcoinExchange( void ) {}
 
@@ -37,36 +37,71 @@ void	BitcoinExchange::btc( const char *filename ) {
 	std::map< std::string, float > file;
 
 	try {
-		data = readFile( "./data.csv", ',' );
-		file = readFile( filename, '|' );
+		data = readFile( "./data.csv" );
+		file = readFile( filename );
 	}
-	catch ( BitcoinExchange::InvalidReadException& e ) {
+	catch ( std::runtime_error& e ) {
 		std::cerr << e.what() << std::endl;
 		return ;
 	}
 }
 
-std::map< std::string, float >	BitcoinExchange::readFile( const char *filename, char c ) {
+std::map< std::string, float >	BitcoinExchange::readFile( const char *filename ) {
 	std::map< std::string, float >	data;
 	std::ifstream	file( filename );
 
 	if ( !file )
-		throw BitcoinExchange::InvalidReadException( filename ); 
+		throw std::runtime_error( "Unable to read " + static_cast< std::string >( filename ) );
 
 	std::string	line;
+	char		c;
+
+	c = detectDelimiter( filename );
+	if ( !c ) 
+		throw std::runtime_error( "No delimiter found in " + static_cast< std::string >( filename ) );
 	while ( std::getline( file, line ) ) {
 		std::string			date;
 		float				value;
-		std::istringstream	ss( line );
+		std::istringstream	ss( removeSpace( line ) );
 
 		std::getline( ss , date, c );
 		if ( ss >> value ) {
 			data[date] = value;
 			std::cout << "Date: " << date << " Value: " << value << std::endl;
 		}
-		else {
-			std::cerr << "Failed to parse date from line: " << line << std::endl;
-		}
+		else if ( date != "date" && date != "date " )
+			throw std::runtime_error( "Invalid format in line: " + line );
 	}
+	file.close();
 	return data;
+}
+
+char	BitcoinExchange::detectDelimiter( const char *filename ) {
+	std::ifstream	file( filename );
+
+	std::string	header;
+	if ( std::getline( file, header ) ) {
+		if ( header.find( ',' ) != std::string::npos )
+			return ',';
+		else if ( header.find( ';' ) != std::string::npos )
+			return ';';
+		else if ( header.find( '\t' ) != std::string::npos )
+			return '\t';
+		else if ( header.find( '|' ) != std::string::npos )
+			return '|';
+	}
+	return '\0';
+}
+
+// Removes spaces from line which makes it easier to print everything with the same
+//	identation. Also prevents errors when header contains spaces.
+std::string	BitcoinExchange::removeSpace( const std::string& line ) {
+    std::string result;
+
+	result.reserve( line.size() );
+	for ( std::string::const_iterator it = line.begin(); it != line.end(); ++it )
+		if ( !std::isspace( static_cast< unsigned char >( *it ) ) )
+			result += *it;
+
+    return result;
 }
