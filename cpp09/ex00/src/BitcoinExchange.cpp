@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/24 17:48:04 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:00:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <cctype>
 
 #include <iostream>
+#include <cstdlib>
 
 BitcoinExchange::BitcoinExchange( void ) {}
 
@@ -39,42 +40,42 @@ void	BitcoinExchange::btc( const char *filename ) {
 	try {
 		data = readFile( "data.csv" );
 		file = readFile( filename );
+		processFile( data, file );
 	}
 	catch ( std::runtime_error& e ) {
 		std::cerr << e.what() << std::endl;
-		return ;
 	}
+	catch ( std::bad_alloc& e ) {
+		std::cerr << "Not enough memory" << std::endl;
+	}
+	return ;
 }
 
-std::map< std::string, float >	BitcoinExchange::readFile( const char *filename ) {
+std::map< std::string, float >	BitcoinExchange::readFile( std::string filename ) {
 	std::map< std::string, float >	data;
-	std::ifstream	file( filename );
-	std::string		sfilename;
+	std::ifstream	file( filename.c_str() );
 
-	sfilename = static_cast< std::string >( filename );
 	if ( !file )
-		throw std::runtime_error( "Unable to read " + sfilename );
-
+		throw std::runtime_error( "Unable to read " + filename );
+	
 	std::string	line;
 	char		c;
 
 	c = detectDelimiter( filename );
 	if ( !c )
-		throw std::runtime_error( "Invalid format, no delimiter in " + sfilename );
-	else if ( c != '|' && sfilename != "data.csv" )
-		throw std::runtime_error( "Invalid format, wrong delimiter in " + sfilename );
+		throw std::runtime_error( "Invalid format, no delimiter in " + filename );
+	else if ( c != '|' && filename != "data.csv" )
+		throw std::runtime_error( "Invalid format, wrong delimiter in " + filename );
 	while ( std::getline( file, line ) ) {
 		std::string			date;
 		float				value;
 		std::istringstream	ss( removeSpace( line ) );
 
 		std::getline( ss , date, c );
-		if ( ss >> value ) {
+		if ( ss >> value )
 			data[date] = value;
-			std::cout << "Date: " << date << " Value: " << value << std::endl;
-		}
 		else if ( date != "date" )
-			throw std::runtime_error( "Invalid format in " + sfilename + ", in line: " + line );
+			throw std::runtime_error( "Invalid format in " + filename + ", in line: " + line );
 		else
 			ss.clear();
 	}
@@ -82,8 +83,8 @@ std::map< std::string, float >	BitcoinExchange::readFile( const char *filename )
 	return data;
 }
 
-char	BitcoinExchange::detectDelimiter( const char *filename ) {
-	std::ifstream	file( filename );
+char	BitcoinExchange::detectDelimiter( std::string& filename ) {
+	std::ifstream	file( filename.c_str() );
 
 	std::string	header;
 	if ( std::getline( file, header ) ) {
@@ -105,4 +106,62 @@ std::string	BitcoinExchange::removeSpace( const std::string& line ) {
 		if ( !std::isspace( static_cast< unsigned char >( *it ) ) )
 			result += *it;
     return result;
+}
+
+void	BitcoinExchange::processFile( std::map< std::string, float > data, std::map< std::string, float > file ) {
+	for ( std::map< std::string, float >::iterator it = file.begin(); it != file.end(); ++it ) {
+		if ( validateDate( it->first ) ) {
+			std::cout << it->first << " is a valid date" << std::endl;
+			// ToDo::: Handle output
+		}
+	}
+	( void )data;
+}
+
+static bool	badInput( const std::string& str ) {
+	std::cerr << "Error: Bad input => " + str << std::endl;
+	return false;
+}
+
+bool	BitcoinExchange::validateDate( const std::string& str ) {
+	int					date[3];
+	std::stringstream	ss( str );
+	std::string			aux;
+	
+	int	i = 0;
+	while ( getline( ss, aux, '-' ) && i < 3 )
+		date[i++] = atoi( aux.c_str() );
+
+// Check the year and month are valid values
+	if ( date[0] < 2009 || date[1] > 12 )
+		return badInput( str );
+// Check limit case for data.csv
+	if ( date[0] == 2009 && date[1] == 1 && date[2] < 2 )
+		return badInput( str );
+// Check the day is a valid input
+	switch ( date[1] ) {
+		case 2:
+			if ( date[2] > 29 )
+				return badInput( str );
+			if ( date[2] > 28 ) {
+				if ( date[0] % 4 != 0 )
+					return badInput( str );
+				else if ( date[0] % 100 == 0 && date[0] % 400 != 0 )
+					return badInput( str );
+			}
+			break ;
+		case 4:
+		case 6:
+		case 9:
+		case 11:
+			if ( date[2] > 30 ) {
+				return badInput( str );
+			}
+			break ;
+		default:
+			if ( date[2] > 31 )
+				return badInput( str );
+			break ;
+	}
+	return true;
 }
