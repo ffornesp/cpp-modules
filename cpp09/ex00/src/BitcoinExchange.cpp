@@ -6,18 +6,18 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/30 15:56:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/30 18:01:17 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
+#include <iostream>
 #include <fstream>
 #include <sstream>
-
 #include <cctype>
-
-#include <iostream>
 #include <cstdlib>
+#include <iomanip>
+#include <string>
 
 BitcoinExchange::BitcoinExchange( void ) {}
 
@@ -33,57 +33,7 @@ BitcoinExchange& BitcoinExchange::operator=( const BitcoinExchange& copy ) {
 }
 // ENDFIX
 
-void	BitcoinExchange::btc( const char *filename ) {
-	std::multimap< std::string, float > data;
-	std::multimap< std::string, float > file;
-
-	try {
-		data = readFile( "data.csv" );
-		file = readFile( filename );
-		processFile( data, file );
-	}
-	catch ( std::runtime_error& e ) {
-		std::cout << e.what() << std::endl;
-	}
-	catch ( std::bad_alloc& e ) {
-		std::cout << "Not enough memory" << std::endl;
-	}
-	return ;
-}
-
-std::multimap< std::string, float >	BitcoinExchange::readFile( std::string filename ) {
-	std::multimap< std::string, float >	data;
-	std::ifstream	file( filename.c_str() );
-
-	if ( !file )
-		throw std::runtime_error( "Unable to read " + filename );
-	
-	std::string	line;
-	char		c;
-
-	c = detectDelimiter( filename );
-	if ( !c )
-		throw std::runtime_error( "Invalid format, no delimiter in " + filename );
-	else if ( c != '|' && filename != "data.csv" )
-		throw std::runtime_error( "Invalid format, wrong delimiter in " + filename );
-	while ( std::getline( file, line ) ) {
-		std::string			date;
-		float				value;
-		std::istringstream	ss( removeSpace( line ) );
-
-		std::getline( ss , date, c );
-		if ( ss >> value )
-			data.insert( std::make_pair< std::string, float >( date, value ) );
-		else if ( date != "date" )
-			throw std::runtime_error( "Invalid format in " + filename + ", in line: " + line );
-		else
-			ss.clear();
-	}
-	file.close();
-	return data;
-}
-
-char	BitcoinExchange::detectDelimiter( std::string& filename ) {
+static char	detectDelimiter( std::string& filename ) {
 	std::ifstream	file( filename.c_str() );
 
 	std::string	header;
@@ -98,7 +48,7 @@ char	BitcoinExchange::detectDelimiter( std::string& filename ) {
 
 // Removes spaces from line which makes it easier to print everything with the same
 //	identation. Also prevents errors when header contains spaces.
-std::string	BitcoinExchange::removeSpace( const std::string& line ) {
+static std::string	removeSpace( const std::string& line ) {
     std::string result;
 
 	result.reserve( line.size() - 2 );
@@ -108,14 +58,36 @@ std::string	BitcoinExchange::removeSpace( const std::string& line ) {
     return result;
 }
 
-void	BitcoinExchange::processFile( std::multimap< std::string, float > data, std::multimap< std::string, float > file ) {
-	for ( std::multimap< std::string, float >::iterator it = file.begin(); it != file.end(); ++it ) {
-		if ( validateDate( it->first ) ) {
-			std::cout << it->first << " is a valid date" << std::endl;
-			// ToDo::: Handle output
-		}
+static std::multimap< std::string, float >	readFile( std::string filename ) {
+	std::multimap< std::string, float >	data;
+	std::ifstream	file( filename.c_str() );
+
+	if ( !file )
+		throw std::runtime_error( "Error: unable to read " + filename );
+	
+	std::string	line;
+	char		c;
+
+	c = detectDelimiter( filename );
+	if ( !c )
+		throw std::runtime_error( "Error: invalid format, no delimiter in " + filename );
+	else if ( c != '|' && filename != "data.csv" )
+		throw std::runtime_error( "Error: invalid format, wrong delimiter in " + filename );
+	while ( std::getline( file, line ) ) {
+		std::string			date;
+		float				value;
+		std::istringstream	ss( removeSpace( line ) );
+
+		std::getline( ss , date, c );
+		if ( ss >> value )
+			data.insert( std::make_pair< std::string, float >( date, value ) );
+		else if ( date != "date" )
+			throw std::runtime_error( "Error: invalid format in " + filename + ", in line: " + line );
+		else
+			ss.clear();
 	}
-	( void )data;
+	file.close();
+	return data;
 }
 
 static bool	badInput( const std::string& str ) {
@@ -123,22 +95,34 @@ static bool	badInput( const std::string& str ) {
 	return false;
 }
 
-bool	BitcoinExchange::validateDate( const std::string& str ) {
+static bool	validateDate( const std::string& str ) {
 	int					date[3];
 	std::stringstream	ss( str );
 	std::string			aux;
-	
+
+// Check there are no other characters besides digits and the valid '-'
+	int	c = 0;
+	for ( int j = 0; j < static_cast< int >( str.size() ); j++ ) {
+		if ( !isdigit( str[ j ] ) && str[ j ] != '-' )
+			return badInput( str );
+		else if ( str[ j ] == '-' )
+			c++;
+		if ( c > 2 )
+			return badInput( str );
+	}
+
+// Save the year - month - day values inside the date array
 	int	i = 0;
 	while ( getline( ss, aux, '-' ) && i < 3 )
 		date[i++] = atoi( aux.c_str() );
 
-// Check the year and month are valid values
-	if ( date[0] < 2009 || date[1] > 12 )
+// Basic checks for year-month-day
+	if ( date[0] < 2009 || date[1] > 12 || date[1] < 1 || date[2] < 1 )
 		return badInput( str );
 // Check limit case for data.csv
 	if ( date[0] == 2009 && date[1] == 1 && date[2] < 2 )
 		return badInput( str );
-// Check the day is a valid input
+// Check the day is a valid input depending on the month
 	switch ( date[1] ) {
 		case 2:
 			if ( date[2] > 29 )
@@ -154,9 +138,8 @@ bool	BitcoinExchange::validateDate( const std::string& str ) {
 		case 6:
 		case 9:
 		case 11:
-			if ( date[2] > 30 ) {
+			if ( date[2] > 30 )
 				return badInput( str );
-			}
 			break ;
 		default:
 			if ( date[2] > 31 )
@@ -164,4 +147,81 @@ bool	BitcoinExchange::validateDate( const std::string& str ) {
 			break ;
 	}
 	return true;
+}
+
+static bool	validateValue( const float f ) {
+	if ( f < 0 )
+		std::cout << "Error: not a positive number." << std::endl;
+	else if ( f > 1000 )
+		std::cout << "Error: too large a number." << std::endl;
+	else
+		return true;
+	return false;
+}
+
+// Prints the output of a valid date and value
+//	It uses std::fixed and std::setprecision to print the float values with certain
+//	precision.
+//	In order to prevent the floats to be printed showing unnecessary zeroes after the
+//	comma, it will search for the dot character and check where is the last non_zero.
+//	Then it simply erases everything before the non_zero and if that value is a dot
+//	it erases it too.
+static void	printOutput( std::multimap< std::string, float >::iterator it, std::multimap< std::string, float >::iterator ite ) {
+	std::ostringstream	out;
+	std::string			result;
+
+	out << std::fixed << std::setprecision( 6 ) << ( it->second * ite->second );
+	result = out.str();
+
+	size_t	dotPos = result.find( '.' );
+	if ( dotPos != std::string::npos ) {
+		size_t	lastNonZero = result.find_last_not_of( '0' );
+		if ( lastNonZero != std::string::npos )
+			result.erase( lastNonZero + 1 );
+		else
+			result.erase( dotPos );
+		if ( !result.empty() && result[ result.size() - 1 ] == '.' )
+			result.erase( result.size() - 1 );
+	}
+	std::cout << it->first << " => " << it->second << " = " << result << std::endl;
+}
+
+// Gets both multimaps, the one containing the database and the file we have to process
+//	Using an iterator, goes through the file we have to process
+//	First validates the date and the value
+//	If the database contains that date, calls printOutput.
+//	If it doesn't, searches for the closest result using data.lower_bound
+//	To get the previous key, access the previous iterator value using foundIt--;
+static void	processFile( std::multimap< std::string, float > data, std::multimap< std::string, float > file ) {
+	for ( std::multimap< std::string, float >::iterator it = file.begin(); it != file.end(); ++it ) {
+		if ( validateDate( it->first ) && validateValue( it->second ) ) {
+			std::multimap< std::string, float >::iterator dataIt;
+			dataIt = data.find( it->first );
+			if ( dataIt != data.end() )
+				printOutput( it, dataIt );
+			else {
+				std::multimap< std::string, float >::iterator foundIt = data.lower_bound( it->first );
+				foundIt--;
+				printOutput( it, foundIt );
+			}
+		}
+	}
+}
+
+void	BitcoinExchange::btc( const char *filename ) {
+	std::multimap< std::string, float > data;
+	std::multimap< std::string, float > file;
+
+	try {
+		data = readFile( "data.csv" );
+		file = readFile( filename );
+		processFile( data, file );
+	}
+	catch ( std::runtime_error& e ) {
+		std::cout << e.what() << std::endl;
+	}
+	catch ( std::bad_alloc& e ) {
+		std::cout << "Error: not enough memory." << std::endl;
+	}
+	return ;
 }
