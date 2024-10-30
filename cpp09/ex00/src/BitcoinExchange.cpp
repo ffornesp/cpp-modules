@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/30 15:45:11 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:56:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ std::multimap< std::string, float >	BitcoinExchange::readFile( std::string filen
 
 		std::getline( ss , date, c );
 		if ( ss >> value )
-			data[date] = value;
+			data.insert( std::make_pair< std::string, float >( date, value ) );
 		else if ( date != "date" )
 			throw std::runtime_error( "Invalid format in " + filename + ", in line: " + line );
 		else
