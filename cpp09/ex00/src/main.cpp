@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:34:28 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/30 15:45:29 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:55:53 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 int	main( int argc, char *argv[] ) {
 	if ( argc < 2 )
-		std::cout << "Not enogh files provided" << std::endl;
+		std::cout << "Error: could not open file." << std::endl;
 	else if ( argc > 2 )
-		std::cout << "Please provide only one file" << std::endl;
+		std::cout << "Error: too many files provided." << std::endl;
 	else {
 		BitcoinExchange	btc;
 
