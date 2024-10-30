@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/29 19:00:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:45:11 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ BitcoinExchange& BitcoinExchange::operator=( const BitcoinExchange& copy ) {
 // ENDFIX
 
 void	BitcoinExchange::btc( const char *filename ) {
-	std::map< std::string, float > data;
-	std::map< std::string, float > file;
+	std::multimap< std::string, float > data;
+	std::multimap< std::string, float > file;
 
 	try {
 		data = readFile( "data.csv" );
@@ -43,16 +43,16 @@ void	BitcoinExchange::btc( const char *filename ) {
 		processFile( data, file );
 	}
 	catch ( std::runtime_error& e ) {
-		std::cerr << e.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 	catch ( std::bad_alloc& e ) {
-		std::cerr << "Not enough memory" << std::endl;
+		std::cout << "Not enough memory" << std::endl;
 	}
 	return ;
 }
 
-std::map< std::string, float >	BitcoinExchange::readFile( std::string filename ) {
-	std::map< std::string, float >	data;
+std::multimap< std::string, float >	BitcoinExchange::readFile( std::string filename ) {
+	std::multimap< std::string, float >	data;
 	std::ifstream	file( filename.c_str() );
 
 	if ( !file )
@@ -108,8 +108,8 @@ std::string	BitcoinExchange::removeSpace( const std::string& line ) {
     return result;
 }
 
-void	BitcoinExchange::processFile( std::map< std::string, float > data, std::map< std::string, float > file ) {
-	for ( std::map< std::string, float >::iterator it = file.begin(); it != file.end(); ++it ) {
+void	BitcoinExchange::processFile( std::multimap< std::string, float > data, std::multimap< std::string, float > file ) {
+	for ( std::multimap< std::string, float >::iterator it = file.begin(); it != file.end(); ++it ) {
 		if ( validateDate( it->first ) ) {
 			std::cout << it->first << " is a valid date" << std::endl;
 			// ToDo::: Handle output
@@ -119,7 +119,7 @@ void	BitcoinExchange::processFile( std::map< std::string, float > data, std::map
 }
 
 static bool	badInput( const std::string& str ) {
-	std::cerr << "Error: Bad input => " + str << std::endl;
+	std::cout << "Error: Bad input => " + str << std::endl;
 	return false;
 }
 
