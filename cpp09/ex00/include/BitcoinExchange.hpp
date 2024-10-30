@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:58 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/30 15:47:26 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:58:09 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,4 @@ class BitcoinExchange {
 		BitcoinExchange& operator=( const BitcoinExchange& );
 	
 		void	btc( const char* );
-		std::multimap< std::string, float > readFile( std::string );
-		void	processFile( std::multimap< std::string, float >, std::multimap< std::string, float > );
-
-		char		detectDelimiter( std::string& );
-		std::string	removeSpace( const std::string& );
-		bool		validateDate( const std::string& );
 };
