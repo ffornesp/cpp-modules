@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/31 12:48:06 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/31 12:52:45 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <iomanip>
 #include <string>
 #include <map>
+#include <stdexcept>
+
 
 static char	detectDelimiter( std::string& filename ) {
 	std::ifstream	file( filename.c_str() );
