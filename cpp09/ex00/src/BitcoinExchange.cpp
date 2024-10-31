@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/30 18:01:17 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/31 12:48:06 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <string>
-
-BitcoinExchange::BitcoinExchange( void ) {}
-
-BitcoinExchange::~BitcoinExchange( void ) {}
-
-// FIX COPY CONSTRUCTOR AND ASSIGNMENT OPERATOR
-BitcoinExchange::BitcoinExchange( const BitcoinExchange& old ) {
-	*this = old;
-}
-BitcoinExchange& BitcoinExchange::operator=( const BitcoinExchange& copy ) {
-	( void )copy;
-	return *this;
-}
-// ENDFIX
+#include <map>
 
 static char	detectDelimiter( std::string& filename ) {
 	std::ifstream	file( filename.c_str() );
@@ -208,7 +195,7 @@ static void	processFile( std::multimap< std::string, float > data, std::multimap
 	}
 }
 
-void	BitcoinExchange::btc( const char *filename ) {
+void	btc( const char *filename ) {
 	std::multimap< std::string, float > data;
 	std::multimap< std::string, float > file;
 
