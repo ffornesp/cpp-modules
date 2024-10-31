@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/31 13:40:51 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:54:18 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,49 @@
 #include <iostream>
 #include <cstdlib>
 #include <climits>
+#include <cstring>
 
-static void badInput( void ) {
-	std::cout << "Error: invalid input." << std::endl;
+static void badInput( std::string msg ) {
+	std::cout << "Error: invalid input" << msg << std::endl;
 	exit( 1 );
 }
 
-static void	checkInput( char *str ) {
-	int		i = 0;
-	long	l = atol( str );
+static void	checkInput( char *argv[] ) {
+	long				l;
+	std::list< int >	myList;
 
-	if ( l < 0 || l > INT_MAX )
-		badInput();
-	while ( str[ i ] )
-		if ( !isdigit( str[ i++ ] ) )
-			badInput();
+	for ( int i = 0; argv[i] != NULL; i++ ) {
+		l = atol( argv[i] );
+		if ( l < 0 )
+			badInput( ", there can't be any negative numbers." );
+		else if ( l > INT_MAX )
+			badInput( ", out of integer range." );
+		for ( int j = 0; argv[i][j] != '\0'; j++ )
+			if ( !isdigit( argv[i][j] ) )
+				badInput( ", non digit characters found." );
+		for ( std::list< int >::iterator it = myList.begin(); it != myList.end(); it++ )
+			if ( static_cast< int >( l ) == *it )
+				badInput( ", duplicates found." );
+		myList.push_back( static_cast< int >( l ) );
+	}
 }
 
 int	main( int argc, char *argv[] ) {
+	std::deque< int >	myDeque;
+	std::list< int >	myList;
+
 	if ( argc < 2 )
 		std::cout << "Error: run program with a positive integer sequence as argument." << std::endl;
 	else {
-		for ( int i = 1; i < argc; i++ )
-			checkInput( argv[i]);
-		std::cout << "Before:\t";
-		for ( int i = 1; i < argc; i++ )
-			std::cout << argv[i] << " ";
-		std::cout << std::endl;
+		checkInput( argv + 1 );
+		
+		fillContainer( myDeque, argv );
+		fillContainer( myList, argv );
 
-		std::deque< int  >	caseDeque;
-		std::list< int >	caseList;
-		fillContainer( caseDeque, argv );
-		fillContainer( caseList, argv );
-		// here
+		std::cout << "Before: ";
+		printContent( myDeque );
+
+		sort( myDeque, myList ); 
 	}
 	return 0;
 }
