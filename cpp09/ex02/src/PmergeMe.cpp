@@ -66,28 +66,3 @@ std::ostream&	operator<<( std::ostream& os, const ChainLink& link ) {
 	os << link.getFirst() << " " << link.getSecond();
 	return os;
 }
-
-void	sort( std::deque< ChainLink >& myDeque, std::list< ChainLink >& myList ) {
-
-	sortInside( myDeque );
-	// DEBUG
-	std::cout << "After sort elements: ";
-	printContent( myDeque );
-	// ENDEBUG
-
-	// The sort pairs function should be able to sort the pairs using their first
-// element as the reference. Right now is not working. 
-	sortPairs( myDeque );
-
-//	Once we are done with that, it's the moment to split the main chain into
-//	2 chains, the main chain and the auxiliary chain. They contain single ints 
-//	instead of our struct with 2 ints.
-
-//	Then we are able to use jacobs numbers to insert the second chain into
-//	the main one.
-
-	// DEBUG
-//	sortPairs( myList );
-	(void)myList;
-	// ENDEBUG
-}
