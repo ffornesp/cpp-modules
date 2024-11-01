@@ -42,10 +42,10 @@ static void	checkInput( char *argv[] ) {
 }
 
 int	main( int argc, char *argv[] ) {
-	std::deque< int >	myDeque;
-	std::list< int >	myList;
+	std::deque< ChainLink >	myDeque;
+	std::list< ChainLink >	myList;
 
-	if ( argc < 2 )
+	if ( argc < 3 )
 		std::cout << "Error: run program with a positive integer sequence as argument." << std::endl;
 	else {
 		checkInput( argv + 1 );
@@ -56,7 +56,10 @@ int	main( int argc, char *argv[] ) {
 		std::cout << "Before: ";
 		printContent( myDeque );
 
-		sort( myDeque, myList ); 
+		sort( myDeque, myList );
+
+		std::cout << "After: ";
+		printContent( myDeque );
 	}
 	return 0;
 }
