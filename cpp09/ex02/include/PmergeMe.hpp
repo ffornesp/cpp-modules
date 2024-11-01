@@ -17,12 +17,49 @@
 #include <cstdlib>
 #include <iostream>
 
-void	sort( std::deque< int > deq, std::list< int > list );
+class	ChainLink {
+	private:
+		int	_first;
+		int	_second;
+	public:
+		ChainLink( void );
+		ChainLink( int&, int& );
+		~ChainLink( void );
+		ChainLink( const ChainLink& );
+		ChainLink& operator=( const ChainLink& );
+
+		int		getFirst( void ) const ;
+		int		getSecond( void ) const ;
+		void	setFirst( int n );
+		void	setSecond( int n );
+
+		bool	compareFirst( const ChainLink ) const;
+
+		void	swapElements( void );
+};
+
+std::ostream& operator<<( std::ostream&, const ChainLink& );
+
+void	sort( std::deque< ChainLink >& deq, std::list< ChainLink >& list );
 
 template< typename T >
 void	fillContainer( T& t, char *argv[] ) {
-	for ( int i = 1; argv[ i ] != NULL; i++ )
-		t.push_back( atoi( argv[ i ] ) );
+	ChainLink	link;
+	bool		flag;
+	int			content[2];
+
+	for ( int i = 1; argv[ i ] != NULL; i++ ) {
+		if ( !flag ) {
+			content[ 0 ] = atoi( argv[ i ] );
+			flag = true;
+		}
+		else {
+			content[ 1 ] = atoi( argv[ i ] );
+			ChainLink	link( content[ 0 ], content[ 1 ] );
+			t.push_back( link );
+			flag = false;
+		}
+	}
 }
 
 template< typename T >
@@ -33,13 +70,28 @@ void	printContent( T& t ) {
 }
 
 template< typename T >
-void	sortPairs( T& t ) {
+void	sortInside( T& t ) {
 	for ( typename T::iterator it = t.begin(); it != t.end(); it++ ) {
-		typename T::iterator previous = it;
-		it++;
-		if ( it == t.end() )
-			return ;
-		else if ( *previous > *it )
-			std::swap( *it, *previous );
+		ChainLink&	link( *it );
+		if ( link.getFirst() > link.getSecond() )
+			link.swapElements();
+	}
+}
+
+// ToDo: Implement binary-search-insertion
+template< typename T >
+void	sortPairs( T& t ) {
+	bool					flag = false;
+	typename T::iterator	previous;
+	for ( typename T::iterator it = t.begin(); it != t.end(); it++ ) {
+		if ( !flag ) {
+			previous = it;
+			flag = true;
+		}
+		else {
+			ChainLink	link( *previous );
+			if ( link.compareFirst( *it ) )
+				std::swap( *previous, *it );
+		}
 	}
 }

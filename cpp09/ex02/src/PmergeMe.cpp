@@ -14,19 +14,66 @@
 #include <deque>
 #include <list>
 
-void	sort( std::deque< int > myDeque, std::list< int > myList ) {
-	sortPairs( myDeque );
-	
-//	It would be wise to create a struct that contains 2 numbers and the
-//	deques and lists containing that struct.
-//	The main reason for that is to be able to work with the pairs since
-//	once you have them sorted by pairs you kinda treat them as 2 different
-//	chains. This way it's easier to work with a "main chain" while having
-//	the hypothetical "auxiliary chain" tied to it.
+ChainLink::ChainLink( void ) : _first( 0 ), _second( 0 ) {}
 
-//	Once we have our main chain with the custom struct that contains the 2
-//	numbers, we should sort the main chain just comparing the first number
-//	but moving both.
+ChainLink::ChainLink( int& i, int& j ) : _first( i ), _second( j ) {}
+
+ChainLink::~ChainLink( void ) {}
+
+ChainLink::ChainLink( const ChainLink& old ) : _first( old._first ), _second( old._second) {}
+
+ChainLink&	ChainLink::operator=( const ChainLink& copy ) {
+	if ( this != &copy ) {
+		this->_first = copy._first;
+		this->_second = copy._second;
+	}
+	return *this;
+}
+
+int	ChainLink::getFirst( void ) const {
+	return this->_first;
+}
+
+int	ChainLink::getSecond( void ) const {
+	return this->_second;
+}
+
+void	ChainLink::setFirst( int n ) {
+	this->_first = n;
+}
+
+void	ChainLink::setSecond( int n ) {
+	this->_second = n;
+}
+
+bool	ChainLink::compareFirst( const ChainLink link ) const {
+	return this->getFirst() > link.getFirst();
+}
+
+void	ChainLink::swapElements( void ) {
+	int	n;
+
+	n = this->getFirst();
+	this->setFirst( this->getSecond( ) );
+	this->setSecond( n );
+}
+
+std::ostream&	operator<<( std::ostream& os, const ChainLink& link ) {
+	os << link.getFirst() << " " << link.getSecond();
+	return os;
+}
+
+void	sort( std::deque< ChainLink >& myDeque, std::list< ChainLink >& myList ) {
+
+	sortInside( myDeque );
+	// DEBUG
+	std::cout << "After sort elements: ";
+	printContent( myDeque );
+	// ENDEBUG
+
+	// The sort pairs function should be able to sort the pairs using their first
+// element as the reference. Right now is not working. 
+	sortPairs( myDeque );
 
 //	Once we are done with that, it's the moment to split the main chain into
 //	2 chains, the main chain and the auxiliary chain. They contain single ints 
@@ -35,5 +82,8 @@ void	sort( std::deque< int > myDeque, std::list< int > myList ) {
 //	Then we are able to use jacobs numbers to insert the second chain into
 //	the main one.
 
-	sortPairs( myList );
+	// DEBUG
+//	sortPairs( myList );
+	(void)myList;
+	// ENDEBUG
 }
