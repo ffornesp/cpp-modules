@@ -53,8 +53,7 @@ void	fillContainer( T& t, char *argv[] ) {
 		if ( !flag ) {
 			content[ 0 ] = atoi( argv[ i ] );
 			flag = true;
-		}
-		else {
+		} else {
 			content[ 1 ] = atoi( argv[ i ] );
 			ChainLink	link( content[ 0 ], content[ 1 ] );
 			t.push_back( link );
@@ -88,8 +87,7 @@ void	sortPairs( T& t ) {
 		if ( !flag ) {
 			previous = it;
 			flag = true;
-		}
-		else {
+		} else {
 			ChainLink	link( *previous );
 			if ( link.compareFirst( *it ) )
 				std::swap( *previous, *it );
