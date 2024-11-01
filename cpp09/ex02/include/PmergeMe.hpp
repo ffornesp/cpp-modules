@@ -33,6 +33,7 @@ class	ChainLink {
 		void	setFirst( int n );
 		void	setSecond( int n );
 
+		bool	compareElements( void ) const ;
 		bool	compareFirst( const ChainLink ) const;
 
 		void	swapElements( void );
@@ -73,7 +74,7 @@ template< typename T >
 void	sortInside( T& t ) {
 	for ( typename T::iterator it = t.begin(); it != t.end(); it++ ) {
 		ChainLink&	link( *it );
-		if ( link.getFirst() > link.getSecond() )
+		if ( link.compareElements() )
 			link.swapElements();
 	}
 }

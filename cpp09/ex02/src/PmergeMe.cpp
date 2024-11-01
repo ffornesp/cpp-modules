@@ -46,6 +46,10 @@ void	ChainLink::setSecond( int n ) {
 	this->_second = n;
 }
 
+bool	ChainLink::compareElements( void ) const {
+	return this->_first > this->_second;
+}
+
 bool	ChainLink::compareFirst( const ChainLink link ) const {
 	return this->getFirst() > link.getFirst();
 }
