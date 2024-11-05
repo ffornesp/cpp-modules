@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/31 15:54:18 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:41:21 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,14 @@ void	sort( std::deque< ChainLink >& myDeque, std::list< ChainLink >& myList ) {
 	printContent( myDeque );
 	// ENDEBUG
 
-	// The sort pairs function should be able to sort the pairs using their first
-// element as the reference. Right now is not working. 
-	sortPairs( myDeque );
+	// Once the content inside the chainlinks is sorted, we must sort the pairs
+	//	based only on their _first ( main chain ). We use binary insertion.
 
-//	Once we are done with that, it's the moment to split the main chain into
-//	2 chains, the main chain and the auxiliary chain. They contain single ints 
-//	instead of our struct with 2 ints.
+	// After we have the "main chain" sorted, we have to send the first numbers
+	//	into a new deque that will contain the final result for the sorted numbers.
 
-//	Then we are able to use jacobs numbers to insert the second chain into
-//	the main one.
+	// Once we have pushed all the _first elements into the new deque, we have to
+	//	insert the _second elements using jacobsthal numbers and binary insertion
 
 	// DEBUG
 //	sortPairs( myList );
