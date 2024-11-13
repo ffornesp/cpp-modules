@@ -17,6 +17,13 @@
 #include <cstdlib>
 #include <iostream>
 
+#ifndef SRC
+# define SRC	0
+#endif
+#ifndef AUX
+# define AUX	1
+#endif
+
 class	ChainLink {
 	private:
 		int	_first;
