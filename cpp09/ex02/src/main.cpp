@@ -66,7 +66,7 @@ int	main( int argc, char *argv[] ) {
 	return 0;
 }
 
-//	This functions calls itself until the 'out' deque is filled with all the elements from 'myDeque' sorted by
+//	This function calls itself until the 'out' deque is filled with all the elements from 'myDeque' sorted by
 // each ChainLink _second element.
 static void	swap_insert( std::deque< ChainLink >& out, std::deque< ChainLink >& myDeque, int pos, int endPos ) { 
 	if ( pos > endPos )
