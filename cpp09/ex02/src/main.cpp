@@ -87,7 +87,7 @@ static void	swap_insert( std::deque< int >& main, std::deque< ChainLink >& aux, 
 	if ( pos < static_cast< int >( myDeque.size() - 1 ) )
 			return ;
 
-	// At this point out is filled with all the pairs 
+	// At this point main and aux are filled with all the numbers
 
 	printContent( main );
 	printContent( aux );
