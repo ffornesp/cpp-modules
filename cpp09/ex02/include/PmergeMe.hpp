@@ -69,28 +69,14 @@ void	printContent( T& t ) {
 	std::cout << std::endl;
 }
 
+//	Returns an iterator pointing to the first element of t which contains a _second value that
+// does not compare less than the _second value contained in c.
 template< typename T >
-void	sortInside( T& t ) {
+typename T::iterator ChainLink_lower_bound( T& t, ChainLink c ) {
 	for ( typename T::iterator it = t.begin(); it != t.end(); it++ ) {
-		ChainLink&	link( *it );
-		if ( link.compareElements() )
-			link.swapElements();
+		ChainLink	link( *it );
+		if ( link.getSecond() > c.getSecond() )
+			return it;
 	}
-}
-
-// ToDo: Implement binary-search-insertion
-template< typename T >
-void	sortPairs( T& t ) {
-	bool					flag = false;
-	typename T::iterator	previous;
-	for ( typename T::iterator it = t.begin(); it != t.end(); it++ ) {
-		if ( !flag ) {
-			previous = it;
-			flag = true;
-		} else {
-			ChainLink	link( *previous );
-			if ( link.compareFirst( *it ) )
-				std::swap( *previous, *it );
-		}
-	}
+	return t.end();
 }
