@@ -46,7 +46,7 @@ int	main( int argc, char *argv[] ) {
 	std::list< ChainLink >	myList;
 
 	if ( argc < 3 )
-		std::cout << "Error: run program with a positive integer sequence as argument." << std::endl;
+		std::cout << "Error: run program with a countitive integer sequence as argument." << std::endl;
 	else {
 		checkInput( argv + 1 );
 
@@ -71,22 +71,25 @@ int	main( int argc, char *argv[] ) {
 //		Also inserts those ChainLinks in the same order inside aux
 //	Once main is full:
 //		Inserts the _first element in each ChainLink contained in myDeque using jacobsthal numbers
-static void	swap_insert( std::deque< int >& main, std::deque< ChainLink > chain[2], size_t pos ) {
+static void	swap_insert( std::deque< int >& main, std::deque< ChainLink > chain[2] ) {
 	if ( main.size() < chain[SRC].size() ) {
+		static size_t	count = 0;
 
-		if ( chain[SRC][pos].compareElements() )
-			chain[SRC][pos].swapElements();
+		if ( chain[SRC][count].compareElements() )
+			chain[SRC][count].swapElements();
+		if ( count++ < chain[SRC].size() - 1 )
+			swap_insert( main, chain );
+		else
+			count--;
 
-		if ( pos < chain[SRC].size() - 1 )
-			swap_insert( main, chain, pos + 1 );
+		std::deque< ChainLink >::iterator it = ChainLink_lower_bound( chain[AUX], chain[SRC][count] );
+		chain[AUX].insert( it, chain[SRC][count] );
 
-		std::deque< ChainLink >::iterator it = ChainLink_lower_bound( chain[AUX], chain[SRC][pos] );
-		chain[AUX].insert( it, chain[SRC][pos] );
-
-		int value = chain[SRC][pos].getSecond();
+		int value = chain[SRC][count].getSecond();
 		std::deque< int >::iterator ite = std::lower_bound( main.begin(), main.end(), value );
 		main.insert( ite, value );
-
+	
+		count--;
 		if ( main.size() < chain[SRC].size() )
 			return ;
 	}
@@ -104,9 +107,10 @@ void	sort( std::deque< ChainLink >& myDeque, std::list< ChainLink >& myList ) {
 	std::deque< int >		mainChain;
 	
 	chain[ SRC ]  = myDeque;
-	swap_insert( mainChain, chain, 0 );
+	swap_insert( mainChain, chain );
+	swap_insert( mainChain, chain );
 
-	printContent( mainChain );
-	printContent( chain[AUX] );
+//	printContent( mainChain );
+//	printContent( chain[AUX] );
 	( void )myList;
 }
