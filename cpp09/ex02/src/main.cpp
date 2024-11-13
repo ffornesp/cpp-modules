@@ -68,32 +68,29 @@ int	main( int argc, char *argv[] ) {
 
 //	This function calls itself until the 'out' deque is filled with all the elements from 'myDeque' sorted by
 // each ChainLink _second element.
-static void	swap_insert( std::deque< ChainLink >& out, std::deque< ChainLink >& myDeque, int pos, int endPos ) { 
-	if ( pos > endPos )
-		return ;
-
-	if ( myDeque[pos].compareElements() )
-		myDeque[pos].swapElements();
-
-	if ( pos == endPos ) {
+//	Once out contains all the ChainLink elements sorted by it's _second element, we are ready to insert
+static void	swap_insert( std::deque< ChainLink >& out, std::deque< ChainLink >& myDeque, int pos, int endPos) {
+	if ( out.size() < myDeque.size() ) {
+		if ( myDeque[pos].compareElements() )
+			myDeque[pos].swapElements();
+		if ( pos > 0 )
+			swap_insert( out, myDeque, pos - 1, endPos );
 		std::deque< ChainLink >::iterator it = ChainLink_lower_bound( out, myDeque[pos] );
 		out.insert( it, myDeque[pos] );
-		return ;
 	}
-	
-	swap_insert( out, myDeque, pos + 1, endPos );
+	if ( pos < endPos )
+			return ;
 
-	std::deque< ChainLink >::iterator it = ChainLink_lower_bound( out, myDeque[pos] );
-	out.insert( it, myDeque[pos] );
+	// At this point out is filled with all the pairs 
+
+	printContent( out );
+
+	// Implement jacobsthal insertion
 }
 
 void	sort( std::deque< ChainLink >& myDeque, std::list< ChainLink >& myList ) {
 	std::deque< ChainLink >	newChain;
 
-	swap_insert( newChain, myDeque, 0, myDeque.size() - 1 );
-	// Insert _first elements with jacobsthal numbers
-
-	printContent( newChain );
-
+	swap_insert( newChain, myDeque, myDeque.size() - 1, myDeque.size() - 1 );
 	( void )myList;
 }
