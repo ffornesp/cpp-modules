@@ -66,31 +66,39 @@ int	main( int argc, char *argv[] ) {
 	return 0;
 }
 
-//	This function calls itself until the 'out' deque is filled with all the elements from 'myDeque' sorted by
-// each ChainLink _second element.
-//	Once out contains all the ChainLink elements sorted by it's _second element, we are ready to insert
-static void	swap_insert( std::deque< ChainLink >& out, std::deque< ChainLink >& myDeque, int pos, int endPos) {
-	if ( out.size() < myDeque.size() ) {
+//	Checks if main is full, if not:
+//		Inserts the _second element in each ChainLink contained in myDeque sorted from small to big inside main
+//		Also inserts those ChainLinks in the same order inside aux
+//	Once main is full:
+//		Inserts the _first element in each ChainLink contained in myDeque using jacobsthal numbers
+static void	swap_insert( std::deque< int >& main, std::deque< ChainLink >& aux, std::deque< ChainLink >& myDeque, int pos ) {
+	if ( main.size() < myDeque.size() ) {
 		if ( myDeque[pos].compareElements() )
 			myDeque[pos].swapElements();
 		if ( pos > 0 )
-			swap_insert( out, myDeque, pos - 1, endPos );
-		std::deque< ChainLink >::iterator it = ChainLink_lower_bound( out, myDeque[pos] );
-		out.insert( it, myDeque[pos] );
+			swap_insert( main, aux, myDeque, pos - 1 );
+
+		std::deque< ChainLink >::iterator it = ChainLink_lower_bound( aux, myDeque[pos] );
+		aux.insert( it, myDeque[pos] );
+
+		std::deque< int >::iterator ite = std::lower_bound( main.begin(), main.end() , myDeque[pos].getSecond() );
+		main.insert( ite, myDeque[pos].getSecond() );
 	}
-	if ( pos < endPos )
+	if ( pos < static_cast< int >( myDeque.size() - 1 ) )
 			return ;
 
 	// At this point out is filled with all the pairs 
 
-	printContent( out );
+	printContent( main );
+	printContent( aux );
 
 	// Implement jacobsthal insertion
 }
 
 void	sort( std::deque< ChainLink >& myDeque, std::list< ChainLink >& myList ) {
-	std::deque< ChainLink >	newChain;
-
-	swap_insert( newChain, myDeque, myDeque.size() - 1, myDeque.size() - 1 );
+	std::deque< ChainLink >	auxChain;
+	std::deque< int >		mainChain;
+	
+	swap_insert( mainChain, auxChain, myDeque, myDeque.size() - 1 );
 	( void )myList;
 }
