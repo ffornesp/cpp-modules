@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:53 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/31 17:27:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:20:43 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ class	ChainLink {
 		void	setSecond( int n );
 
 		bool	compareElements( void ) const ;
-		bool	compareFirst( const ChainLink ) const;
-
 		void	swapElements( void );
 };
 
 std::ostream& operator<<( std::ostream&, const ChainLink& );
 
-void	sort( std::deque< ChainLink >& deq, std::list< ChainLink >& list );
+void	mergeInsertionSort( std::deque< int >&, std::deque< ChainLink >& );
 
 template< typename T >
 void	fillContainer( T& t, char *argv[] ) {
