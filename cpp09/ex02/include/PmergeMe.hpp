@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:53 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/14 18:20:43 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:49:41 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 #include <cstdlib>
 #include <iostream>
 
-#ifndef SRC
-# define SRC	0
+#ifndef INCREMENT
+# define INCREMENT	0
 #endif
-#ifndef AUX
-# define AUX	1
+#ifndef DECREMENT
+# define DECREMENT	1
 #endif
 
 class	ChainLink {
@@ -46,10 +46,10 @@ class	ChainLink {
 
 std::ostream& operator<<( std::ostream&, const ChainLink& );
 
-void	mergeInsertionSort( std::deque< int >&, std::deque< ChainLink >& );
+void	mergeInsertionSort( std::deque< ChainLink >&, int );
 
 template< typename T >
-void	fillContainer( T& t, char *argv[] ) {
+void	fillContainer( T& t, int& leftovers, char *argv[] ) {
 	ChainLink	link;
 	bool		flag;
 	int			content[2];
@@ -63,8 +63,12 @@ void	fillContainer( T& t, char *argv[] ) {
 			ChainLink	link( content[ 0 ], content[ 1 ] );
 			t.push_back( link );
 			flag = false;
+			content[ 0 ] = -1;
+			content[ 1 ] = -1;
 		}
 	}
+	if ( content[ 0 ] )
+		leftovers = content[ 0 ];
 }
 
 template< typename T >
