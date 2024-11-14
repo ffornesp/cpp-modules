@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/14 18:36:10 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:25:29 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ static void	checkInput( char *argv[] ) {
 	}
 }
 
-static void	fillDeque( std::deque< int >& dst, char *argv[] ) {
-	for ( int i = 1; argv[i] != NULL; i++ ) {
-		dst.push_back( atoi( argv[ i ] ) );
-	}
-}
-
 int	main( int argc, char *argv[] ) {
 	if ( argc < 3 ) {
 		std::cout << "Error: run program with a countitive integer sequence as argument." << std::endl;
@@ -54,15 +48,14 @@ int	main( int argc, char *argv[] ) {
 	}
 	checkInput( argv + 1 );
 
-	std::deque< int > src;
 	std::deque< ChainLink >	myDeque;
-	fillDeque( src, argv );
-	fillContainer( myDeque, argv );
+	int						leftovers = -1;
+	fillContainer( myDeque, leftovers, argv );
 
 	std::cout << "Before: ";
-	printContent( src );
+	printContent( myDeque );
 
-	mergeInsertionSort( src, myDeque );
+	mergeInsertionSort( myDeque, leftovers );
 
 //	std::cout << "After: ";
 //	printContent( myDeque );
@@ -90,7 +83,7 @@ static void	compareElements( std::deque< ChainLink >& src, size_t element_size, 
 				src[ i ].swapElements();
 		}
 		// DEBUG
-//		printContent( src );
+		printContent( src );
 		// ENDEBUG
 		return ;
 	}
@@ -111,17 +104,22 @@ static void	compareElements( std::deque< ChainLink >& src, size_t element_size, 
 	}
 
 	// DEBUG
-//	printContent( src );
+	printContent( src );
 	// ENDEBUG
 }
 
-static void	updateValues( size_t& element_size, size_t& size ) {
-	element_size *= 2;
-	size /= 2;
+static void	updateValues( size_t& element_size, size_t& size, bool flag ) {
+	if ( flag == INCREMENT ) {
+		element_size *= 2;
+		size /= 2;
+	} else {
+		element_size /= 2;
+		size *= 2;
+	}
 }
 
-void	mergeInsertionSort( std::deque< int >& og, std::deque< ChainLink >& src ) {
-	static std::deque< ChainLink >	aux;
+void	mergeInsertionSort( std::deque< ChainLink >& src, int leftovers) {
+//	static std::deque< ChainLink >	aux;
 	static size_t					element_size = 1;
 	static size_t					size = src.size();
 
@@ -134,8 +132,8 @@ void	mergeInsertionSort( std::deque< int >& og, std::deque< ChainLink >& src ) {
 
 	if ( size > 1 ) {
 		compareElements( src, element_size, size );
-		updateValues( element_size, size );
-		mergeInsertionSort( og, src );
+		updateValues( element_size, size, INCREMENT );
+		mergeInsertionSort( src, leftovers );
 	}
 
 	// DEBUG
@@ -144,20 +142,26 @@ void	mergeInsertionSort( std::deque< int >& og, std::deque< ChainLink >& src ) {
 	// ENDEBUG
 
 	if ( element_size > 1 ) {
-		size *= 2;
-		element_size /= 2;
+		// Create main chain using src as reference
+		// Create a main_chain to store the biggest element in each group of pairs using
+		//		element_size
+		updateValues( element_size, size, DECREMENT );
 		return ;
 	}
 
-	( void )aux;
-	// DEBUG
-	if ( static_cast< int >( og.size() ) & 1 )
-		std::cout << "\nThere's something else at the end baby" << std::endl;
-	// ENDEBUG
+	if ( leftovers >= 0 )
+		// Insert leftovers
 	return ;
 }
 
+	// TODO		GET RID OF CHAINLINKS LMAOOOOXDDXDXD and implement everything with deque<int>
+	//	maybe>? use iterators? why? theres std::swap range that makes it easier to swap elements
+
+
+
+
 /*
+		WHAT TO DO?
 
 	call merge-insertion-sort
 		element_size = 1
