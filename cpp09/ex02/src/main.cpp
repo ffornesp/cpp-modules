@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/05 18:41:21 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:36:10 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,76 +41,162 @@ static void	checkInput( char *argv[] ) {
 	}
 }
 
-int	main( int argc, char *argv[] ) {
-	std::deque< ChainLink >	myDeque;
-	std::list< ChainLink >	myList;
-
-	if ( argc < 3 )
-		std::cout << "Error: run program with a countitive integer sequence as argument." << std::endl;
-	else {
-		checkInput( argv + 1 );
-
-// Remember to handle the last element in case there's no pair at the end
-
-		fillContainer( myDeque, argv );
-		fillContainer( myList, argv );
-
-//		std::cout << "Before: ";
-//		printContent( myDeque );
-
-		sort( myDeque, myList );
-
-//		std::cout << "After: ";
-//		printContent( myDeque );
+static void	fillDeque( std::deque< int >& dst, char *argv[] ) {
+	for ( int i = 1; argv[i] != NULL; i++ ) {
+		dst.push_back( atoi( argv[ i ] ) );
 	}
+}
+
+int	main( int argc, char *argv[] ) {
+	if ( argc < 3 ) {
+		std::cout << "Error: run program with a countitive integer sequence as argument." << std::endl;
+		return 1;
+	}
+	checkInput( argv + 1 );
+
+	std::deque< int > src;
+	std::deque< ChainLink >	myDeque;
+	fillDeque( src, argv );
+	fillContainer( myDeque, argv );
+
+	std::cout << "Before: ";
+	printContent( src );
+
+	mergeInsertionSort( src, myDeque );
+
+//	std::cout << "After: ";
+//	printContent( myDeque );
+
+	// Implement the same for list
 	return 0;
 }
 
-//	Checks if main is full, if not:
-//		Inserts the _second element in each ChainLink contained in myDeque sorted from small to big inside main
-//		Also inserts those ChainLinks in the same order inside aux
-//	Once main is full:
-//		Inserts the _first element in each ChainLink contained in myDeque using jacobsthal numbers
-static void	swap_insert( std::deque< int >& main, std::deque< ChainLink > chain[2] ) {
-	if ( main.size() < chain[SRC].size() ) {
-		static size_t	count = 0;
+static bool compareLinks( ChainLink l1, ChainLink l2 ) {
+	return ( l1.getSecond() > l2.getSecond() );
+}
 
-		if ( chain[SRC][count].compareElements() )
-			chain[SRC][count].swapElements();
-		if ( count++ < chain[SRC].size() - 1 )
-			swap_insert( main, chain );
-		else
-			count--;
+static void	swapLinks( ChainLink& l1, ChainLink& l2 ) {
+	ChainLink	aux;
 
-		std::deque< ChainLink >::iterator it = ChainLink_lower_bound( chain[AUX], chain[SRC][count] );
-		chain[AUX].insert( it, chain[SRC][count] );
+	aux = l1;
+	l1 = l2;
+	l2 = aux;
+}
 
-		int value = chain[SRC][count].getSecond();
-		std::deque< int >::iterator ite = std::lower_bound( main.begin(), main.end(), value );
-		main.insert( ite, value );
-	
-		count--;
-		if ( main.size() < chain[SRC].size() )
-			return ;
+static void	compareElements( std::deque< ChainLink >& src, size_t element_size, size_t size ) {
+	if ( element_size == 1 ) {
+		for ( size_t i = 0; i < size; i++ ) {
+			if ( src[ i ].compareElements() )
+				src[ i ].swapElements();
+		}
+		// DEBUG
+//		printContent( src );
+		// ENDEBUG
+		return ;
 	}
 
-	// At this point main and aux are filled with all the numbers
+	// We must divide element_size by 2 because we are working with pairs ( ChainLinks )
+	element_size /= 2;
 
-	printContent( main );
-	printContent( chain[AUX] );
+	size_t	i = element_size - 1;
+	size_t	j = i + element_size;
+	while ( i < src.size() && j < src.size() ) {
+		if ( compareLinks( src[ i ], src[ j ] ) ) {
+			for ( size_t n = 0; n < element_size; n++ ) {
+				swapLinks( src[ i - n ], src[ j - n ] );
+			}
+		}
+		i = j + element_size;
+		j = j + ( element_size * 2 );
+	}
 
-	// Implement jacobsthal insertion
+	// DEBUG
+//	printContent( src );
+	// ENDEBUG
 }
 
-void	sort( std::deque< ChainLink >& myDeque, std::list< ChainLink >& myList ) {
-	std::deque< ChainLink > chain[2];
-	std::deque< int >		mainChain;
+static void	updateValues( size_t& element_size, size_t& size ) {
+	element_size *= 2;
+	size /= 2;
+}
+
+void	mergeInsertionSort( std::deque< int >& og, std::deque< ChainLink >& src ) {
+	static std::deque< ChainLink >	aux;
+	static size_t					element_size = 1;
+	static size_t					size = src.size();
+
+	// DEBUG
+	static size_t	count = 0;
+	std::cout << "\nEntered mergeInsertionSort: " << ++count << " times" << std::endl;
+	std::cout << "\tElement_size: " << element_size << std::endl;
+	std::cout << "\tSize: " << size << std::endl;
+	// ENDEBUG
+
+	if ( size > 1 ) {
+		compareElements( src, element_size, size );
+		updateValues( element_size, size );
+		mergeInsertionSort( og, src );
+	}
+
+	// DEBUG
+//	std::cout << "Element_size: " << element_size << std::endl;
+//	std::cout << "Size: " << size << std::endl << std::endl;
+	// ENDEBUG
+
+	if ( element_size > 1 ) {
+		size *= 2;
+		element_size /= 2;
+		return ;
+	}
+
+	( void )aux;
+	// DEBUG
+	if ( static_cast< int >( og.size() ) & 1 )
+		std::cout << "\nThere's something else at the end baby" << std::endl;
+	// ENDEBUG
+	return ;
+}
+
+/*
+
+	call merge-insertion-sort
+		element_size = 1
+		size = 9
+
+	5 2 3 1 4 7 6 9 8 
+
+	swap content inside pairs
+
+	[5-2] [3-1] [4-7] [6-9] | 8				
+	[2-5] [1-3] [4-7] [6-9] | 8
+
+	call merge-insertion-sort
+		element_size = 2
+		size = 4
+
+	swap content inside pairs
+
+	[(2-5) (1-3)] [(4-7) (6-9)]
+	[(1-3)-(2-5)] [(4-7)-(6-9)]
+
+	call merge-insertion-sort
+		element_size = 4
+		size = 2
+
+	swap content inside pairs
+
+	[((1-3)-(2-5)) ((4-7)-(6-9))] 		since 5 < 9 we do not swap content
+	[((1-3)-(2-5))-((4-7)-(6-9))] 
+
+	call merge-insertion-sort
+		element_size = 8
+		size = 1 ; then return
+
 	
-	chain[ SRC ]  = myDeque;
-	swap_insert( mainChain, chain );
-	swap_insert( mainChain, chain );
+	call jacobsthal haha xdxd
 
-//	printContent( mainChain );
-//	printContent( chain[AUX] );
-	( void )myList;
-}
+	when calling jacobsthal we will keep the reference of the paired number using an iterator
+	the main difference between deque and list is that list will be able to keep it's iterator
+	intact event tho we insert stuff in between, however that's not the case for deque
+
+*/
