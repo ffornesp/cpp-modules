@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:08:11 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/31 18:17:30 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:33:02 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ void	ChainLink::setSecond( int n ) {
 
 bool	ChainLink::compareElements( void ) const {
 	return this->_first > this->_second;
-}
-
-bool	ChainLink::compareFirst( const ChainLink link ) const {
-	return this->getFirst() > link.getFirst();
 }
 
 void	ChainLink::swapElements( void ) {
