@@ -16,9 +16,11 @@
 #include <climits>
 #include <cstring>
 
+static void	updateValues( size_t& element_size, size_t& size, bool flag );
+
 int	main( int argc, char *argv[] ) {
 	if ( argc < 3 ) {
-		std::cout << "Error: run program with a countitive integer sequence as argument." << std::endl;
+		std::cout << "Error: run program with a pos0itive integer sequence as argument." << std::endl;
 		return 1;
 	}
 	checkInput( argv + 1 );
@@ -40,36 +42,24 @@ int	main( int argc, char *argv[] ) {
 }
 
 static void	compareElements( std::deque< int >& src, size_t element_size ) {
-	std::deque< int >::iterator	first = src.begin() + element_size - 1;
-	std::deque< int >::iterator	second = src.begin() + ( element_size * 2 ) - 1;
-	size_t						count = ( element_size * 2 ) - 1;
+	size_t	tail = element_size - 1;
 
-	while ( count <= src.size() ) {
+	while ( tail + element_size < src.size() ) {
+		std::cout << "Elements compared: " << tail - element_size + 1 << std::endl;
+		std::deque< int >::iterator	first = src.begin() + tail;
+		std::deque< int >::iterator	second = src.begin() + tail + element_size;
+
 		std::cout << "Comparing:\t[" << *first << "][" << *second << "]" << std::endl;
+		std::cout << "Chain b4 comparison:\t";
+		printGroups( src, element_size );
+		if ( *first > *second )
+			std::swap_ranges( first - element_size + 1, first + 1, second - element_size + 1);
 
-		if ( *first > *second ) {
-			std::cout << "[" << *( first - element_size + 1 ) << "][" << *(first + 1) << "]" << std::endl;
-			std::swap_ranges( first - element_size + 1, first + 1, second);
-		}
+		tail += element_size * 2;
 
-		count += element_size;
-		first = src.begin() + count;
-
-		count += element_size;
-		second = src.begin() + count;
-
-		std::cout << "Current chain:\t";
-		printContent( src );
-	}
-}
-
-static void	updateValues( size_t& element_size, size_t& size, bool flag ) {
-	if ( flag == INCREMENT ) {
-		element_size *= 2;
-		size /= 2;
-	} else {
-		element_size /= 2;
-		size *= 2;
+		std::cout << "Chain after comparison:\t";
+		printGroups( src, element_size );
+		std::cout << std::endl;
 	}
 }
 
@@ -105,4 +95,14 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 	}
 
 	return ;
+}
+
+static void	updateValues( size_t& element_size, size_t& size, bool flag ) {
+	if ( flag == INCREMENT ) {
+		element_size *= 2;
+		size /= 2;
+	} else {
+		element_size /= 2;
+		size *= 2;
+	}
 }
