@@ -46,7 +46,7 @@ class	ChainLink {
 
 std::ostream& operator<<( std::ostream&, const ChainLink& );
 
-void	mergeInsertionSort( std::deque< ChainLink >&, int );
+void	mergeInsertionSort( std::deque< int >& );
 
 template< typename T >
 void	fillContainer( T& t, int& leftovers, char *argv[] ) {
