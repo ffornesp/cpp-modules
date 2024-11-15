@@ -16,31 +16,6 @@
 #include <climits>
 #include <cstring>
 
-static void badInput( std::string msg ) {
-	std::cout << "Error: invalid input" << msg << std::endl;
-	exit( 1 );
-}
-
-static void	checkInput( char *argv[] ) {
-	long				l;
-	std::list< int >	myList;
-
-	for ( int i = 0; argv[i] != NULL; i++ ) {
-		l = atol( argv[i] );
-		if ( l < 0 )
-			badInput( ", there can't be any negative numbers." );
-		else if ( l > INT_MAX )
-			badInput( ", out of integer range." );
-		for ( int j = 0; argv[i][j] != '\0'; j++ )
-			if ( !isdigit( argv[i][j] ) )
-				badInput( ", non digit characters found." );
-		for ( std::list< int >::iterator it = myList.begin(); it != myList.end(); it++ )
-			if ( static_cast< int >( l ) == *it )
-				badInput( ", duplicates found." );
-		myList.push_back( static_cast< int >( l ) );
-	}
-}
-
 int	main( int argc, char *argv[] ) {
 	if ( argc < 3 ) {
 		std::cout << "Error: run program with a countitive integer sequence as argument." << std::endl;
@@ -131,60 +106,3 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 
 	return ;
 }
-
-
-
-
-
-
-
-	// TODO		GET RID OF CHAINLINKS LMAOOOOXDDXDXD and implement everything with deque<int>
-	//	maybe>? use iterators? why? theres std::swap range that makes it easier to swap elements
-
-
-
-
-/*
-		WHAT TO DO?
-
-	call merge-insertion-sort
-		element_size = 1
-		size = 9
-
-	5 2 3 1 4 7 6 9 8 
-
-	swap content inside pairs
-
-	[5-2] [3-1] [4-7] [6-9] | 8				
-	[2-5] [1-3] [4-7] [6-9] | 8
-
-	call merge-insertion-sort
-		element_size = 2
-		size = 4
-
-	swap content inside pairs
-
-	[(2-5) (1-3)] [(4-7) (6-9)]
-	[(1-3)-(2-5)] [(4-7)-(6-9)]
-
-	call merge-insertion-sort
-		element_size = 4
-		size = 2
-
-	swap content inside pairs
-
-	[((1-3)-(2-5)) ((4-7)-(6-9))] 		since 5 < 9 we do not swap content
-	[((1-3)-(2-5))-((4-7)-(6-9))] 
-
-	call merge-insertion-sort
-		element_size = 8
-		size = 1 ; then return
-
-	
-	call jacobsthal haha xdxd
-
-	when calling jacobsthal we will keep the reference of the paired number using an iterator
-	the main difference between deque and list is that list will be able to keep it's iterator
-	intact event tho we insert stuff in between, however that's not the case for deque
-
-*/
