@@ -88,7 +88,7 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 
 	if ( element_size > 1 ) {
 		// Create main chain using src as reference
-		// Create a main_chain to store the biggest element in each group of pairs using
+		// store the biggest element in each group of pairs using
 		//		element_size
 		updateValues( element_size, size, DECREMENT );
 		return ;
