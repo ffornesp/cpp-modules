@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/14 19:25:29 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:13:44 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,51 +45,44 @@ static void	compareElements( std::deque< int >& src, size_t element_size ) {
 	size_t	tail = element_size - 1;
 
 	while ( tail + element_size < src.size() ) {
-		std::cout << "Elements compared: " << tail - element_size + 1 << std::endl;
 		std::deque< int >::iterator	first = src.begin() + tail;
 		std::deque< int >::iterator	second = src.begin() + tail + element_size;
-
-		std::cout << "Comparing:\t[" << *first << "][" << *second << "]" << std::endl;
-		std::cout << "Chain b4 comparison:\t";
-		printGroups( src, element_size );
 		if ( *first > *second )
 			std::swap_ranges( first - element_size + 1, first + 1, second - element_size + 1);
-
 		tail += element_size * 2;
-
-		std::cout << "Chain after comparison:\t";
-		printGroups( src, element_size );
-		std::cout << std::endl;
 	}
+}
+
+// TODO make it workworkworkworkwork
+static void	binarySearchInsertion( std::deque< int >& src, size_t element_size ) {
+	std::deque< int >	mainChain;
+	size_t				n = 1;
+
+	printGroups( src, element_size );
+	for ( std::deque< int >::iterator it = src.begin(); it != src.end(); it++ ) {
+		if ( n == element_size ) {
+			mainChain.push_back( *it );
+			n = 1;
+		}
+		n++;
+	}
+	std::cout << "Main chain: " << printGroups( mainChain, 1 );
+	(void)element_size;
 }
 
 void	mergeInsertionSort( std::deque< int >& src ) {
 	static size_t	element_size = 1;
 	static size_t	size = src.size();
 
-	// DEBUG
-	static size_t	count = 0;
-	std::cout << "\nEntered mergeInsertionSort: " << ++count << " times" << std::endl;
-	std::cout << "\tElement_size: " << element_size << std::endl;
-	std::cout << "\tSize: " << size << std::endl;
-	// ENDEBUG
-
 	if ( size > 1 ) {
 		compareElements( src, element_size );
-//		printContent( src );
 		updateValues( element_size, size, INCREMENT );
 		mergeInsertionSort( src );
 	}
-
-	// DEBUG
-//	std::cout << "Element_size: " << element_size << std::endl;
-//	std::cout << "Size: " << size << std::endl << std::endl;
-	// ENDEBUG
-
 	if ( element_size > 1 ) {
-		// Create main chain using src as reference
-		// store the biggest element in each group of pairs using
-		//		element_size
+		// Apply binary search insertion to current pair group using jacobsthal sequence
+		binarySearchInsertion( src, element_size );
+		// Update values for next iteration & return
 		updateValues( element_size, size, DECREMENT );
 		return ;
 	}
