@@ -14,6 +14,7 @@ NAME = PmergeMe
 
 SRC_DIR = src/
 SRC_FILES = PmergeMe.cpp \
+			parse.cpp \
 			main.cpp
 			
 OBJ_DIR = objs/
