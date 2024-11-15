@@ -48,14 +48,14 @@ int	main( int argc, char *argv[] ) {
 	}
 	checkInput( argv + 1 );
 
-	std::deque< ChainLink >	myDeque;
-	int						leftovers = -1;
-	fillContainer( myDeque, leftovers, argv );
-
+	std::deque< int >	src;
+	for ( int i = 1; argv[ i ] != NULL; i++ ) {
+		src.push_back( atoi( argv[ i ] ) );
+	}
 	std::cout << "Before: ";
-	printContent( myDeque );
+	printContent( src );
 
-	mergeInsertionSort( myDeque, leftovers );
+	mergeInsertionSort( src );
 
 //	std::cout << "After: ";
 //	printContent( myDeque );
@@ -64,48 +64,28 @@ int	main( int argc, char *argv[] ) {
 	return 0;
 }
 
-static bool compareLinks( ChainLink l1, ChainLink l2 ) {
-	return ( l1.getSecond() > l2.getSecond() );
-}
+static void	compareElements( std::deque< int >& src, size_t element_size ) {
+	std::deque< int >::iterator	first = src.begin() + element_size - 1;
+	std::deque< int >::iterator	second = src.begin() + ( element_size * 2 ) - 1;
+	size_t						count = ( element_size * 2 ) - 1;
 
-static void	swapLinks( ChainLink& l1, ChainLink& l2 ) {
-	ChainLink	aux;
+	while ( count <= src.size() ) {
+		std::cout << "Comparing:\t[" << *first << "][" << *second << "]" << std::endl;
 
-	aux = l1;
-	l1 = l2;
-	l2 = aux;
-}
-
-static void	compareElements( std::deque< ChainLink >& src, size_t element_size, size_t size ) {
-	if ( element_size == 1 ) {
-		for ( size_t i = 0; i < size; i++ ) {
-			if ( src[ i ].compareElements() )
-				src[ i ].swapElements();
+		if ( *first > *second ) {
+			std::cout << "[" << *( first - element_size + 1 ) << "][" << *(first + 1) << "]" << std::endl;
+			std::swap_ranges( first - element_size + 1, first + 1, second);
 		}
-		// DEBUG
+
+		count += element_size;
+		first = src.begin() + count;
+
+		count += element_size;
+		second = src.begin() + count;
+
+		std::cout << "Current chain:\t";
 		printContent( src );
-		// ENDEBUG
-		return ;
 	}
-
-	// We must divide element_size by 2 because we are working with pairs ( ChainLinks )
-	element_size /= 2;
-
-	size_t	i = element_size - 1;
-	size_t	j = i + element_size;
-	while ( i < src.size() && j < src.size() ) {
-		if ( compareLinks( src[ i ], src[ j ] ) ) {
-			for ( size_t n = 0; n < element_size; n++ ) {
-				swapLinks( src[ i - n ], src[ j - n ] );
-			}
-		}
-		i = j + element_size;
-		j = j + ( element_size * 2 );
-	}
-
-	// DEBUG
-	printContent( src );
-	// ENDEBUG
 }
 
 static void	updateValues( size_t& element_size, size_t& size, bool flag ) {
@@ -118,10 +98,9 @@ static void	updateValues( size_t& element_size, size_t& size, bool flag ) {
 	}
 }
 
-void	mergeInsertionSort( std::deque< ChainLink >& src, int leftovers) {
-//	static std::deque< ChainLink >	aux;
-	static size_t					element_size = 1;
-	static size_t					size = src.size();
+void	mergeInsertionSort( std::deque< int >& src ) {
+	static size_t	element_size = 1;
+	static size_t	size = src.size();
 
 	// DEBUG
 	static size_t	count = 0;
@@ -131,9 +110,10 @@ void	mergeInsertionSort( std::deque< ChainLink >& src, int leftovers) {
 	// ENDEBUG
 
 	if ( size > 1 ) {
-		compareElements( src, element_size, size );
+		compareElements( src, element_size );
+//		printContent( src );
 		updateValues( element_size, size, INCREMENT );
-		mergeInsertionSort( src, leftovers );
+		mergeInsertionSort( src );
 	}
 
 	// DEBUG
@@ -149,10 +129,14 @@ void	mergeInsertionSort( std::deque< ChainLink >& src, int leftovers) {
 		return ;
 	}
 
-	if ( leftovers >= 0 )
-		// Insert leftovers
 	return ;
 }
+
+
+
+
+
+
 
 	// TODO		GET RID OF CHAINLINKS LMAOOOOXDDXDXD and implement everything with deque<int>
 	//	maybe>? use iterators? why? theres std::swap range that makes it easier to swap elements
