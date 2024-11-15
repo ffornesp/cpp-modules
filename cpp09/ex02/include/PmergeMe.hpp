@@ -24,6 +24,14 @@
 # define DECREMENT	1
 #endif
 
+#ifndef _COLORS_
+# define _COLORS_
+
+# define YELLOW	"\033[1;33m"
+# define DEFAULT	"\033[1;0m"
+
+#endif
+
 void	checkInput( char *argv[] );
 
 void	mergeInsertionSort( std::deque< int >& );
@@ -32,6 +40,25 @@ template< typename T >
 void	printContent( T& t ) {
 	for ( typename T::iterator it = t.begin(); it != t.end(); it++ )
 		std::cout << *it << " ";
+	std::cout << std::endl;
+}
+
+template< typename T >
+void	printGroups( T& t, size_t size ) {
+	size_t	count = 1;
+
+	for ( typename T::iterator it = t.begin(); it != t.end(); it++ ) {
+		if ( count == 1 )
+			std::cout << YELLOW << "[" << DEFAULT;
+		std::cout << *it;
+		if ( count == size ) {
+			std::cout << YELLOW << "] " << DEFAULT;
+			count = 1;
+		} else {
+			std::cout << " ";
+			count++;
+		}
+	}
 	std::cout << std::endl;
 }
 
