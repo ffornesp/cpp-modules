@@ -18,6 +18,8 @@
 
 static void	updateValues( size_t& element_size, size_t& size, bool flag );
 
+const int	jacobsthalNumbers[15] = { 0, 1, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461 };
+
 int	main( int argc, char *argv[] ) {
 	if ( argc < 3 ) {
 		std::cout << "Error: run program with a pos0itive integer sequence as argument." << std::endl;
@@ -65,6 +67,29 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 		} else
 			n++;
 	}
+// DEBUG
+	printGroups( src, element_size );
+	printGroups( mainChain, 1 );
+// ENDEBUG
+	n = 0;
+	while ( 42 ) {
+		switch ( jacobsthalNumbers[ n ] ) {
+			case 0:
+				for ( int count = element_size - 2; count >= 0; count-- )
+					mainChain.push_front( *( src.begin() + count ) );
+				break ;
+			default:
+				// DEBUG
+				std::cout << "Case: " << jacobsthalNumbers[ n ] << " " << n << std::endl;
+				// ENDEBUG
+		}
+		n++;
+		if ( n > src.size() / element_size )
+			break ;
+	}
+// DEBUG
+	printGroups( mainChain, 1 );
+// ENDEBUG
 }
 
 void	mergeInsertionSort( std::deque< int >& src ) {
@@ -78,7 +103,11 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 	}
 	if ( element_size > 1 ) {
 		// Apply binary search insertion to current pair group using jacobsthal sequence
-		binarySearchInsertion( src, element_size );
+		//	Only applies to cases that size is >= 4 since you can't apply merge insertion
+		//	with jacobsthal numbers to size 1 and in the case of size 2 the groups are
+		//	already sorted.
+		if ( size >= 4 )
+			binarySearchInsertion( src, element_size );
 		// Update values for next iteration & return
 		updateValues( element_size, size, DECREMENT );
 		return ;
