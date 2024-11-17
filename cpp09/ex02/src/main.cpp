@@ -58,16 +58,13 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 	std::deque< int >	mainChain;
 	size_t				n = 1;
 
-	printGroups( src, element_size );
 	for ( std::deque< int >::iterator it = src.begin(); it != src.end(); it++ ) {
 		if ( n == element_size ) {
 			mainChain.push_back( *it );
 			n = 1;
-		}
-		n++;
+		} else
+			n++;
 	}
-	std::cout << "Main chain: " << printGroups( mainChain, 1 );
-	(void)element_size;
 }
 
 void	mergeInsertionSort( std::deque< int >& src ) {
