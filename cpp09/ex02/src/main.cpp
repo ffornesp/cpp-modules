@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/18 13:00:02 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:29:50 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,52 +55,65 @@ static void	compareElements( std::deque< int >& src, size_t element_size ) {
 	}
 }
 
+static void	fillChain( std::deque< int >& dst, std::deque< int > src, size_t element_size, size_t& groups ) {
+	std::deque< int >::iterator pos = src.begin() + element_size;
+	for ( size_t count = groups * 0.5f; count > 0; count-- ) {
+		dst.insert( dst.end(), pos, pos + element_size );
+		pos += element_size * 2;
+		groups--;
+	}
+}
+
+// TODO this....
+static std::deque< int >::iterator( std::deque< int > chain, size_t element_size, int value ) {
+	std::deque< int >::iterator	it = chain.begin();
+
+	// This is so wrong/
+	std::cout << "Looking for: " << value << std::endl;
+	(void)element_size;
+
+	return it;
+}
+
 // TODO make it workworkworkworkwork
 static void	binarySearchInsertion( std::deque< int >& src, size_t element_size ) {
 	std::deque< int >	mainChain;
-	size_t				n = 0;
-
 	size_t	groups = src.size() / element_size;
-	std::cout << "Found " << groups << " groups of numbers" << std::endl;
+	
+	fillChain( mainChain, src, element_size, groups );
 
-	for ( std::deque< int >::iterator it = src.begin(); it != src.end(); it++ ) {
-		if ( n++ >= element_size ) {
-			mainChain.push_back( *it );
-			if ( n >=  element_size * 2 ) {
-				groups--;
-				n = 0;
-			}
-		}
-	}
-// DEBUG
-	std::cout << "Original:\t";
-	printGroups( src, element_size );
-	std::cout << "Main chain:\t";
-	printGroups( mainChain, element_size );
-	std::cout << "Found " << groups << " groups of numbers" << std::endl;
-// ENDEBUG
-	n = 0;
-	while ( groups ) {
-		switch ( jacobsthalNumbers[ n ] ) {
-			case 0:
-//				for ( std::deque< int >::iterator it = src.begin(); it != src.end(); it++ ) {
-						
-//				}
-				break ;
-			default:
-				// Advance until you find first iterator of group
-				// 
-				// DEBUG
-				std::cout << "Case: " << jacobsthalNumbers[ n ] << " " << n << std::endl;
-				// ENDEBUG
-		}
-		n++;
-		if ( n > src.size() / element_size )
+	// Remove this
+	std::cout << std::endl;
+
+	size_t	n = 0;
+	size_t	jacob = 0;
+	while ( 42 ) {
+		if ( jacobsthalNumbers[ n ] == 0 )
+			mainChain.insert( mainChain.begin(), src.begin(), src.begin() + element_size );
+		else {
+			jacob += jacobsthalNumbers[ n ] + 1;
+			std::deque< int >::iterator first = src.begin() + element_size * jacob;
+			std::deque< int >::iterator	second = first + element_size;
+			// Look for the iterator where I need to insert everything using binary search
+			std::cout << "Group defined by: [" << *first << " " << *second << "]" << std::endl;
+
+			std::deque< int >::iterator	pos = binarySearch( mainChain, element_size, *( second - 1 ) );
+			std::cout << "Position found: " << *it << std::endl;
+			// Write function that returns iterator to the position of the group I want
+			// to insert, passing it the index of the group and src.
 			break ;
+		}
+		std::cout << "Jacob: " << jacobsthalNumbers[n] << " Index: " << n << std::endl;
+
+		groups--;
+		n++;
+	
+		std::cout << "Original:\t";
+		printGroups( src, element_size );
+		std::cout << "Main chain:\t";
+		printGroups( mainChain, element_size );
+		std::cout << std::endl;
 	}
-// DEBUG
-	printGroups( mainChain, element_size );
-// ENDEBUG
 }
 
 void	mergeInsertionSort( std::deque< int >& src ) {
