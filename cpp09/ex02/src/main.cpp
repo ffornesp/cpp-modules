@@ -89,10 +89,10 @@ static size_t	binarySearch( std::deque< int > src, size_t element_size, int valu
 	// In order to acces the element inside src we must use this:
 	//			src[ element_size * middle + element_size ]
 	
-	size_t	middle = n * 0.5f;
+	size_t	middle = n / element_size * 0.5f;
 
-	std::cout << "Found [ " << n / element_size + 1 << " ] pairs to compare to" << std::endl;
-	std::cout << "IS THIS IT? " << src[ element_size * middle + element_size - 1] << std::endl;
+	std::cout << "Found [ " << n / element_size + 1 << " ] pairs to compare to, middle: " << middle << std::endl;
+	std::cout << "IS THIS IT? " << src[ element_size * middle + element_size - 1 ] << std::endl;
 
 	return 0;
 }
