@@ -71,25 +71,31 @@ static void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_
 	printGroups( src, element_size );
 	std::cout << std::endl;
 }
-/*
+
 static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limit ) {
-	size_t	middle = ( src.size() / element_size ) / 2;
-	size_t	elements = middle;
+	size_t	n;
 
-	std::cout << "Size: " << src.size() / element_size << " Middle: " << middle << " Elements: " << elements << std::endl;
-
-	if ( src.size() / element_size == 3 ) {
-		if ( src[ middle * element_size + element_size - 1 ] > value ) {
-			return ( middle * element_size - element_size - 1 );
-		}
-		else {
-			return ( middle * element_size + element_size - 1 + 1 );
+	std::cout << "Trying to insert [ " << value << " ]" << std::endl;
+	for ( size_t i = 0; i < src.size(); i++ ) {
+		if ( src[ i ] == limit ) {
+			std::cout << "Found limit [ " << limit << " ] in index " << i << std::endl;
+			n = i - element_size;
+			std::cout << "Setting new limit at " << n << " which corresponds to [ " << src[n] << " ]" << std::endl;
+			break ;
 		}
 	}
-	(void) limit;
+	// Remember: n / element_size + 1 = Number of elements I can compare to
+	//			 n / element_size	  = Index of the elements I can compare to
+	// In order to acces the element inside src we must use this:
+	//			src[ element_size * middle + element_size ]
+	
+	size_t	middle = n * 0.5f;
+
+	std::cout << "Found [ " << n / element_size + 1 << " ] pairs to compare to" << std::endl;
+	std::cout << "IS THIS IT? " << src[ element_size * middle + element_size - 1] << std::endl;
+
 	return 0;
 }
-*/
 
 static void	binarySearchInsertion( std::deque< int >& src, size_t element_size ) {
 	std::deque< int >	mainChain;
@@ -112,8 +118,8 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 				std::deque< int >::iterator	first = src.begin() + element_size * jacob * 2;
 				std::deque< int >::iterator	second = first + element_size;
 				// TODO Find pos with binary search && remember that we have the limit at *(second + element_size - 1)
-				std::deque< int >::iterator	pos = mainChain.begin();
-				//std::deque< int >::iterator	pos = binarySearch( mainChain, element_size, *( second - 1 ), *( second - 1 + element_size ) );
+				//std::deque< int >::iterator	pos = mainChain.begin();
+				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), *( second - 1 + element_size ) );
 				mainChain.insert( pos, first, second );
 				groups--;
 
