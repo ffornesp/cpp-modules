@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/18 15:47:26 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:16:13 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,59 +64,70 @@ static void	fillChain( std::deque< int >& dst, std::deque< int > src, size_t ele
 	}
 }
 
-// TODO make it workworkworkworkwork
+static void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_t element_size ) {
+	std::cout << std::endl << "Main chain:\t";
+	printGroups( mainChain, element_size );
+	std::cout << "Original:\t";
+	printGroups( src, element_size );
+	std::cout << std::endl;
+}
+/*
+static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limit ) {
+	size_t	middle = ( src.size() / element_size ) / 2;
+	size_t	elements = middle;
+
+	std::cout << "Size: " << src.size() / element_size << " Middle: " << middle << " Elements: " << elements << std::endl;
+
+	if ( src.size() / element_size == 3 ) {
+		if ( src[ middle * element_size + element_size - 1 ] > value ) {
+			return ( middle * element_size - element_size - 1 );
+		}
+		else {
+			return ( middle * element_size + element_size - 1 + 1 );
+		}
+	}
+	(void) limit;
+	return 0;
+}
+*/
+
 static void	binarySearchInsertion( std::deque< int >& src, size_t element_size ) {
 	std::deque< int >	mainChain;
 	size_t	groups = src.size() / element_size;
 	
 	fillChain( mainChain, src, element_size, groups );
+	printInfo( src, mainChain, element_size );
 	
-		std::cout << "Original:\t";
-		printGroups( src, element_size );
-		std::cout << "Main chain:\t";
-		printGroups( mainChain, element_size );
-	// Remove this
-	std::cout << std::endl;
-
 	size_t	n = 0;
-	size_t	jacob = 0;
-//	size_t	previousJacob = jacob;
-	while ( 42 ) {
-		if ( jacobsthalNumbers[ n ] == 0 )
+	int		jacob = jacobsthalNumbers[ n ] * 2;
+	int		previousJacob = 0;
+	while ( groups ) {
+		if ( jacob == 0 ) {
 			mainChain.insert( mainChain.begin(), src.begin(), src.begin() + element_size );
-		else {
-			jacob += jacobsthalNumbers[ n ] + 1;
-			std::deque< int >::iterator first = src.begin() + element_size * jacob;
-			std::deque< int >::iterator	second = first + element_size;
-			// Look for the iterator where I need to insert everything using binary search
-			std::cout << "Group defined by: [" << *first << " " << *second << "]" << std::endl;
-
-			std::deque< int >::iterator	pos = binarySearch( mainChain, element_size, *( second - 1 ) );
-			std::cout << "Position found: " << *pos << std::endl;
-
-			mainChain.insert( pos, first, second );
-			// Write function that returns iterator to the position of the group I want
-			// to insert, passing it the index of the group and src.
-
-			// if current == previous
-			//	previous = jacob
-			// if groups == 0
-			//	return ;
-			break ;
+			groups--;
+			printInfo( src, mainChain, element_size );
 		}
-		std::cout << "Jacob: " << jacobsthalNumbers[n] << " Index: " << n << std::endl;
+		while ( jacob > previousJacob ) {
+			if ( ( element_size * jacob * 2 + element_size ) < src.size() ) {
+				std::deque< int >::iterator	first = src.begin() + element_size * jacob * 2;
+				std::deque< int >::iterator	second = first + element_size;
+				// TODO Find pos with binary search && remember that we have the limit at *(second + element_size - 1)
+				std::deque< int >::iterator	pos = mainChain.begin();
+				//std::deque< int >::iterator	pos = binarySearch( mainChain, element_size, *( second - 1 ), *( second - 1 + element_size ) );
+				mainChain.insert( pos, first, second );
+				groups--;
 
-		groups--;
-		n++;
-	
-		std::cout << "Original:\t";
-		printGroups( src, element_size );
-		std::cout << "Main chain:\t";
-		printGroups( mainChain, element_size );
-		std::cout << std::endl;
+				printInfo( src, mainChain, element_size );
+			}
+			jacob--;
+		}
+		if ( groups ) {
+			previousJacob = jacobsthalNumbers[ n++ ] * 2;
+			jacob = previousJacob + jacobsthalNumbers[ n ] * 2;
+		}
 	}
-
 	src = mainChain;
+	std::cout << YELLOW << "\tFINISH\n" << DEFAULT;
 }
 
 void	mergeInsertionSort( std::deque< int >& src ) {
