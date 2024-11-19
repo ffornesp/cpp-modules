@@ -95,6 +95,7 @@ static size_t	binarySearch( std::deque< int > src, size_t element_size, int valu
 	while ( low < high ) {
 		size_t	mid = ( high - low ) / ( 2 * element_size ) * element_size + low;
 		count++;
+		std::cout << "\tCHECKING... value: " << value << " mid: " << src[mid] << std::endl;
 		if ( value < src[ mid ] )
 			high = mid;
 		else {
@@ -146,7 +147,7 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 				std::deque< int >::iterator	second = first + element_size;
 				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), src[( element_size * jacob * 2 ) + element_size - 1 + element_size] );
 				printInfo( src, mainChain, element_size );
-				std::cout << "Trying to insert: " << *( second - 1 ) << std::endl;
+				std::cout << "Trying to insert: " << *( second - 1 ) << " Limit: " << *( second - 1 + element_size ) << std::endl;
 				mainChain.insert( pos, first, second );
 				groups--;
 			}
