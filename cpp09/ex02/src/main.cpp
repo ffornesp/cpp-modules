@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/19 13:13:04 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/19 14:49:38 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,34 @@ static void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_
 	std::cout << std::endl;
 }
 
-static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limit ) {
-	size_t	n = 0;
+static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limitIndex ) {
+	size_t	low = element_size - 1;
+	size_t	high = 0;
 
 	std::cout << "Trying to insert [ " << value << " ]" << std::endl;
-	for ( size_t i = 0; i < src.size(); i++ ) {
-		if ( src[ i ] == limit ) {
-			std::cout << "Found limit [ " << limit << " ] in index " << i << std::endl;
-			n = i - element_size;
-			std::cout << "Setting new limit at " << n << " which corresponds to [ " << src[n] << " ]" << std::endl;
-			break ;
-		}
+	if ( limitIndex )
+		high = limitIndex - element_size;
+	else
+		high = src.size() - 1;
+
+	std::cout << std::endl << "LOW: pos [ " << low << " ] value " << src[ low ] << " | HIGH: pos [ " << high << " ] value " << src[ high ] << std::endl;
+	size_t	mid = 0;
+
+	while ( low < high ) {
+		mid = low + ( high - low ) / ( 2 * element_size ) * element_size;
+		std::cout << "FIRST MIDDLE: pos [ " << mid << " ] value [ " << src[mid] << " ]" << std::endl;
+		if ( value < src[ mid ] )
+			high = mid;
+		else if ( src.size() >= mid + element_size )
+			low = mid + element_size;
+		else
+			return src.size();
+		std::cout << "MIDDLE FOUND: pos [ " << mid << " ] value [ " << src[mid] << " ]" << std::endl;
 	}
-	// Remember: n / element_size + 1 = Number of elements I can compare to
-	//			 n / element_size	  = Index of the elements I can compare to
-	// In order to acces the element inside src we must use this:
-	//			src[ element_size * middle + element_size ]
-	
-	size_t	middle = n / element_size * 0.5f;
-
-	std::cout << "Found [ " << n / element_size + 1 << " ] pairs to compare to, middle: " << middle << std::endl;
-	std::cout << "IS THIS IT? " << src[ element_size * middle + element_size - 1 ] << std::endl;
-
+	if ( mid == low )
+		return mid - element_size + 1;
+	else if ( mid == high )
+		return mid + 1;
 	return 0;
 }
 
@@ -126,7 +132,7 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 				std::deque< int >::iterator	second = first + element_size;
 				// TODO Find pos with binary search && remember that we have the limit at *(second + element_size - 1)
 				//std::deque< int >::iterator	pos = mainChain.begin();
-				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), *( second - 1 + element_size ) );
+				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), ( element_size * jacob * 2 ) + element_size - 1 + element_size );
 				mainChain.insert( pos, first, second );
 				groups--;
 
@@ -139,6 +145,7 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 			jacob = previousJacob + jacobsthalNumbers[ n ] * 2;
 		}
 	}
+	//	Inserts the last group in case that the group doesn't have a pair aka it's leftover
 	if ( odd > 0 ) {
 		std::deque< int >::iterator	first = src.begin() + element_size * ( odd - 1 );
 		std::deque< int >::iterator	second = first + element_size;
