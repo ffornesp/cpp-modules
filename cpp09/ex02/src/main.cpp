@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/19 18:49:12 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:53:10 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static size_t	binarySearch( std::deque< int > src, size_t element_size, int valu
 	size_t	high = 0;
 	size_t	count = 0;
 
-	if ( limitValue > 0 ) {
+	if ( limitValue >= 0 ) {
 		// Search using functions of deque?
 		for ( size_t i = element_size - 1; i < src.size(); i += element_size ) {
 			if ( src[ i ] == limitValue )
@@ -151,7 +151,7 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 	if ( odd > 0 ) {
 		std::deque< int >::iterator	first = src.begin() + element_size * ( odd - 1 );
 		std::deque< int >::iterator	second = first + element_size;
-		std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), *( second - 1 + element_size ) );
+		std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), -1 );
 		mainChain.insert( pos, first, second );
 	}
 	src = mainChain;
