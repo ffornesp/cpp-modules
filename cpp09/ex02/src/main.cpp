@@ -55,6 +55,7 @@ static void	compareElements( std::deque< int >& src, size_t element_size ) {
 	}
 }
 
+//	Fills deque 'dst' with all the values already sorted ( the odd numbers ) found in src
 static void	fillChain( std::deque< int >& dst, std::deque< int > src, size_t element_size, size_t& groups ) {
 	std::deque< int >::iterator pos = src.begin() + element_size;
 	for ( size_t count = groups * 0.5f; count > 0; count-- ) {
@@ -72,36 +73,35 @@ static void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_
 	std::cout << std::endl;
 }
 
+//	Finds in 'src' the index of 'value' in the last element of each group defined by 'element_size'
+static int	getIndexOfGroup( std::deque< int > src, size_t element_size, int value ) {
+	for ( size_t i = element_size - 1; i < src.size(); i += element_size ) {
+		if ( src[ i ] == value )
+			return i;
+	}
+	return src.size();
+}
+
 static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limitValue ) {
 	size_t	low = element_size - 1;
 	size_t	high = 0;
-	size_t	count = 0;
 
-	if ( limitValue >= 0 ) {
-		// Search using functions of deque?
-		for ( size_t i = element_size - 1; i < src.size(); i += element_size ) {
-			if ( src[ i ] == limitValue )
-				high = i - element_size;
-		}
-	}
+	if ( limitValue >= 0 )
+		high = getIndexOfGroup( src, element_size, limitValue ) - element_size;
 	else
 		high = src.size() - 1;
 
 	while ( low < high ) {
 		size_t	mid = ( high - low ) / ( 2 * element_size ) * element_size + low;
-		count++;
+
 		if ( value < src[ mid ] )
 			high = mid;
 		else {
 			low = mid + element_size;
-			if ( low == high && value > src[ low ] ) {
-				count++;
-				std::cout << "COUNT : " << count << std::endl;
+			if ( low == high && value > src[ low ] )
 				return low + 1;
-			}
 		}
 	}
-	std::cout << "COUNT : " << count << std::endl;
 	return low - element_size + 1;
 }
 
