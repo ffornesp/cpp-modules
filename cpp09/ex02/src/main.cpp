@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/19 14:49:38 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:37:58 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,32 +75,33 @@ static void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_
 static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limitIndex ) {
 	size_t	low = element_size - 1;
 	size_t	high = 0;
+	size_t	count = 0;
 
-	std::cout << "Trying to insert [ " << value << " ]" << std::endl;
-	if ( limitIndex )
-		high = limitIndex - element_size;
+	if ( limitIndex > 0 ) {
+		for ( size_t i = element_size - 1; i < src.size(); i += element_size ) {
+			if ( src[ i ] == limitIndex )
+				high = i - element_size;
+		}
+	}
 	else
 		high = src.size() - 1;
 
-	std::cout << std::endl << "LOW: pos [ " << low << " ] value " << src[ low ] << " | HIGH: pos [ " << high << " ] value " << src[ high ] << std::endl;
-	size_t	mid = 0;
-
 	while ( low < high ) {
-		mid = low + ( high - low ) / ( 2 * element_size ) * element_size;
-		std::cout << "FIRST MIDDLE: pos [ " << mid << " ] value [ " << src[mid] << " ]" << std::endl;
+		size_t	mid = ( high - low ) / ( 2 * element_size ) * element_size + low;
+		count++;
 		if ( value < src[ mid ] )
 			high = mid;
-		else if ( src.size() >= mid + element_size )
+		else {
 			low = mid + element_size;
-		else
-			return src.size();
-		std::cout << "MIDDLE FOUND: pos [ " << mid << " ] value [ " << src[mid] << " ]" << std::endl;
+			if ( low == high && value > src[ low ] ) {
+				count++;
+				std::cout << "COUNT : " << count << std::endl;
+				return low + 1;
+			}
+		}
 	}
-	if ( mid == low )
-		return mid - element_size + 1;
-	else if ( mid == high )
-		return mid + 1;
-	return 0;
+	std::cout << "COUNT : " << count << std::endl;
+	return low - element_size + 1;
 }
 
 static void	binarySearchInsertion( std::deque< int >& src, size_t element_size ) {
@@ -127,12 +128,12 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 			printInfo( src, mainChain, element_size );
 		}
 		while ( jacob > previousJacob ) {
+			std::cout << "JACOB: " << jacob << " PREVIOUS: " << previousJacob << std::endl;
+			std::cout << "Trying to insert: " << element_size * jacob * 2 << std::endl;
 			if ( ( element_size * jacob * 2 + element_size ) < src.size() ) {
 				std::deque< int >::iterator	first = src.begin() + element_size * jacob * 2;
 				std::deque< int >::iterator	second = first + element_size;
-				// TODO Find pos with binary search && remember that we have the limit at *(second + element_size - 1)
-				//std::deque< int >::iterator	pos = mainChain.begin();
-				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), ( element_size * jacob * 2 ) + element_size - 1 + element_size );
+				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), src[( element_size * jacob * 2 ) + element_size - 1 + element_size] );
 				mainChain.insert( pos, first, second );
 				groups--;
 
@@ -141,7 +142,7 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 			jacob--;
 		}
 		if ( groups ) {
-			previousJacob = jacobsthalNumbers[ n++ ] * 2;
+			previousJacob += jacobsthalNumbers[ n++ ] * 2;
 			jacob = previousJacob + jacobsthalNumbers[ n ] * 2;
 		}
 	}
@@ -153,7 +154,8 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 		mainChain.insert( pos, first, second );
 	}
 	src = mainChain;
-	std::cout << YELLOW << "\tFINISH\n" << DEFAULT;
+	std::cout << YELLOW << "FINISH\t\t" << DEFAULT;
+	printGroups( mainChain, element_size );
 }
 
 void	mergeInsertionSort( std::deque< int >& src ) {
@@ -165,18 +167,9 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 		updateValues( element_size, size, INCREMENT );
 		mergeInsertionSort( src );
 	}
-	if ( element_size > 1 ) {
-		// Apply binary search insertion to current pair group using jacobsthal sequence
-		//	Only applies to cases that size is >= 4 since you can't apply merge insertion
-		//	with jacobsthal numbers to size 1 and in the case of size 2 the groups are
-		//	already sorted.
 		if ( size >= 4 )
 			binarySearchInsertion( src, element_size );
-		// Update values for next iteration & return
 		updateValues( element_size, size, DECREMENT );
-		return ;
-	}
-
 	return ;
 }
 
