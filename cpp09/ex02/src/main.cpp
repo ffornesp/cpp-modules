@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/18 19:16:13 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:13:04 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_
 }
 
 static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limit ) {
-	size_t	n;
+	size_t	n = 0;
 
 	std::cout << "Trying to insert [ " << value << " ]" << std::endl;
 	for ( size_t i = 0; i < src.size(); i++ ) {
@@ -100,7 +100,14 @@ static size_t	binarySearch( std::deque< int > src, size_t element_size, int valu
 static void	binarySearchInsertion( std::deque< int >& src, size_t element_size ) {
 	std::deque< int >	mainChain;
 	size_t	groups = src.size() / element_size;
+	size_t	odd = 0;
 	
+	if ( groups & 1 ) {
+		std::cout << "Groups are odd, we must insert last element at the end" << std::endl;
+		odd = groups;
+		groups--;
+	}
+
 	fillChain( mainChain, src, element_size, groups );
 	printInfo( src, mainChain, element_size );
 	
@@ -131,6 +138,12 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 			previousJacob = jacobsthalNumbers[ n++ ] * 2;
 			jacob = previousJacob + jacobsthalNumbers[ n ] * 2;
 		}
+	}
+	if ( odd > 0 ) {
+		std::deque< int >::iterator	first = src.begin() + element_size * ( odd - 1 );
+		std::deque< int >::iterator	second = first + element_size;
+		std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), *( second - 1 + element_size ) );
+		mainChain.insert( pos, first, second );
 	}
 	src = mainChain;
 	std::cout << YELLOW << "\tFINISH\n" << DEFAULT;
