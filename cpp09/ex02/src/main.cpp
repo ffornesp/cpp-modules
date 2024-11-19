@@ -85,6 +85,7 @@ static int	getIndexOfGroup( std::deque< int > src, size_t element_size, int valu
 static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limitValue ) {
 	size_t	low = element_size - 1;
 	size_t	high;
+	size_t	count = 0;
 
 	if ( limitValue >= 0 )
 		high = getIndexOfGroup( src, element_size, limitValue ) - element_size;
@@ -93,15 +94,18 @@ static size_t	binarySearch( std::deque< int > src, size_t element_size, int valu
 
 	while ( low < high ) {
 		size_t	mid = ( high - low ) / ( 2 * element_size ) * element_size + low;
-
+		count++;
 		if ( value < src[ mid ] )
 			high = mid;
 		else {
 			low = mid + element_size;
-			if ( low == high && value > src[ high ] )
+			if ( low == high && value > src[ high ] ) {
+				std::cout << "CHECK COUNT: " << count << std::endl;
 				return low + 1;
+			}
 		}
 	}
+	std::cout << "CHECK COUNT: " << count << std::endl;
 	return low - element_size + 1;
 }
 
@@ -127,8 +131,6 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 		leftovers.insert( leftovers.begin(), leftoversIt, src.end() );
 		src.erase( leftoversIt, src.end() );
 	}
-	// DEBUG
-	printInfo( src, mainChain, element_size );
 	size_t	n = 0;
 	int		jacob = jacobsthalNumbers[ n ] * 2;
 	int		previousJacob = 0;
@@ -143,10 +145,10 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 				std::deque< int >::iterator	first = src.begin() + element_size * jacob * 2;
 				std::deque< int >::iterator	second = first + element_size;
 				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), src[( element_size * jacob * 2 ) + element_size - 1 + element_size] );
+				printInfo( src, mainChain, element_size );
+				std::cout << "Trying to insert: " << *( second - 1 ) << std::endl;
 				mainChain.insert( pos, first, second );
 				groups--;
-				// DEBUG
-				printInfo( src, mainChain, element_size );
 			}
 			jacob--;
 		}
