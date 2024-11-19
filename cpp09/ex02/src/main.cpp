@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/19 18:37:58 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:49:12 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,15 @@ static void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_
 	std::cout << std::endl;
 }
 
-static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limitIndex ) {
+static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limitValue ) {
 	size_t	low = element_size - 1;
 	size_t	high = 0;
 	size_t	count = 0;
 
-	if ( limitIndex > 0 ) {
+	if ( limitValue > 0 ) {
+		// Search using functions of deque?
 		for ( size_t i = element_size - 1; i < src.size(); i += element_size ) {
-			if ( src[ i ] == limitIndex )
+			if ( src[ i ] == limitValue )
 				high = i - element_size;
 		}
 	}
