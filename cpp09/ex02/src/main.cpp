@@ -6,20 +6,11 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/20 12:09:57 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:38:21 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
-#include <iostream>
-#include <cstdlib>
-#include <climits>
-#include <cstring>
-#include <cmath>
-
-static void	updateValues( size_t& element_size, size_t& size, bool flag );
-
-const int	jacobsthalNumbers[15] = { 0, 1, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461 };
 
 int	main( int argc, char *argv[] ) {
 	if ( argc < 3 ) {
@@ -37,175 +28,9 @@ int	main( int argc, char *argv[] ) {
 
 	mergeInsertionSort( src );
 
-//	std::cout << "After: ";
-//	printContent( myDeque );
+	std::cout << "After: ";
+	printContent( src );
 
 	// Implement the same for list
 	return 0;
-}
-
-static void	compareElements( std::deque< int >& src, size_t element_size ) {
-	size_t	tail = element_size - 1;
-	size_t	count = 0;
-	while ( tail + element_size < src.size() ) {
-		std::deque< int >::iterator	first = src.begin() + tail;
-		std::deque< int >::iterator	second = src.begin() + tail + element_size;
-		count++;
-		if ( *first > *second ) {
-			std::swap_ranges( first - element_size + 1, first + 1, second - element_size + 1);
-		}
-		tail += element_size * 2;
-	}
-	std::cout << "COUNT IN PAIRS: " << count << std::endl;
-}
-
-//	Fills deque 'dst' with all the values already sorted ( the odd numbers ) found in src
-static void	fillChain( std::deque< int >& dst, std::deque< int > src, size_t element_size, size_t& groups ) {
-	std::deque< int >::iterator pos = src.begin() + element_size;
-	for ( size_t count = groups * 0.5f; count > 0; count-- ) {
-		dst.insert( dst.end(), pos, pos + element_size );
-		pos += element_size * 2;
-		groups--;
-	}
-}
-
-static void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_t element_size ) {
-	std::cout << std::endl << "Main chain:\t";
-	printGroups( mainChain, element_size );
-	std::cout << "Original:\t";
-	printGroups( src, element_size );
-	std::cout << std::endl;
-}
-
-static int	getIndex( double index, size_t element_size ) {
-	return ( index - 1 ) * element_size + element_size - 1;
-}
-
-static size_t	getLastIndex( std::deque< int > src, size_t element_size, int limitValue ) {
-	if ( limitValue >= 0 ) {
- 		for ( size_t i = 0; i < src.size(); i++ )
-			if ( src[ i ] == limitValue )
-				return i / element_size;
-	}
-	return src.size() / element_size;
-}
-
-static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limitValue ) {
-	size_t	low = 1;
-	size_t	high = getLastIndex( src, element_size, limitValue );
-
-	size_t	count = 0;
-	while ( low < high ) {
-		count++;
-		size_t	mid = ( high - low ) / 2 + low;
-		if ( limitValue < 0 && element_size > 1 )
-			mid++;
-		if ( value > src[ getIndex( mid, element_size ) ] )
-			low = mid + 1;
-		else
-			high = mid - 1;
-	}
-	size_t	index = 0;
-	count++;
-	if ( value < src[ getIndex( high, element_size ) ] )
-		index = getIndex( low, element_size ) - element_size + 1;
-	else
-		index = getIndex( low, element_size ) + 1;
-	std::cout << "CHECK COUNT 1: " << count << std::endl;
-	return index;
-}
-
-static void	handleLeftovers( std::deque< int >& src, std::deque< int >& leftovers, std::deque< int >::iterator& it ) {
-	if ( it != src.end() ) {
-		leftovers.insert( leftovers.begin(), it, src.end() );
-		src.erase( it, src.end() );
-	}
-}
-
-static void	jacobsthalInsertion( std::deque< int >& mainChain, std::deque< int > src, size_t element_size, size_t groups ) {
- 	size_t	n = 0;
-	int		jacob = jacobsthalNumbers[ n ] * 2;
-	int		previousJacob = 0;
-	while ( groups ) {
-		if ( jacob == 0 ) {
-			mainChain.insert( mainChain.begin(), src.begin(), src.begin() + element_size );
-			groups--;
-			printInfo( src, mainChain, element_size );
-		}
-		while ( jacob > previousJacob ) {
-			if ( ( element_size * jacob * 2 + element_size ) < src.size() ) {
-				std::deque< int >::iterator	first = src.begin() + element_size * jacob * 2;
-				std::deque< int >::iterator	second = first + element_size;
-				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), src[( element_size * jacob * 2 ) + element_size - 1 + element_size] );
-				mainChain.insert( pos, first, second );
-//				printInfo( src, mainChain, element_size );
-				groups--;
-			}
-			jacob--;
-		}
-		if ( groups ) {
-			previousJacob += jacobsthalNumbers[ n++ ] * 2;
-			jacob = previousJacob + jacobsthalNumbers[ n ] * 2;
-		}
-	} 
-}
-
-static void	binarySearchInsertion( std::deque< int >& src, size_t element_size ) {
-	std::deque< int >	mainChain;	
-	size_t	groups = src.size() / element_size;
-	size_t	oddIndex = 0;
-	std::deque< int >			leftovers;
-	std::deque< int >::iterator	leftoversIt;
-	
-	if ( groups & 1 ) {
-		oddIndex = groups;
-		leftoversIt = src.begin() + ( groups * element_size );
-		groups--;
-	} else
-		leftoversIt = src.begin() + ( groups * element_size );
-
-	fillChain( mainChain, src, element_size, groups );
-    handleLeftovers( src, leftovers, leftoversIt );
-    jacobsthalInsertion( mainChain, src, element_size, groups );
-	//	Inserts the last group in case that the group doesn't have a pair aka it's leftover
-	if ( oddIndex > 0 ) {
-		std::deque< int >::iterator	first = src.begin() + element_size * ( oddIndex - 1 );
-		std::deque< int >::iterator	second = first + element_size;
-		std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), -1 );
-		//std::cout << "Trying to insert: " << *( second - 1 ) << " Limit: " << -1 << std::endl;	
-		mainChain.insert( pos, first, second );
-	}
-	src = mainChain;
-	// Must add the leftover numbers that were erased at the beggining of this function
-	if ( leftovers.size() > 0 )
-		src.insert( src.end(), leftovers.begin(), leftovers.end() );
-
-	// DEBUG
-	std::cout << YELLOW << "FINISH\t\t" << DEFAULT;
-	printGroups( mainChain, element_size );
-}
-
-void	mergeInsertionSort( std::deque< int >& src ) {
-	static size_t	element_size = 1;
-	static size_t	size = src.size();
-
-	if ( size > 1 ) {
-		compareElements( src, element_size );
-		updateValues( element_size, size, INCREMENT );
-		mergeInsertionSort( src );
-	}
-	if ( size >= 4 )
-		binarySearchInsertion( src, element_size );
-	updateValues( element_size, size, DECREMENT );
-	return ;
-}
-
-static void	updateValues( size_t& element_size, size_t& size, bool flag ) {
-	if ( flag == INCREMENT ) {
-		element_size *= 2;
-		size /= 2;
-	} else {
-		element_size /= 2;
-		size *= 2;
-	}
 }

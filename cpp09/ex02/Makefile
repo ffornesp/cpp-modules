@@ -6,7 +6,7 @@
 #    By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/10/21 11:47:24 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/11/20 12:38:45 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = PmergeMe
 SRC_DIR = src/
 SRC_FILES = PmergeMe.cpp \
 			parse.cpp \
+			BinarySearchInsertion.cpp \
+			utils.cpp \
 			main.cpp
 			
 OBJ_DIR = objs/

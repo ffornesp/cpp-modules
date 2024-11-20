@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:53 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/14 18:49:41 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:38:15 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 #include <deque>
 #include <cstdlib>
 #include <iostream>
+
+#include <iostream>
+#include <climits>
+#include <cstring>
 
 #ifndef INCREMENT
 # define INCREMENT	0
@@ -35,6 +39,9 @@
 void	checkInput( char *argv[] );
 
 void	mergeInsertionSort( std::deque< int >& );
+void	binarySearchInsertion( std::deque< int >& src, size_t groupSize );
+
+void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_t groupSize );
 
 template< typename T >
 void	printContent( T& t ) {
@@ -66,7 +73,7 @@ void	printGroups( T& t, size_t size ) {
 		WHAT TO DO?
 
 	call merge-insertion-sort
-		element_size = 1
+		groupSize = 1
 		size = 9
 
 	5 2 3 1 4 7 6 9 8 
@@ -77,7 +84,7 @@ void	printGroups( T& t, size_t size ) {
 	[2-5] [1-3] [4-7] [6-9] | 8
 
 	call merge-insertion-sort
-		element_size = 2
+		groupSize = 2
 		size = 4
 
 	swap content inside pairs
@@ -86,7 +93,7 @@ void	printGroups( T& t, size_t size ) {
 	[(1-3)-(2-5)] [(4-7)-(6-9)]
 
 	call merge-insertion-sort
-		element_size = 4
+		groupSize = 4
 		size = 2
 
 	swap content inside pairs
@@ -95,7 +102,7 @@ void	printGroups( T& t, size_t size ) {
 	[((1-3)-(2-5))-((4-7)-(6-9))] 
 
 	call merge-insertion-sort
-		element_size = 8
+		groupSize = 8
 		size = 1 ; then return
 
 	
