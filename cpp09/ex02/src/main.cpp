@@ -112,57 +112,21 @@ static size_t	binarySearch( std::deque< int > src, size_t element_size, int valu
 	while ( low < high ) {
 		count++;
 		size_t	mid = ( high - low ) / 2 + low;
-		std::cout << "LOW: " << low << " MID: " << mid << " HIGH: " << high << std::endl;
-		std::cout << "\tCOMPARING [ " << value << " ] < [ " << src[getIndex(mid, element_size)] << " ]" << std::endl;
-		if ( value > src[ getIndex( mid, element_size ) ] ) {
+		if ( limitValue < 0 && element_size > 1 )
+			mid++;
+		if ( value > src[ getIndex( mid, element_size ) ] )
 			low = mid + 1;
-			std::cout << "LOW: " << low << " MID: " << mid << " HIGH: " << high << std::endl;
-			if ( low == high ) {
-				count++;
-				std::cout << "\tCOMPARING [ " << value << " ] < [ " << src[getIndex(high, element_size)] << " ]" << std::endl;
-				if ( value < src[ getIndex( high, element_size ) ] ) { 
-					std::cout << "CHECK COUNT 2: " << count << std::endl << std::endl;
-					return getIndex( low, element_size ) - element_size + 1;
-				}
-			}
-		}
-		else {
+		else
 			high = mid - 1;
-			std::cout << "LOW: " << low << " MID: " << mid << " HIGH: " << high << std::endl;
-			if ( low == high ) {
-				count++;
-				std::cout << "\tCOMPARING [ " << value << " ] < [ " << src[getIndex(high, element_size)] << " ]" << std::endl;
-				if ( value < src[ getIndex( high, element_size ) ] ) {
-					std::cout << "CHECK COUNT 3: " << count << std::endl << std::endl;
-					return getIndex( low, element_size ) - element_size + 1;
-				}
-			}
-		}
-/*
-	if ( limitValue >= 0 )
-		high = getIndexOfGroup( src, element_size, limitValue ) - element_size;
-	else
-		high = src.size() - 1;
-
-		size_t	mid = ( high - low ) / ( 2 * element_size ) * element_size + low;
-//		size_t	mid = (( high - low ) / 2 ) + low;
-		count++;
-		std::cout << "\tCHECKING... value: " << value << std::endl;
-		std::cout << "HIGH: " << high << " LOW: " << low << " MID: " << mid << " VALUE: " << src[mid] << std::endl;
-		if ( value < src[ mid ] )
-			high = mid;
-		else {
-			low = mid + element_size;
-			count++;
-			if ( low == high && value > src[ high ] ) {
-				std::cout << "CHECK COUNT: " << count << std::endl;
-				return low + 1;
-			}
-		}
-*/
 	}
-	std::cout << "CHECK COUNT 1: " << count << std::endl << std::endl;
-	return getIndex( low, element_size ) + 1;
+	size_t	index = 0;
+	count++;
+	if ( value < src[ getIndex( high, element_size ) ] )
+		index = getIndex( low, element_size ) - element_size + 1;
+	else
+		index = getIndex( low, element_size ) + 1;
+	std::cout << "CHECK COUNT 1: " << count << std::endl;
+	return index;
 }
 
 static void	binarySearchInsertion( std::deque< int >& src, size_t element_size ) {
@@ -203,7 +167,7 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), src[( element_size * jacob * 2 ) + element_size - 1 + element_size] );
 				//std::cout << "Trying to insert: " << *( second - 1 ) << " Limit: " << *( second - 1 + element_size ) << std::endl;
 				mainChain.insert( pos, first, second );
-				printInfo( src, mainChain, element_size );
+//				printInfo( src, mainChain, element_size );
 				groups--;
 			}
 			jacob--;
