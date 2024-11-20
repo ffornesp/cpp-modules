@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   BinarySearchInsertion.cpp                          :+:      :+:    :+:   */
+/*   dequeBinarySearchInsertion.cpp                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:31:06 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/20 15:48:11 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:00:15 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void		fillChain( std::deque< int >& dst, std::deque< int > src, size_t gr
 static void		handleLeftovers( std::deque< int >& src, std::deque< int >& leftovers, std::deque< int >::iterator& it );
 static void		jacobsthalInsertion( std::deque< int >& mainChain, std::deque< int > src, size_t groupSize, size_t groups );
 static size_t	binarySearch( std::deque< int > src, size_t groupSize, int value, int limitValue );
-static int		getIndex( double index, size_t groupSize );
+static int		getIndex( size_t index, size_t groupSize );
 static size_t	getLastIndex( std::deque< int > src, size_t groupSize, int limitValue );
 
 void	binarySearchInsertion( std::deque< int >& src, size_t groupSize ) {
@@ -26,27 +26,12 @@ void	binarySearchInsertion( std::deque< int >& src, size_t groupSize ) {
 	std::deque< int >			leftovers;
 	std::deque< int >::iterator	leftoversIt;
 	size_t						groups = src.size() / groupSize;
-//	size_t						oddIndex = 0;
 
-/*
-	if ( groups & 1 ) {
-		oddIndex = groups;
-		leftoversIt = src.begin() + ( groups * groupSize );
-		groups--;
-	} else */
-		leftoversIt = src.begin() + ( groups * groupSize );
+	leftoversIt = src.begin() + ( groups * groupSize );
 
 	fillChain( mainChain, src, groupSize, groups );
 	handleLeftovers( src, leftovers, leftoversIt );
 	jacobsthalInsertion( mainChain, src, groupSize, groups );
-/*	//	Inserts the last group in case that the group doesn't have a pair aka it's leftover 
-	if ( oddIndex > 0 ) {
-		std::deque< int >::iterator	first = src.begin() + groupSize * ( oddIndex - 1 );
-		std::deque< int >::iterator	second = first + groupSize;
-		std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, groupSize, *( second - 1 ), -1 );
-		mainChain.insert( pos, first, second );
-	}
-*/
 
 	src = mainChain;
 	// Must add the leftover numbers that were erased at the beggining of this function
@@ -86,10 +71,10 @@ static void	jacobsthalInsertion( std::deque< int >& mainChain, std::deque< int >
 			mainChain.insert( mainChain.begin(), src.begin(), src.begin() + groupSize );
 			groups--;
 			// DEBUG
-			printInfo( src, mainChain, groupSize );
+//			printInfo( src, mainChain, groupSize );
 		}
 		while ( jacob > previousJacob ) {
-			if ( ( groupSize * jacob * 2 + groupSize - groupSize ) < src.size() ) {
+			if ( ( groupSize * jacob * 2 ) < src.size() ) {
 				std::deque< int >::iterator	first = src.begin() + groupSize * jacob * 2;
 				std::deque< int >::iterator	second = first + groupSize;
 
@@ -101,6 +86,7 @@ static void	jacobsthalInsertion( std::deque< int >& mainChain, std::deque< int >
 
 				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, groupSize, *( second - 1 ), valueOfPair );
 				mainChain.insert( pos, first, second );
+				// DEBUG
 //				printInfo( src, mainChain, groupSize );
 				groups--;
 			}
@@ -121,13 +107,10 @@ static size_t	binarySearch( std::deque< int > src, size_t groupSize, int value, 
 	while ( low < high ) {
 		count++;
 		size_t	mid = ( high - low ) / 2 + low;
-//		std::cout << "LOW: " << low << " MID: " << mid << " HIGH: " << high << std::endl;
-		
+//		std::cout << "LOW: " << low << " val [ " << src[ low * groupSize - 1 ] << " ] " << " MID: " << mid << " val [ " << src[ mid * groupSize - 1 ] << " ] " << " HIGH: " << high << " val [ " << src[ high * groupSize - 1 ] << " ]" << std::endl;
 		if ( value > src[ getIndex( mid, groupSize ) ] ) {
 			if ( mid < high )
 				low = mid + 1;
-			else
-				low = mid;
 		}
 		else {
 			if ( mid > low )
@@ -138,6 +121,7 @@ static size_t	binarySearch( std::deque< int > src, size_t groupSize, int value, 
 	}
 	size_t	index = 0;
 	count++;
+//	std::cout << " CHECK\tvalue [ " << value << " ] < [ " << src[ getIndex( low, groupSize ) ] << " ]" << std::endl;
 	if ( value < src[ getIndex( low, groupSize ) ] )
 		index = getIndex( low, groupSize ) - groupSize + 1;
 	else
@@ -146,7 +130,7 @@ static size_t	binarySearch( std::deque< int > src, size_t groupSize, int value, 
 	return index;
 }
 
-static int	getIndex( double index, size_t groupSize ) {
+static int	getIndex( size_t index, size_t groupSize ) {
 	return ( index - 1 ) * groupSize + groupSize - 1;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:53 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/20 12:38:15 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:24:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,20 @@
 void	checkInput( char *argv[] );
 
 void	mergeInsertionSort( std::deque< int >& );
-void	binarySearchInsertion( std::deque< int >& src, size_t groupSize );
+void	mergeInsertionSort( std::list< int >& );
 
-void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_t groupSize );
+void	binarySearchInsertion( std::deque< int >&, size_t );
+void	binarySearchInsertion( std::list< int >&, size_t );
 
 template< typename T >
-void	printContent( T& t ) {
+void	printContent( T t ) {
 	for ( typename T::iterator it = t.begin(); it != t.end(); it++ )
 		std::cout << *it << " ";
 	std::cout << std::endl;
 }
 
 template< typename T >
-void	printGroups( T& t, size_t size ) {
+void	printGroups( T t, size_t size ) {
 	size_t	count = 1;
 
 	for ( typename T::iterator it = t.begin(); it != t.end(); it++ ) {
@@ -66,6 +67,15 @@ void	printGroups( T& t, size_t size ) {
 			count++;
 		}
 	}
+	std::cout << std::endl;
+}
+
+template< typename T >
+void	printInfo( T t1, T t2, size_t size ) {
+	std::cout << std::endl << "Main chain:\t";
+	printGroups( t2, size );
+	std::cout << "Original:\t";
+	printGroups( t1, size );
 	std::cout << std::endl;
 }
 

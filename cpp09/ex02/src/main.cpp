@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/20 12:38:21 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:58:00 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,28 @@ int	main( int argc, char *argv[] ) {
 	}
 	checkInput( argv + 1 );
 
-	std::deque< int >	src;
+	std::deque< int >	myDeque;
+	std::list< int >	myList;
 	for ( int i = 1; argv[ i ] != NULL; i++ ) {
-		src.push_back( atoi( argv[ i ] ) );
+		int	n = atoi( argv[ i ] );
+		myDeque.push_back( n );
+		myList.push_back( n );
 	}
 	std::cout << "Before: ";
-	printContent( src );
+	printContent( myDeque );
 
-	mergeInsertionSort( src );
+	mergeInsertionSort( myDeque );
 
 	std::cout << "After: ";
-	printContent( src );
+	printContent( myDeque );
 
-	// Implement the same for list
+	std::cout << "\nBefore: ";
+	printContent( myList );
+
+	mergeInsertionSort( myList );
+
+	std::cout << "After: ";
+	printContent( myList );
+
 	return 0;
 }
