@@ -95,12 +95,7 @@ static int	getIndex( double index, size_t element_size ) {
 static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limitValue ) {
 	double	low = element_size - 1;
 	double	high;
-/*
-	if ( limitValue >= 0 )
-		high = getIndexOfGroup( src, element_size, limitValue ) - element_size;
-	else
-		high = src.size() - 1;
-*/
+
 	low = 1;
 	if ( limitValue >= 0 ) {
 		for ( size_t i = 0; i < src.size(); i++ ) {
@@ -116,9 +111,7 @@ static size_t	binarySearch( std::deque< int > src, size_t element_size, int valu
 	size_t	count = 0;
 	while ( low < high ) {
 		count++;
-		size_t	mid = ceil( ( high - low ) / 2 ) + low;
-//		if ( low == 1 )
-//			mid = ceil( ( high - low ) / 2 );
+		size_t	mid = ( high - low ) / 2 + low;
 		std::cout << "LOW: " << low << " MID: " << mid << " HIGH: " << high << std::endl;
 		std::cout << "\tCOMPARING [ " << value << " ] < [ " << src[getIndex(mid, element_size)] << " ]" << std::endl;
 		if ( value > src[ getIndex( mid, element_size ) ] ) {
@@ -146,6 +139,11 @@ static size_t	binarySearch( std::deque< int > src, size_t element_size, int valu
 			}
 		}
 /*
+	if ( limitValue >= 0 )
+		high = getIndexOfGroup( src, element_size, limitValue ) - element_size;
+	else
+		high = src.size() - 1;
+
 		size_t	mid = ( high - low ) / ( 2 * element_size ) * element_size + low;
 //		size_t	mid = (( high - low ) / 2 ) + low;
 		count++;
@@ -176,7 +174,7 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 	std::deque< int >::iterator	leftoversIt;
 	
 	if ( groups & 1 ) {
-		std::cout << "Groups are odd, we must insert last element at the end" << std::endl;
+//		std::cout << "Groups are odd, we must insert last element at the end" << std::endl;
 		oddIndex = groups;
 		leftoversIt = src.begin() + ( groups * element_size );
 		groups--;
