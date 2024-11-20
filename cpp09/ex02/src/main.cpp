@@ -15,6 +15,7 @@
 #include <cstdlib>
 #include <climits>
 #include <cstring>
+#include <cmath>
 
 static void	updateValues( size_t& element_size, size_t& size, bool flag );
 
@@ -45,14 +46,17 @@ int	main( int argc, char *argv[] ) {
 
 static void	compareElements( std::deque< int >& src, size_t element_size ) {
 	size_t	tail = element_size - 1;
-
+	size_t	count = 0;
 	while ( tail + element_size < src.size() ) {
 		std::deque< int >::iterator	first = src.begin() + tail;
 		std::deque< int >::iterator	second = src.begin() + tail + element_size;
-		if ( *first > *second )
+		count++;
+		if ( *first > *second ) {
 			std::swap_ranges( first - element_size + 1, first + 1, second - element_size + 1);
+		}
 		tail += element_size * 2;
 	}
+	std::cout << "COUNT IN PAIRS: " << count << std::endl;
 }
 
 //	Fills deque 'dst' with all the values already sorted ( the odd numbers ) found in src
@@ -73,6 +77,7 @@ static void	printInfo( std::deque< int > src, std::deque< int > mainChain, size_
 	std::cout << std::endl;
 }
 
+/*
 //	Finds in 'src' the index of 'value' in the last element of each group defined by 'element_size'
 static int	getIndexOfGroup( std::deque< int > src, size_t element_size, int value ) {
 	for ( size_t i = element_size - 1; i < src.size(); i += element_size ) {
@@ -81,33 +86,85 @@ static int	getIndexOfGroup( std::deque< int > src, size_t element_size, int valu
 	}
 	return src.size();
 }
+*/
+
+static int	getIndex( double index, size_t element_size ) {
+	return ( index - 1 ) * element_size + element_size - 1;
+}
 
 static size_t	binarySearch( std::deque< int > src, size_t element_size, int value, int limitValue ) {
-	size_t	low = element_size - 1;
-	size_t	high;
-	size_t	count = 0;
-
+	double	low = element_size - 1;
+	double	high;
+/*
 	if ( limitValue >= 0 )
 		high = getIndexOfGroup( src, element_size, limitValue ) - element_size;
 	else
 		high = src.size() - 1;
+*/
+	low = 1;
+	if ( limitValue >= 0 ) {
+		for ( size_t i = 0; i < src.size(); i++ ) {
+			if ( src[ i ] == limitValue ) {
+				high = i / element_size;
+				break ;
+			}
+		}
+	}
+	else
+		high = src.size() / element_size;
 
+	size_t	count = 0;
 	while ( low < high ) {
-		size_t	mid = ( high - low ) / ( 2 * element_size ) * element_size + low;
 		count++;
-		std::cout << "\tCHECKING... value: " << value << " mid: " << src[mid] << std::endl;
+		size_t	mid = ceil( ( high - low ) / 2 ) + low;
+//		if ( low == 1 )
+//			mid = ceil( ( high - low ) / 2 );
+		std::cout << "LOW: " << low << " MID: " << mid << " HIGH: " << high << std::endl;
+		std::cout << "\tCOMPARING [ " << value << " ] < [ " << src[getIndex(mid, element_size)] << " ]" << std::endl;
+		if ( value > src[ getIndex( mid, element_size ) ] ) {
+			low = mid + 1;
+			std::cout << "LOW: " << low << " MID: " << mid << " HIGH: " << high << std::endl;
+			if ( low == high ) {
+				count++;
+				std::cout << "\tCOMPARING [ " << value << " ] < [ " << src[getIndex(high, element_size)] << " ]" << std::endl;
+				if ( value < src[ getIndex( high, element_size ) ] ) { 
+					std::cout << "CHECK COUNT 2: " << count << std::endl << std::endl;
+					return getIndex( low, element_size ) - element_size + 1;
+				}
+			}
+		}
+		else {
+			high = mid - 1;
+			std::cout << "LOW: " << low << " MID: " << mid << " HIGH: " << high << std::endl;
+			if ( low == high ) {
+				count++;
+				std::cout << "\tCOMPARING [ " << value << " ] < [ " << src[getIndex(high, element_size)] << " ]" << std::endl;
+				if ( value < src[ getIndex( high, element_size ) ] ) {
+					std::cout << "CHECK COUNT 3: " << count << std::endl << std::endl;
+					return getIndex( low, element_size ) - element_size + 1;
+				}
+			}
+		}
+/*
+		size_t	mid = ( high - low ) / ( 2 * element_size ) * element_size + low;
+//		size_t	mid = (( high - low ) / 2 ) + low;
+		count++;
+		std::cout << "\tCHECKING... value: " << value << std::endl;
+		std::cout << "HIGH: " << high << " LOW: " << low << " MID: " << mid << " VALUE: " << src[mid] << std::endl;
 		if ( value < src[ mid ] )
 			high = mid;
 		else {
 			low = mid + element_size;
+			count++;
 			if ( low == high && value > src[ high ] ) {
 				std::cout << "CHECK COUNT: " << count << std::endl;
 				return low + 1;
 			}
 		}
+*/
 	}
-	std::cout << "CHECK COUNT: " << count << std::endl;
-	return low - element_size + 1;
+	std::cout << "CHECK COUNT 1: " << count << std::endl << std::endl;
+	return getIndex( low, element_size ) + 1;
 }
 
 static void	binarySearchInsertion( std::deque< int >& src, size_t element_size ) {
@@ -146,9 +203,9 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 				std::deque< int >::iterator	first = src.begin() + element_size * jacob * 2;
 				std::deque< int >::iterator	second = first + element_size;
 				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), src[( element_size * jacob * 2 ) + element_size - 1 + element_size] );
-				printInfo( src, mainChain, element_size );
-				std::cout << "Trying to insert: " << *( second - 1 ) << " Limit: " << *( second - 1 + element_size ) << std::endl;
+				//std::cout << "Trying to insert: " << *( second - 1 ) << " Limit: " << *( second - 1 + element_size ) << std::endl;
 				mainChain.insert( pos, first, second );
+				printInfo( src, mainChain, element_size );
 				groups--;
 			}
 			jacob--;
@@ -163,6 +220,7 @@ static void	binarySearchInsertion( std::deque< int >& src, size_t element_size )
 		std::deque< int >::iterator	first = src.begin() + element_size * ( oddIndex - 1 );
 		std::deque< int >::iterator	second = first + element_size;
 		std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, element_size, *( second - 1 ), -1 );
+		//std::cout << "Trying to insert: " << *( second - 1 ) << " Limit: " << -1 << std::endl;	
 		mainChain.insert( pos, first, second );
 	}
 	src = mainChain;
@@ -183,9 +241,9 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 		updateValues( element_size, size, INCREMENT );
 		mergeInsertionSort( src );
 	}
-		if ( size >= 4 )
-			binarySearchInsertion( src, element_size );
-		updateValues( element_size, size, DECREMENT );
+	if ( size >= 4 )
+		binarySearchInsertion( src, element_size );
+	updateValues( element_size, size, DECREMENT );
 	return ;
 }
 
