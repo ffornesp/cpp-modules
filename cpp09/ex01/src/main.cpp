@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:28:56 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/21 18:33:22 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:54:20 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int	main( int argc, char *argv[] ) {
 
 	std::cout << "Input is valid! " << std::endl;
 	std::cout << str << std::endl;
+
+	RPN( str );
 	return 0;
 }
