@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:08:11 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/20 17:53:09 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:33:01 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,28 @@ void	mergeInsertionSort( std::list< int >& src ) {
 
 static void	sortPairs( std::deque< int >& src, size_t groupSize ) {
 	size_t	tail = groupSize - 1;
-	size_t	count = 0;
+//	size_t	count = 0;
 	while ( tail + groupSize < src.size() ) {
 		std::deque< int >::iterator	first = src.begin() + tail;
 		std::deque< int >::iterator	second = src.begin() + tail + groupSize;
-		count++;
-		if ( *first > *second ) {
+//		count++;
+		if ( *first > *second )
 			std::swap_ranges( first - groupSize + 1, first + 1, second - groupSize + 1);
-		}
 		tail += groupSize * 2;
 	}
-	std::cout << "COUNT IN PAIRS: " << count << std::endl;
+//	std::cout << "COUNT IN PAIRS: " << count << std::endl;
 }
 
 static void	sortPairs( std::list< int >& src, size_t groupSize ) {
 	size_t	tail = groupSize - 1;
-	size_t	count = 0;
+//	size_t	count = 0;
 	while ( tail + groupSize < src.size() ) {
 		std::list< int >::iterator	first = src.begin();
 		std::advance( first, tail );
 
 		std::list< int >::iterator	second = src.begin();
 		std::advance( second, tail + groupSize );
-		count++;
+//		count++;
 		if ( *first > *second ) {
 			std::list< int >::iterator	trueFirst = src.begin();
 			std::advance( trueFirst, tail - groupSize + 1 );
@@ -83,7 +82,7 @@ static void	sortPairs( std::list< int >& src, size_t groupSize ) {
 		}
 		tail += groupSize * 2;
 	}
-	std::cout << "COUNT IN PAIRS: " << count << std::endl;
+//	std::cout << "COUNT IN PAIRS: " << count << std::endl;
 }
 
 static void	updateValues( size_t& groupSize, size_t& size, bool flag ) {

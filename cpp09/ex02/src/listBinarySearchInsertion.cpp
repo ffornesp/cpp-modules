@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:31:06 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/20 18:00:30 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:32:19 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void	binarySearchInsertion( std::list< int >& src, size_t groupSize ) {
 		src.insert( src.end(), leftovers.begin(), leftovers.end() );
 
 	// DEBUG
+	/*
 	if ( groupSize > 1 ) {
 		std::cout << YELLOW << "FINISH\t\t" << DEFAULT;
 		printGroups( mainChain, groupSize );
 	}
+	*/
 }
 
 //	Fills deque 'dst' with all the values already sorted ( the odd numbers ) found in src
@@ -119,9 +121,9 @@ static size_t	binarySearch( std::list< int > src, size_t groupSize, int value, i
 	size_t	low = 1;
 	size_t	high = getLastIndex( src, groupSize, limitValue );
 
-	size_t	count = 0;
+//	size_t	count = 0;
 	while ( low < high ) {
-		count++;
+//		count++;
 		size_t	mid = ( high - low ) / 2 + low;
 // 		std::cout << "LOW: " << low << " MID: " << mid << " HIGH: " << high << std::endl;
 		
@@ -139,15 +141,14 @@ static size_t	binarySearch( std::list< int > src, size_t groupSize, int value, i
 		}
 	}
 	size_t	index = 0;
-	count++;
-//	
+//	count++;	
 	std::list< int >::iterator	tmp = src.begin();
 	std::advance( tmp, getIndex( low, groupSize ) );
 	if ( value < *tmp )
 		index = getIndex( low, groupSize ) - groupSize + 1;
 	else
 		index = getIndex( high, groupSize ) + 1;
-	std::cout << "CHECK COUNT: " << count << std::endl;
+//	std::cout << "CHECK COUNT: " << count << std::endl;
 	return index;
 }
 

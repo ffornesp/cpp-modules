@@ -6,11 +6,12 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/20 17:58:00 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:36:30 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+#include <ctime>
 
 int	main( int argc, char *argv[] ) {
 	if ( argc < 3 ) {
@@ -26,21 +27,29 @@ int	main( int argc, char *argv[] ) {
 		myDeque.push_back( n );
 		myList.push_back( n );
 	}
-	std::cout << "Before: ";
+
+	clock_t	start;
+	clock_t	end;
+
+	std::cout << "Before:\t";
 	printContent( myDeque );
 
+	start = std::clock();
 	mergeInsertionSort( myDeque );
+	end = std::clock();
 
-	std::cout << "After: ";
-	printContent( myDeque );
-
-	std::cout << "\nBefore: ";
-	printContent( myList );
-
+	double	dequeTime = static_cast< double >( end - start ) * 1000000 / CLOCKS_PER_SEC;
+	
+	start = std::clock();
 	mergeInsertionSort( myList );
+	end = std::clock();
 
-	std::cout << "After: ";
-	printContent( myList );
+	double	listTime = static_cast< double >( end - start ) * 1000000 / CLOCKS_PER_SEC;
+
+	std::cout << "After:\t";
+	printContent( myDeque );
+	std::cout << "Time to process a range of " << argc - 1 << " elements with std::[deque] : " << dequeTime << " us" << std::endl;
+	std::cout << "Time to process a range of " << argc - 1 << " elements with std::[list] : " << listTime << " us" << std::endl;
 
 	return 0;
 }
