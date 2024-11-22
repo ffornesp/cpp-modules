@@ -14,31 +14,9 @@
 #include <cctype>
 #include <iostream>
 
-std::string	removeSpaces( const std::string& str ) {
-	std::string	result;
-
-	for ( size_t i = 0; i < str.size(); i++ ) {
-		if ( !isspace( str[ i ] ) )
-			result += str[ i ];
-	}
-	return result;
-}
-
-static bool	inputError( char c, std::string msg ) {
-	std::cout << "Error: " << c << " " << msg << std::endl;
-	return false;
-}
-
-static bool	inputError( std::string msg ) {
-	std::cout << "Error: " << msg << std::endl;
-	return false;
-}
-
-static bool	isOperator( char c ) {
-	if ( c != '+' && c != '-' && c != '/' && c != '*' )
-		return false;
-	return true;
-}
+static bool	inputError( char c, std::string msg );
+static bool	inputError( std::string msg );
+static bool	isOperator( char c );
 
 bool	validateInput( const std::string str ) {
 	bool	isNumber = true;
@@ -66,3 +44,31 @@ bool	validateInput( const std::string str ) {
 		return inputError( "wrong amount of operators." );
 	return true;
 }
+
+std::string	removeSpaces( const std::string& str ) {
+	std::string	result;
+
+	for ( size_t i = 0; i < str.size(); i++ ) {
+		if ( !isspace( str[ i ] ) )
+			result += str[ i ];
+	}
+	return result;
+}
+
+static bool	inputError( char c, std::string msg ) {
+	std::cout << "Error: " << c << " " << msg << std::endl;
+	return false;
+}
+
+static bool	inputError( std::string msg ) {
+	std::cout << "Error: " << msg << std::endl;
+	return false;
+}
+
+static bool	isOperator( char c ) {
+	if ( c != '+' && c != '-' && c != '/' && c != '*' )
+		return false;
+	return true;
+}
+
+
