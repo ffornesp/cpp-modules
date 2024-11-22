@@ -31,9 +31,6 @@ int	main( int argc, char *argv[] ) {
 	if ( !validateInput( str ) )
 		return 1;
 
-	std::cout << "Input is valid! " << std::endl;
-	std::cout << str << std::endl;
-
 	RPN( str );
 	return 0;
 }

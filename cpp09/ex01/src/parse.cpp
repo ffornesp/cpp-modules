@@ -62,7 +62,7 @@ bool	validateInput( const std::string str ) {
 		else if ( !isdigit( str[ i ] ) && !isOperator( str[ i ] ) )
 			return inputError( "Please enter digits and operators \" + - / * \" only." );
 	}
-	if ( operatorCount != digitCount - 1 )
+	if ( operatorCount != digitCount - 1 || !operatorCount )
 		return inputError( "wrong amount of operators." );
 	return true;
 }
