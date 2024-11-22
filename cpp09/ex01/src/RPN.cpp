@@ -81,7 +81,7 @@ static bool	infiniteCheck( long double n ) {
 	if ( std::isinf( n ) ) {
 		if ( std::signbit( n ) )
 			return printError( "-inff." );
-        else
+		else
 			return printError( "inff." );
     }
 	return true;
