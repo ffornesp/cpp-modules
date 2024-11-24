@@ -26,9 +26,8 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 		sortPairs( src, groupSize );
 		updateValues( groupSize, size, INCREMENT );
 		mergeInsertionSort( src );
-	}
-	if ( size >= 4 )
 		binarySearchInsertion( src, groupSize );
+	}
 	updateValues( groupSize, size, DECREMENT );
 	return ;
 }
@@ -59,6 +58,7 @@ static void	sortPairs( std::deque< int >& src, size_t groupSize ) {
 			std::swap_ranges( first - groupSize + 1, first + 1, second - groupSize + 1);
 		tail += groupSize * 2;
 	}
+//	printGroups( src, groupSize );
 //	std::cout << "COUNT IN PAIRS: " << count << std::endl;
 }
 
