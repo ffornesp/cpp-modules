@@ -27,7 +27,6 @@ static bool	isSorted( std::deque< int > myDeque, std::deque< int > & ogDeque )
 	return true;
 }
 
-/*
 static bool	isSorted( std::list< int > & myDeque, std::list< int > & ogDeque )
 {
 	ogDeque.sort();
@@ -40,7 +39,6 @@ static bool	isSorted( std::list< int > & myDeque, std::list< int > & ogDeque )
 	}
 	return true;
 }
-*/
 
 int	main( int argc, char *argv[] ) {
 	if ( argc < 3 ) {
@@ -50,15 +48,15 @@ int	main( int argc, char *argv[] ) {
 	checkInput( argv + 1 );
 
 	std::deque< int >	myDeque;
-//	std::list< int >	myList;
+	std::list< int >	myList;
 	for ( int i = 1; argv[ i ] != NULL; i++ ) {
 		int	n = atoi( argv[ i ] );
 		myDeque.push_back( n );
-//		myList.push_back( n );
+		myList.push_back( n );
 	}
 
 	std::deque< int >	ogDeque( myDeque );
-//	std::list< int >	ogList( myList );
+	std::list< int >	ogList( myList );
 	
 	clock_t	start;
 	clock_t	end;
@@ -69,30 +67,27 @@ int	main( int argc, char *argv[] ) {
 	start = std::clock();
 	mergeInsertionSort( myDeque );
 	end = std::clock();
-	return 0;
-//////////////////////////////// REMOVE THIS RETURN...............
 
 	double	dequeTime = static_cast< double >( end - start ) * 1000000 / CLOCKS_PER_SEC;
-/*	
+	
 	start = std::clock();
 	mergeInsertionSort( myList );
 	end = std::clock();
 
 	double	listTime = static_cast< double >( end - start ) * 1000000 / CLOCKS_PER_SEC;
 
-*/
 	std::cout << "After:\t";
 	printContent( myDeque );
 	std::cout << "Time to process a range of " << argc - 1 << " elements with std::[deque] : " << dequeTime << " us" << std::endl;
-//	std::cout << "Time to process a range of " << argc - 1 << " elements with std::[list] : " << listTime << " us" << std::endl;
+	std::cout << "Time to process a range of " << argc - 1 << " elements with std::[list] : " << listTime << " us" << std::endl;
 
 	if ( !isSorted( myDeque, ogDeque ) )
 		std::cout << YELLOW << "DEQUE NOT SORTED" << DEFAULT<< std::endl;
 	else
 		std::cout << "DEQUE SORTED" << std::endl;
-/*	if	( !isSorted( myList, ogList ) )
+	if	( !isSorted( myList, ogList ) )
 		std::cout << YELLOW << "LIST NOT SORTED" << DEFAULT << std::endl;
 	else
 		std::cout << "LIST SORTED" << std::endl;
-*/	return 0;
+	return 0;
 }
