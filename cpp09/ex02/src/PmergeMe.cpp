@@ -40,9 +40,8 @@ void	mergeInsertionSort( std::list< int >& src ) {
 		sortPairs( src, groupSize );
 		updateValues( groupSize, size, INCREMENT );
 		mergeInsertionSort( src );
-	}
-	if ( size >= 4 )
 		binarySearchInsertion( src, groupSize );
+	}
 	updateValues( groupSize, size, DECREMENT );
 	return ;
 }
