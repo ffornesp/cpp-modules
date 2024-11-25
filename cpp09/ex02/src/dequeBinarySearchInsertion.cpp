@@ -77,16 +77,22 @@ static void	jacobsthalInsertion( std::deque< int >& mainChain, std::deque< int >
 		}
 		while ( jacob > previousJacob ) {
 			if ( ( groupSize * jacob * 2 ) < src.size() ) {
-				std::deque< int >::iterator	first = src.begin() + groupSize * jacob * 2;
-				std::deque< int >::iterator	second = first + groupSize;
+				std::deque< int >::iterator	first = src.begin();
+				std::advance( first, groupSize * jacob * 2 );
+				std::deque< int >::iterator	second = src.begin();
+				std::advance( second, ( groupSize * jacob * 2 ) + groupSize );
 
 				int	valueOfPair = ( groupSize * jacob * 2 ) + groupSize - 1 + groupSize;
-				if ( valueOfPair > static_cast< int >( src.size() ) )
+				if ( valueOfPair >= static_cast< int >( src.size() ) )
 					valueOfPair = -1;
 				else
 					valueOfPair = src[ valueOfPair ];
 
-				std::deque< int >::iterator	pos = mainChain.begin() + binarySearch( mainChain, groupSize, *( second - 1 ), valueOfPair );
+				std::deque< int >::iterator	pos = mainChain.begin();
+				std::deque< int >::iterator	tmp = first;
+				std::advance( tmp, groupSize - 1 );
+
+				std::advance( pos, binarySearch( mainChain, groupSize, *tmp, valueOfPair ) );
 				mainChain.insert( pos, first, second );
 				// DEBUG
 //				printInfo( src, mainChain, groupSize );
@@ -138,9 +144,10 @@ static int	getIndex( size_t index, size_t groupSize ) {
 
 static size_t	getLastIndex( std::deque< int > src, size_t groupSize, int limitValue ) {
 	if ( limitValue >= 0 ) {
- 		for ( size_t i = 0; i < src.size(); i++ )
-			if ( src[ i ] == limitValue )
-				return i / groupSize;
+		for ( std::deque< int >::iterator it = src.begin(); it != src.end(); it++ ) {
+			if ( *it == limitValue )
+				return std::distance( src.begin(), it) / groupSize;
+		}
 	}
 	return src.size() / groupSize;
 }
