@@ -26,27 +26,30 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 		sortPairs( src, groupSize );
 		updateValues( groupSize, size, INCREMENT );
 		mergeInsertionSort( src );
-		return ;
-		// BEFORE THIS POINT THERE'S ALREADY ACCESS TO UNINITIALISED VALUES?????????
-//		binarySearchInsertion( src, groupSize );
+		binarySearchInsertion( src, groupSize );
 	}
-//	if ( groupSize > 1 )
-		updateValues( groupSize, size, DECREMENT );
+	updateValues( groupSize, size, DECREMENT );
 	return ;
 }
 
 static void	sortPairs( std::deque< int >& src, size_t groupSize ) {
 	size_t	tail = groupSize - 1;
 	while ( tail + groupSize < src.size() ) {
-		std::deque< int >::iterator	first = src.begin() + tail;
-		std::deque< int >::iterator	second = src.begin() + tail + groupSize;
-		if ( *first > *second )
-			std::swap_ranges( first - groupSize + 1, first + 1, second - groupSize + 1);
+		std::deque< int >::iterator	first = src.begin();
+		std::advance( first, tail );
+		std::deque< int >::iterator	second = src.begin();
+		std::advance( second, tail + groupSize );
+		if ( *first > *second ) {
+			std::deque< int >::iterator	trueFirst = src.begin();
+			std::advance( trueFirst, tail - groupSize + 1 );
+			std::deque< int >::iterator	trueSecond = src.begin();
+			std::advance( trueSecond, tail + 1 );
+			std::advance( first, 1 );
+			std::swap_ranges( trueFirst, first, trueSecond ); 
+		}
 		tail += groupSize * 2;
 	}
 }
-
-//////////////////////////// LIST
 
 void	mergeInsertionSort( std::list< int >& src ) {
 	static size_t	groupSize = 1;
@@ -93,5 +96,4 @@ static void	updateValues( size_t& groupSize, size_t& size, bool flag ) {
 		groupSize /= 2;
 		size *= 2;
 	}
-	std::cout << "SIZE: " << size << "\tGROUP_SIZE: " << groupSize << std::endl;
 }
