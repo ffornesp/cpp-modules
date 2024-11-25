@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:08:11 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/21 16:33:01 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:34:27 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,27 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 		sortPairs( src, groupSize );
 		updateValues( groupSize, size, INCREMENT );
 		mergeInsertionSort( src );
-		binarySearchInsertion( src, groupSize );
+		return ;
+		// BEFORE THIS POINT THERE'S ALREADY ACCESS TO UNINITIALISED VALUES?????????
+//		binarySearchInsertion( src, groupSize );
 	}
-	updateValues( groupSize, size, DECREMENT );
+//	if ( groupSize > 1 )
+		updateValues( groupSize, size, DECREMENT );
 	return ;
 }
+
+static void	sortPairs( std::deque< int >& src, size_t groupSize ) {
+	size_t	tail = groupSize - 1;
+	while ( tail + groupSize < src.size() ) {
+		std::deque< int >::iterator	first = src.begin() + tail;
+		std::deque< int >::iterator	second = src.begin() + tail + groupSize;
+		if ( *first > *second )
+			std::swap_ranges( first - groupSize + 1, first + 1, second - groupSize + 1);
+		tail += groupSize * 2;
+	}
+}
+
+//////////////////////////// LIST
 
 void	mergeInsertionSort( std::list< int >& src ) {
 	static size_t	groupSize = 1;
@@ -44,21 +60,6 @@ void	mergeInsertionSort( std::list< int >& src ) {
 	}
 	updateValues( groupSize, size, DECREMENT );
 	return ;
-}
-
-static void	sortPairs( std::deque< int >& src, size_t groupSize ) {
-	size_t	tail = groupSize - 1;
-//	size_t	count = 0;
-	while ( tail + groupSize < src.size() ) {
-		std::deque< int >::iterator	first = src.begin() + tail;
-		std::deque< int >::iterator	second = src.begin() + tail + groupSize;
-//		count++;
-		if ( *first > *second )
-			std::swap_ranges( first - groupSize + 1, first + 1, second - groupSize + 1);
-		tail += groupSize * 2;
-	}
-//	printGroups( src, groupSize );
-//	std::cout << "COUNT IN PAIRS: " << count << std::endl;
 }
 
 static void	sortPairs( std::list< int >& src, size_t groupSize ) {
@@ -92,4 +93,5 @@ static void	updateValues( size_t& groupSize, size_t& size, bool flag ) {
 		groupSize /= 2;
 		size *= 2;
 	}
+	std::cout << "SIZE: " << size << "\tGROUP_SIZE: " << groupSize << std::endl;
 }
