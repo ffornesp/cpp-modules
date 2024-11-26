@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:29:30 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/21 18:33:46 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:19:25 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <cctype>
 #include <iostream>
 
-static bool	inputError( char c, std::string msg );
 static bool	inputError( std::string msg );
 static bool	isOperator( char c );
 
@@ -29,14 +28,10 @@ bool	validateInput( const std::string str ) {
 			if ( i > 0 )
 				isNumber = false;
 		}
-		else if ( isdigit( str[ i ] ) && !isNumber )
-			return inputError( str[ i ], "shouldn't be a digit." );
 		else if ( isOperator( str[ i ] ) && !isNumber ) {
 			operatorCount++;
 			isNumber = true;
 		}
-		else if ( isOperator( str[ i ] ) && isNumber )
-			return inputError( str[ i ], "shouldn't be an operator." );
 		else if ( !isdigit( str[ i ] ) && !isOperator( str[ i ] ) )
 			return inputError( "Please enter digits and operators \" + - / * \" only." );
 	}
@@ -53,11 +48,6 @@ std::string	removeSpaces( const std::string& str ) {
 			result += str[ i ];
 	}
 	return result;
-}
-
-static bool	inputError( char c, std::string msg ) {
-	std::cout << "Error: " << c << " " << msg << std::endl;
-	return false;
 }
 
 static bool	inputError( std::string msg ) {
