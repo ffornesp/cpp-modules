@@ -65,6 +65,7 @@ static std::multimap< std::string, float >	readFile( std::string filename ) {
 	while ( std::getline( file, line ) ) {
 		std::string			date;
 		float				value;
+// Check if line after removeSpace is empty?
 		std::istringstream	ss( removeSpace( line ) );
 
 		std::getline( ss , date, c );
