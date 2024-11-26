@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:07:05 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/25 19:35:56 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/26 20:01:31 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,41 @@ static bool	isSorted( std::list< int > & myDeque, std::list< int > & ogDeque )
 	return true;
 }
 
+static void	printTime( int range, double dequeTime, double listTime ) {
+	bool	tooBig = false;
+
+	if ( dequeTime >= 1000 )
+		tooBig = true;
+	std::cout << "Time to process a range of " << range << " elements with std::[deque] :\t";
+	if ( tooBig )
+		std::cout << dequeTime / 1000 << " ms" << std::endl;
+	else
+		std::cout << dequeTime << " us" << std::endl;
+	std::cout << "Time to process a range of " << range << " elements wit std::[list] :\t";
+	if ( tooBig )
+		std::cout << listTime / 1000 << " ms" << std::endl;
+	else
+		std::cout << listTime << " us" << std::endl;
+}
+
 int	main( int argc, char *argv[] ) {
-	if ( argc < 3 ) {
-		std::cout << "Error: run program with a positive integer sequence as argument." << std::endl;
+	if ( argc < 3 || argc > 10001 ) {
+		std::cout << "Error: run program with a positive integer sequence of any size between 2 & 10000 numbers as argument." << std::endl;
 		return 1;
 	}
 	checkInput( argv + 1 );
 
-	std::deque< int >	myDeque;
-	std::list< int >	myList;
+	std::deque< int >	myDeque( argc - 1 );
+	std::list< int >	myList( argc - 1 );
+	std::deque< int >::iterator	dequeIt = myDeque.begin();
+	std::list< int >::iterator	listIt = myList.begin();
+
 	for ( int i = 1; argv[ i ] != NULL; i++ ) {
 		int	n = atoi( argv[ i ] );
-		myDeque.push_back( n );
-		myList.push_back( n );
+		*dequeIt = n;
+		*listIt = n;
+		std::advance( dequeIt, 1 );
+		std::advance( listIt, 1 );
 	}
 
 	std::deque< int >	ogDeque( myDeque );
@@ -78,8 +100,7 @@ int	main( int argc, char *argv[] ) {
 
 	std::cout << "After:\t";
 	printContent( myDeque );
-	std::cout << "Time to process a range of " << argc - 1 << " elements with std::[deque] : " << dequeTime << " us" << std::endl;
-	std::cout << "Time to process a range of " << argc - 1 << " elements with std::[list] : " << listTime << " us" << std::endl;
+	printTime( argc - 1, dequeTime, listTime );
 
 	if ( !isSorted( myDeque, ogDeque ) )
 		std::cout << YELLOW << "DEQUE NOT SORTED" << DEFAULT<< std::endl;
