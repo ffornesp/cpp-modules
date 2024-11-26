@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:25:43 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/10/31 12:52:45 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:10:17 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include <string>
 #include <map>
 #include <stdexcept>
-
 
 static char	detectDelimiter( std::string& filename ) {
 	std::ifstream	file( filename.c_str() );
@@ -40,10 +39,12 @@ static char	detectDelimiter( std::string& filename ) {
 static std::string	removeSpace( const std::string& line ) {
     std::string result;
 
-	result.reserve( line.size() - 2 );
-	for ( std::string::const_iterator it = line.begin(); it != line.end(); ++it )
-		if ( !std::isspace( static_cast< unsigned char >( *it ) ) )
-			result += *it;
+	if ( !line.empty() || line.size() > 0 ) {
+		result.reserve( line.size() );
+		for ( std::string::const_iterator it = line.begin(); it != line.end(); ++it )
+			if ( !std::isspace( static_cast< unsigned char >( *it ) ) )
+				result += *it;
+	}
     return result;
 }
 
@@ -65,16 +66,19 @@ static std::multimap< std::string, float >	readFile( std::string filename ) {
 	while ( std::getline( file, line ) ) {
 		std::string			date;
 		float				value;
-// Check if line after removeSpace is empty?
-		std::istringstream	ss( removeSpace( line ) );
+		std::string			tmp;
 
-		std::getline( ss , date, c );
-		if ( ss >> value )
-			data.insert( std::make_pair< std::string, float >( date, value ) );
-		else if ( date != "date" )
-			throw std::runtime_error( "Error: invalid format in " + filename + ", in line: " + line );
-		else
-			ss.clear();
+		tmp = removeSpace( line );
+		if ( !tmp.empty() ) {
+			std::istringstream	ss( tmp );
+			std::getline( ss , date, c );
+			if ( ss >> value )
+				data.insert( std::make_pair< std::string, float >( date, value ) );
+			else if ( date != "date" )
+				throw std::runtime_error( "Error: invalid format in " + filename + ", in line: " + line );
+			else
+				ss.clear();
+		}
 	}
 	file.close();
 	return data;
