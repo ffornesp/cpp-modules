@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:31:06 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/26 19:56:08 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:13:08 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ void	binarySearchInsertion( std::deque< int >& src, size_t groupSize ) {
 static void	fillChain( std::deque< int >& dst, std::deque< int > src, size_t groupSize, size_t& groups ) {
 	std::deque< int >::iterator pos = src.begin();
 	std::advance( pos, groupSize );
-	for ( size_t count = groups * 0.5f; count > 0; count-- ) {
+	for ( size_t count = groups / 2 ; count > 0; count-- ) {
 		std::deque< int >::iterator	endpos = pos;
 		std::advance( endpos, groupSize );
 		dst.insert( dst.end(), pos, endpos );
-		std::advance( pos, groupSize * 2 );
+		if ( count > 1 )
+			std::advance( pos, groupSize * 2 );
 		groups--;
 	}
 } 
