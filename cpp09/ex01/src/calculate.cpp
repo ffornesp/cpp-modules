@@ -59,17 +59,17 @@ static bool	infiniteCheck( long double n ) {
 }
 
 static bool	additionCheck( long double n1, long double n2 ) {
-	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<long double>::max() - n2 ) )
+	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<int>::max() - n2 ) )
 		return printError( "Overflow: addition result is too big." );
-	if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<long double>::min() - n2 ) )
+	if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::min() - n2 ) )
 		return printError( "Underflow: addition result is too small." );
 	return true;
 }
 
 static bool	subtractionCheck( long double n1, long double n2 ) {
-	if ( n1 > 0 && n2 < 0 && n1 > ( std::numeric_limits<long double>::max() + n2 ) )
+	if ( n1 > 0 && n2 < 0 && n1 > ( std::numeric_limits<int>::max() + n2 ) )
 		return printError( "Overflow: addition result is too big." );
-	if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<long double>::min() + n2 ) )
+	if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<int>::min() + n2 ) )
 		return printError( "Underflow: addition result is too small." );
 	return true;
 }
@@ -77,13 +77,13 @@ static bool	subtractionCheck( long double n1, long double n2 ) {
 static bool	multiplicationCheck( long double n1, long double n2 ) {
 	if ( !infiniteCheck( n1 * n2 ) )
 		return false;
-	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<long double>::max() / n2 ))
+	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<int>::max() / n2 ))
 		return printError( "Overflow: multiplication result is too big." );
-	else if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<long double>::max() / n2 ))
+	else if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::max() / n2 ))
 		return printError( "Overflow: multiplication result is too big." );
-	else if ( n1 > 0 && n2 < 0 && n1 < ( std::numeric_limits<long double>::min() / 2 ))
+	else if ( n1 > 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::min() / 2 ))
 		return printError( "Underflow: multiplication result is too small." );
-	else if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<long double>::min() / 2 ))
+	else if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<int>::min() / 2 ))
 		return printError( "Underflow: multiplication result is too small." );
 	return true;
 }
@@ -93,13 +93,13 @@ static bool	divisionCheck( long double n1, long double n2 ) {
 		return printError( "Can't divide by 0." );
 	if ( !infiniteCheck( n1 / n2 ) )
 		return false;
-	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<long double>::max() / n2 ) )
+	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<int>::max() / n2 ) )
 		return printError( "Overflow: division result is too big." );
-	else if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<long double>::max() / n2 ) )
+	else if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::max() / n2 ) )
 		return printError( "Overflow: division result is too big." );
-	else if ( n1 > 0 && n2 < 0 && n1 < ( std::numeric_limits<long double>::min() / n2 ) )
+	else if ( n1 > 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::min() / n2 ) )
 		return printError( "Underflow: divison result is too small." );
-	else if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<long double>::min() / n2 ) )
+	else if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<int>::min() / n2 ) )
 		return printError( "Underflow: divison result is too small." );
 	return true;
 }
