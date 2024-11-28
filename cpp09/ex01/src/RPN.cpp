@@ -6,134 +6,68 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:29:29 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/26 16:23:08 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/11/28 19:31:35 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
-#include <cstring>
-#include <vector>
-#include <cmath>
-#include <limits>
-#include <cfloat>
-
-static void	fillVectors( std::string str, std::vector< int >& numbers, std::vector< char >& operators );
-static bool	calculate( long double& n1, int n2, char operation );
-static bool	infiniteCheck( long double n );
-static bool	additionCheck( long double n1, int n2 );
-static bool	subtractionCheck( long double n1, int n2 );
-static bool	multiplicationCheck( long double n1, int n2 );
-static bool	divisionCheck( long double n1, int n2 );
-static bool	printError( std::string msg );
 
 void	RPN( std::string str ) {
-	std::vector< int >	numbers;
-	std::vector< char >	operators;
+	std::vector< long double >		numbers;
+	std::vector< long double >		result;
+	std::vector< long double >::iterator	vit;
 
-	fillVectors( str, numbers, operators );
-
-	long double	result = numbers[0];
-	for ( size_t i = 0; i < operators.size(); i++ )
-		if ( !calculate( result, numbers[ i + 1 ], operators[ i ] ) )
-			return ;
-	
-	std::cout << std::fixed << result << std::endl;
-}
-
-static void	fillVectors( std::string str, std::vector< int >& numbers, std::vector< char >& operators ) {
-	for ( std::string::iterator it = str.begin(); it != str.end(); it++ ) {
-		if ( strchr( "+-/*", *it ) )
-			operators.push_back( *it );
-		else
+	for ( std::string::iterator it = str.begin(); it != str.end(); ++it ) {
+		if ( !strchr( "+-/*", *it ) ) {
+			//std::cout << "Pushing [" << *it << "] into numbers" << std::endl;
 			numbers.push_back( *it - '0' );
+		}
+		else {
+			//std::cout << "Found operator: " << *it << std::endl;
+			if ( numbers.size() > 1 ) {
+				// Print operation
+				//std::cout << "[" << numbers[0] << "] " << *it << " [" << numbers[1] << "]";
+
+				if ( calculate( numbers[0], numbers[1], *it ) ) {
+					vit = numbers.begin();
+					vit++;
+					numbers.erase( vit );
+					//std::cout << " = " << numbers.front() << std::endl;
+				} else
+					return ;
+			}
+			else if ( numbers.size() == 1 ) {
+				// Print operation
+				//std::cout << "[" << result[ result.size() - 1 ] << "] " << *it << " [" << numbers[0] << "]";
+
+				if ( calculate( result[ result.size() - 1 ], numbers[0], *it ) ) {
+					vit = numbers.begin();
+					numbers.erase( vit );
+				} else
+					return ;
+				// Print result
+				//std::cout << " = " << result[ result.size() - 1 ] << std::endl;
+			}
+			else if ( result.size() > 1 ) {
+				// Print operation
+				//std::cout << "[" << result[ result.size() - 2 ] << "] " << *it << " [" << result.back() << "]";
+
+				if ( calculate( result[ result.size() - 2 ], result.back() , *it ) ) {
+					result.pop_back();
+				} else
+					return ;
+				// Print result
+				//std::cout << " = " << result[ result.size() - 2 ] << std::endl;
+			}
+			if ( numbers.size() == 1 ) {
+				std::string::iterator	ite = it;
+				ite++;
+				if ( ite != str.end() && !strchr( "+-/*", *ite ) ) {
+					result.push_back( numbers.front() );
+					numbers.erase( numbers.begin(), numbers.end() );
+				}
+			}
+		}
 	}
-}
-
-static bool	calculate( long double& n1, int n2, char operation ) {
-	switch ( operation ) {
-		case '+':
-			if ( !additionCheck( n1, n2 ) )
-				return false;
-			n1 = n1 + n2;
-			break ;
-		case '-':
-			if ( !subtractionCheck( n1, n2 ) )
-				return false;
-			n1 = n1 - n2;
-			break ;
-		case '*':
-			if ( !multiplicationCheck( n1, n2 ) )
-				return false;
-			n1 = n1 * n2;
-			break ;
-		case '/':
-			if ( !divisionCheck( n1, n2 ) )
-				return false;
-			n1 = n1 / n2;
-			break ;
-	}
-	if ( std::isnan( n1 ) )
-		return printError( "NaN" );
-	return true;
-}
-
-static bool	infiniteCheck( long double n ) {
-	if ( std::isinf( n ) ) {
-		if ( std::signbit( n ) )
-			return printError( "-inff." );
-		else
-			return printError( "inff." );
-    }
-	return true;
-}
-
-static bool	additionCheck( long double n1, int n2 ) {
-	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<int>::max() - n2 ) )
-		return printError( "Overflow: addition result is too big." );
-	if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::min() - n2 ) )
-		return printError( "Underflow: addition result is too small." );
-	return true;
-}
-
-static bool	subtractionCheck( long double n1, int n2 ) {
-	if ( n1 > 0 && n2 < 0 && n1 > ( std::numeric_limits<int>::max() + n2 ) )
-		return printError( "Overflow: addition result is too big." );
-	if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<int>::min() + n2 ) )
-		return printError( "Underflow: addition result is too small." );
-	return true;
-}
-
-static bool	multiplicationCheck( long double n1, int n2 ) {
-	if ( !infiniteCheck( n1 * n2 ) )
-		return false;
-	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<int>::max() / n2 ))
-		return printError( "Overflow: multiplication result is too big." );
-	else if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::max() / n2 ))
-		return printError( "Overflow: multiplication result is too big." );
-	else if ( n1 > 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::min() / 2 ))
-		return printError( "Underflow: multiplication result is too small." );
-	else if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<int>::min() / 2 ))
-		return printError( "Underflow: multiplication result is too small." );
-	return true;
-}
-
-static bool	divisionCheck( long double n1, int n2 ) {
-	if ( n2 == 0 )
-		return printError( "Can't divide by 0." );
-	if ( !infiniteCheck( n1 / n2 ) )
-		return false;
-	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<int>::max() / n2 ) )
-		return printError( "Overflow: division result is too big." );
-	else if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::max() / n2 ) )
-		return printError( "Overflow: division result is too big." );
-	else if ( n1 > 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::min() / n2 ) )
-		return printError( "Underflow: divison result is too small." );
-	else if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<int>::min() / n2 ) )
-		return printError( "Underflow: divison result is too small." );
-	return true;
-}
-
-static bool	printError( std::string msg ) {
-	std::cout << "Error: " << msg << std::endl;
-	return false;
+	std::cout << std::fixed << result.front() << std::endl;
 }
