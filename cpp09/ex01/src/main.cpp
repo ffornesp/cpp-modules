@@ -24,7 +24,7 @@ int	main( int argc, char *argv[] ) {
 	if ( argc < 2 )
 		return argError( "Not enough arguments." );
 	else if ( argc > 2 )
-		return argError( "Too much arguments." );
+		return argError( "Too many arguments." );
 	std::string	input = argv[ 1 ];
 	std::string	str = removeSpaces( input );
 
