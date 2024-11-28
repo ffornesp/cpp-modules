@@ -18,25 +18,23 @@ static bool	inputError( std::string msg );
 static bool	isOperator( char c );
 
 bool	validateInput( const std::string str ) {
-	bool	isNumber = true;
 	size_t	digitCount = 0;
 	size_t	operatorCount = 0;
 
 	for ( size_t i = 0; i < str.size(); i++ ) {
-		if ( isdigit( str[ i ] ) && isNumber ) {
+		if ( isdigit( str[ i ] ) )
 			digitCount++;
-			if ( i > 0 )
-				isNumber = false;
-		}
-		else if ( isOperator( str[ i ] ) && !isNumber ) {
+		else if ( isOperator( str[ i ] ) ) {
 			operatorCount++;
-			isNumber = true;
+			if ( operatorCount >= digitCount )
+				return inputError( "Wrong amount of operators." );
 		}
 		else if ( !isdigit( str[ i ] ) && !isOperator( str[ i ] ) )
 			return inputError( "Please enter digits and operators \" + - / * \" only." );
 	}
+	std::cout << "Operators: " << operatorCount << "\tDigits: " << digitCount << std::endl;
 	if ( operatorCount != digitCount - 1 || !operatorCount )
-		return inputError( "wrong amount of operators." );
+		return inputError( "Wrong amount of operators." );
 	return true;
 }
 
