@@ -6,7 +6,7 @@
 #    By: ffornes- <ffornes-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/05 11:23:33 by ffornes-          #+#    #+#              #
-#    Updated: 2024/11/21 18:31:07 by ffornes-         ###   ########.fr        #
+#    Updated: 2024/11/28 18:33:45 by ffornes-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = RPN
 SRC_DIR = src/
 SRC_FILES = RPN.cpp \
 			parse.cpp \
+			calculate.cpp \
 			main.cpp
 			
 OBJ_DIR = objs/
