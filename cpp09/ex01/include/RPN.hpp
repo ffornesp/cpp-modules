@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:29:41 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/28 19:00:14 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:21:34 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,22 @@
 #include <limits>
 #include <cfloat>
 
+#ifndef DIGIT
+# define DIGIT 0
+#endif
+#ifndef OPERATOR
+# define OPERATOR 1
+#endif
+
 std::string	removeSpaces( const std::string& );
 bool		validateInput( const std::string str );
 
+struct node {
+    char	content;
+	bool	type;
+};
+
 void	RPN( const std::string );
+void	checkInput( const std::string& input );
+void	tokenizer( const std::string& input, std::vector<node>& chain );
 bool	calculate( long double& n1, long double n2, char operation );

@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 18:32:49 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/28 19:37:53 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:44:15 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ bool	calculate( long double& n1, long double n2, char operation ) {
 			n1 = n1 + n2;
 			break ;
 		case '-':
-			n2 = std::abs( n2 );
 			if ( !subtractionCheck( n1, n2 ) )
 				return false;
 			n1 = n1 - n2;

@@ -6,57 +6,37 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:29:30 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/26 16:19:25 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/12/06 18:24:51 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
-#include <cctype>
-#include <iostream>
 
-static bool	inputError( std::string msg );
-static bool	isOperator( char c );
-
-bool	validateInput( const std::string str ) {
-	size_t	digitCount = 0;
-	size_t	operatorCount = 0;
-
-	for ( size_t i = 0; i < str.size(); i++ ) {
-		if ( isdigit( str[ i ] ) )
-			digitCount++;
-		else if ( isOperator( str[ i ] ) ) {
-			operatorCount++;
-			if ( operatorCount >= digitCount )
-				return inputError( "Wrong amount of operators." );
+void	checkInput( const std::string& input ) {
+	for (unsigned int i = 0; i < this->_input.size(); i++) {
+		if (!isspace(this->_input[i]) && !(this->_input[i] == '+' || this->_input[i] == '-' 
+			|| this->_input[i] == '/' || this->_input[i] == '*')) {
+			if (!isdigit(this->_input[i])) {
+				throw std::runtime_error("Character is neither a number nor a valid operator.");
+			}
+			if (isdigit(this->_input[i]) && i + 1 < this->_input.size() && isdigit(this->_input[i + 1])) {
+				throw std::runtime_error("Only single-digit numbers are allowed.");
+			}
 		}
-		else if ( !isdigit( str[ i ] ) && !isOperator( str[ i ] ) )
-			return inputError( "Please enter digits and operators \" + - / * \" only." );
 	}
-	std::cout << "Operators: " << operatorCount << "\tDigits: " << digitCount << std::endl;
-	if ( operatorCount != digitCount - 1 || !operatorCount )
-		return inputError( "Wrong amount of operators." );
-	return true;
 }
 
-std::string	removeSpaces( const std::string& str ) {
-	std::string	result;
 
-	for ( size_t i = 0; i < str.size(); i++ ) {
-		if ( !isspace( str[ i ] ) )
-			result += str[ i ];
+void	tokenizer( const std::string& input, std::vector<node>& chain ) {
+	for ( size_t i = 0; i < input.size(); i++ ) {
+		node	tmp;
+		if (!isspace(input[i])) {
+			tmp.content = input[i];
+			if (isdigit(input[i]))
+				tmp.type = DIGIT; 
+			else
+				tmp.type = OPERATOR;
+			chain.push_back(tmp);
+		}
 	}
-	return result;
 }
-
-static bool	inputError( std::string msg ) {
-	std::cout << "Error: " << msg << std::endl;
-	return false;
-}
-
-static bool	isOperator( char c ) {
-	if ( c != '+' && c != '-' && c != '/' && c != '*' )
-		return false;
-	return true;
-}
-
-

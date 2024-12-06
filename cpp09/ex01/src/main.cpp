@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:28:56 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/21 18:54:20 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:58:18 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	main( int argc, char *argv[] ) {
 	else if ( argc > 2 )
 		return argError( "Too many arguments." );
 	std::string	input = argv[ 1 ];
-	std::string	str = removeSpaces( input );
-
-	if ( !validateInput( str ) )
-		return 1;
-
-	RPN( str );
+	try {
+		RPN( str );
+	}
+	catch ( std::runtime_error& e ) {
+		std::cout << e.what() << std::endl;
+	}
 	return 0;
 }

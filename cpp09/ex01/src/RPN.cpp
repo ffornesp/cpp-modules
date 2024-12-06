@@ -6,13 +6,29 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:29:29 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/28 19:31:35 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/12/06 19:10:53 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
 void	RPN( std::string str ) {
+	std::vector<node>	chain;
+
+	checkInput( str );
+	tokenizer( str, chain );
+	
+	std::vector<int>	numbers;
+
+	for ( std::vector<node>::iterator it = chain.begin(); it != chain.end(); it++ ) {
+		if ( it.type == DIGIT ) {
+			node	tmp = *it;
+			numbers.push_back(tmp.content - '0');
+		} else {
+			
+		}
+	}
+
 	std::vector< long double >		numbers;
 	std::vector< long double >		result;
 	std::vector< long double >::iterator	vit;
@@ -66,6 +82,8 @@ void	RPN( std::string str ) {
 					result.push_back( numbers.front() );
 					numbers.erase( numbers.begin(), numbers.end() );
 				}
+				else
+					result.push_back( numbers.front() );
 			}
 		}
 	}
