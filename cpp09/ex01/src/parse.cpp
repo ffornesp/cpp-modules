@@ -6,20 +6,20 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 18:29:30 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/12/06 18:24:51 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/12/06 20:58:24 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
 void	checkInput( const std::string& input ) {
-	for (unsigned int i = 0; i < this->_input.size(); i++) {
-		if (!isspace(this->_input[i]) && !(this->_input[i] == '+' || this->_input[i] == '-' 
-			|| this->_input[i] == '/' || this->_input[i] == '*')) {
-			if (!isdigit(this->_input[i])) {
+	for (unsigned int i = 0; i < input.size(); i++) {
+		if (!isspace(input[i]) && !(input[i] == '+' || input[i] == '-' 
+			|| input[i] == '/' || input[i] == '*')) {
+			if (!isdigit(input[i])) {
 				throw std::runtime_error("Character is neither a number nor a valid operator.");
 			}
-			if (isdigit(this->_input[i]) && i + 1 < this->_input.size() && isdigit(this->_input[i + 1])) {
+			if (isdigit(input[i]) && i + 1 < input.size() && isdigit(input[i + 1])) {
 				throw std::runtime_error("Only single-digit numbers are allowed.");
 			}
 		}

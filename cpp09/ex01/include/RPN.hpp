@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:29:41 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/12/06 18:21:34 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/12/06 20:53:21 by herz             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,4 @@ struct node {
 void	RPN( const std::string );
 void	checkInput( const std::string& input );
 void	tokenizer( const std::string& input, std::vector<node>& chain );
-bool	calculate( long double& n1, long double n2, char operation );
+bool	calculate( long double& r, int n1, int n2, char operation );
