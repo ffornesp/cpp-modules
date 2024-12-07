@@ -24,22 +24,22 @@ bool	calculate( long double& r, int n1, int n2, char operation ) {
 		case '+':
 			if ( !additionCheck( n1, n2 ) )
 				return false;
-			r = n1 + n2;
+			r = n2 + n1;
 			break ;
 		case '-':
 			if ( !subtractionCheck( n1, n2 ) )
 				return false;
-			r = n1 - n2;
+			r = n2 - n1;
 			break ;
 		case '*':
 			if ( !multiplicationCheck( n1, n2 ) )
 				return false;
-			r = n1 * n2;
+			r = n2 * n1;
 			break ;
 		case '/':
 			if ( !divisionCheck( n1, n2 ) )
 				return false;
-			r = n1 / n2;
+			r = n2 / n1;
 			break ;
 	}
 	if ( std::isnan( r ) )
