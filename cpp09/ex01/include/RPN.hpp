@@ -38,4 +38,4 @@ struct node {
 void	RPN( const std::string );
 void	checkInput( const std::string& input );
 void	tokenizer( const std::string& input, std::vector<node>& chain );
-bool	calculate( long double& r, int n1, int n2, char operation );
+bool	calculate( long double& r, long double n1, long double n2, char operation );

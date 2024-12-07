@@ -17,8 +17,17 @@ void	RPN( std::string str ) {
 
 	checkInput( str );
 	tokenizer( str, chain );
-	
-	std::vector<int>	numbers;
+
+	if (chain.size() == 1 ) {
+		node	tmp = *(chain.begin());
+		if (tmp.type == DIGIT )
+			std::cout << tmp.content << std::endl;
+		else
+			throw std::runtime_error("Not enough operators");
+		return ;
+	}
+
+	std::vector<long double>	numbers;
 	long double	result = 0;
 	for ( std::vector<node>::iterator it = chain.begin(); it != chain.end(); it++ ) {
 		node	tmp = *it;
@@ -28,13 +37,13 @@ void	RPN( std::string str ) {
 			if (numbers.size() < 2)
 				throw std::runtime_error("Not enough operators");
 			else {
-				int	i = numbers.back();
+				long double	i = numbers.back();
 				numbers.pop_back();
-				int	j = numbers.back();
+				long double	j = numbers.back();
 				numbers.pop_back();
-				if (!calculate(result, i, j, tmp.content))
+				if (!calculate(result, j, i, tmp.content))
 					return ;
-				numbers.push_back(static_cast<int>(result));
+				numbers.push_back(result);
 			}
 		}
 	}
