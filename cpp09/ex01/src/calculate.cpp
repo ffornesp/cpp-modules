@@ -6,17 +6,17 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 18:32:49 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/12/06 21:01:54 by herz             ###   ########.fr       */
+/*   Updated: 2024/12/11 13:14:57 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
 static bool	infiniteCheck( long double n );
-static bool	additionCheck( long double n1, int n2 );
-static bool	subtractionCheck( long double n1, int n2 );
-static bool	multiplicationCheck( long double n1, int n2 );
-static bool	divisionCheck( long double n1, int n2 );
+static bool	additionCheck( long double n1, long double n2 );
+static bool	subtractionCheck( long double n1, long double n2 );
+static bool	multiplicationCheck( long double n1, long double n2 );
+static bool	divisionCheck( long double n1, long double n2 );
 static bool	printError( std::string msg );
 
 bool	calculate( long double& r, long double n1, long double n2, char operation ) {
@@ -57,7 +57,7 @@ static bool	infiniteCheck( long double n ) {
 	return true;
 }
 
-static bool	additionCheck( long double n1, int n2 ) {
+static bool	additionCheck( long double n1, long double n2 ) {
 	if ( n1 > 0 && n2 > 0 && n1 > ( std::numeric_limits<int>::max() - n2 ) )
 		return printError( "Overflow: addition result is too big." );
 	if ( n1 < 0 && n2 < 0 && n1 < ( std::numeric_limits<int>::min() - n2 ) )
@@ -65,7 +65,7 @@ static bool	additionCheck( long double n1, int n2 ) {
 	return true;
 }
 
-static bool	subtractionCheck( long double n1, int n2 ) {
+static bool	subtractionCheck( long double n1, long double n2 ) {
 	if ( n1 > 0 && n2 < 0 && n1 > ( std::numeric_limits<int>::max() + n2 ) )
 		return printError( "Overflow: addition result is too big." );
 	if ( n1 < 0 && n2 > 0 && n1 < ( std::numeric_limits<int>::min() + n2 ) )
@@ -73,7 +73,7 @@ static bool	subtractionCheck( long double n1, int n2 ) {
 	return true;
 }
 
-static bool	multiplicationCheck( long double n1, int n2 ) {
+static bool	multiplicationCheck( long double n1, long double n2 ) {
 	long double	res = n1 * n2;
 	if ( !infiniteCheck( res ) )
 		return false;
@@ -88,7 +88,7 @@ static bool	multiplicationCheck( long double n1, int n2 ) {
 	return true;
 }
 
-static bool	divisionCheck( long double n1, int n2 ) {
+static bool	divisionCheck( long double n1, long double n2 ) {
 	if ( n2 == 0 )
 		return printError( "Can't divide by 0." );
 	if ( !infiniteCheck( n1 / n2 ) )
