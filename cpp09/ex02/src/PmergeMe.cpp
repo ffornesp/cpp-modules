@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 12:08:11 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/25 19:34:27 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:22:44 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	sortPairs( std::list< int >& src, size_t groupSize );
 void	mergeInsertionSort( std::deque< int >& src ) {
 	static size_t	groupSize = 1;
 	static size_t	size = src.size();
-
+	if ( groupSize == 1 )
+		std::cout << std::endl;
 	if ( size > 1 ) {
 		sortPairs( src, groupSize );
 		updateValues( groupSize, size, INCREMENT );
@@ -34,6 +35,8 @@ void	mergeInsertionSort( std::deque< int >& src ) {
 
 static void	sortPairs( std::deque< int >& src, size_t groupSize ) {
 	size_t	tail = groupSize - 1;
+	std::cout << "Before swap pairs:\t";
+	printGroups( src, groupSize );
 	while ( tail + groupSize < src.size() ) {
 		std::deque< int >::iterator	first = src.begin();
 		std::advance( first, tail );
@@ -49,6 +52,9 @@ static void	sortPairs( std::deque< int >& src, size_t groupSize ) {
 		}
 		tail += groupSize * 2;
 	}
+	std::cout << "After swap pairs:\t";
+	printGroups( src, groupSize );
+	std::cout << std::endl;
 }
 
 void	mergeInsertionSort( std::list< int >& src ) {

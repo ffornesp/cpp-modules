@@ -6,7 +6,7 @@
 /*   By: ffornes- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:31:06 by ffornes-          #+#    #+#             */
-/*   Updated: 2024/11/27 15:13:08 by ffornes-         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:26:28 by ffornes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,21 @@ static void	jacobsthalInsertion( std::deque< int >& mainChain, std::deque< int >
 
 	while ( groups ) {
 		if ( jacob == 0 ) {
+			std::cout << "Jacobsthal: " << jacob;
 			std::deque< int >::iterator	tmp = src.begin();
 			std::advance( tmp, groupSize );
 			mainChain.insert( mainChain.begin(), src.begin(), tmp );
 			groups--;
+			printInfo( src, mainChain, groupSize );
 		}
 		while ( jacob > previousJacob ) {
+			std::cout << "Jacobsthal: " << jacob;
 			size_t	index = groupSize * jacob * 2;
 			if ( index < src.size() ) {
 				std::deque< int >::iterator	first = src.begin();
 				std::advance( first, index );
 				std::deque< int >::iterator	second = src.begin();
 				std::advance( second, index + groupSize );
-
 				int	valueOfPair = index + groupSize - 1 + groupSize;
 				if ( valueOfPair >= static_cast< int >( src.size() ) )
 					valueOfPair = -1;
@@ -94,10 +96,14 @@ static void	jacobsthalInsertion( std::deque< int >& mainChain, std::deque< int >
 				std::deque< int >::iterator	tmp = first;
 				std::advance( tmp, groupSize - 1 );
 
+				std::cout << "\tValue to insert [" << *tmp << "]";
 				std::advance( pos, binarySearch( mainChain, groupSize, *tmp, valueOfPair ) );
 				mainChain.insert( pos, first, second );
+				printInfo( src, mainChain, groupSize );
 				groups--;
 			}
+			else
+				std::cout << std::endl;
 			jacob--;
 		}
 		if ( groups ) {
